@@ -16,7 +16,7 @@ import java.util.Calendar;
 public class HomeController {
 
     @Value("${runtime.env}")
-    public String runtimeEnv;
+    private String runtimeEnv;
 
     @RequestMapping("/")
     public String homePage(Model model) {
