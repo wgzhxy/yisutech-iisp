@@ -45,6 +45,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <fork>true</fork>
                     <mainClass>com.yisutech.iisp.starter.StarterApplication</mainClass>
                 </configuration>
             </plugin>

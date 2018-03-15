@@ -1,12 +1,11 @@
 package com.yisutech.iisp.webapp;
 
-import freemarker.template.utility.DateUtil;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * 首页控制器
@@ -16,10 +15,14 @@ import java.util.Date;
 @Controller
 public class HomeController {
 
+    @Value("${runtime.env}")
+    public String runtimeEnv;
+
     @RequestMapping("/")
     public String homePage(Model model) {
 
-        model.addAttribute("test", "当前时间为" + Calendar.getInstance().getTime());
+        model.addAttribute("test", Calendar.getInstance().getTime());
+        model.addAttribute("env", runtimeEnv);
 
         return "homePage";
     }

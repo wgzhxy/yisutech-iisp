@@ -5,6 +5,7 @@
     <title>首页</title>
 </head>
 <body>
-    <h3>works! ${test}</h3>
+    <h3>works! ${test?datetime}</h3>
+    <h2>${env}</h2>
 </body>
 </html>
