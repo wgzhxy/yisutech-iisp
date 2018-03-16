@@ -1,4 +1,4 @@
-package com.yisutech.iisp.base_seach;
+package com.yisutech.iisp.dataops;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class SearchEngineApplicationTests {
+public class YisutechCoreEngineApplicationTests {
 
 	@Test
 	public void contextLoads() {
