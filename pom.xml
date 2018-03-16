@@ -28,6 +28,8 @@
         <module>webapp</module>
         <module>starter</module>
         <module>iisp_toolkit</module>
+        <module>iisp_dataops</module>
+        <module>iisp_search</module>
     </modules>
 
     <dependencies>

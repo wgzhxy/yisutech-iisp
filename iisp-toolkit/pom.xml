@@ -7,10 +7,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>iisp_toolkit</artifactId>
+    <artifactId>iisp-toolkit</artifactId>
     <packaging>jar</packaging>
 
-    <name>iisp_toolkit</name>
+    <name>iisp-toolkit</name>
     <url>http://maven.apache.org</url>
 
     <properties>
