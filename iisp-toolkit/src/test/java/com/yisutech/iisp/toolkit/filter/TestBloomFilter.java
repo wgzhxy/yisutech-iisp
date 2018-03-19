@@ -1,9 +1,8 @@
 package com.yisutech.iisp.toolkit.filter;
 
 import com.google.common.hash.BloomFilter;
-import com.google.common.hash.Funnel;
 import com.google.common.hash.Funnels;
-import com.google.common.hash.PrimitiveSink;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -22,6 +21,7 @@ public class TestBloomFilter {
 
     @Test
     public void testBloomFilter() {
+
         int size = 1000000;
         BloomFilter<Integer> bloomFilter = BloomFilter.create(Funnels.integerFunnel(), size);
 
@@ -35,6 +35,7 @@ public class TestBloomFilter {
                 notInBloom.incrementAndGet();
             }
         }
+        Assert.assertTrue(notInBloom.get() == 0);
 
         List<Integer> list = new ArrayList<>(1000);
         for (int i = size + 10000; i < size + 20000; i++) {
@@ -43,5 +44,6 @@ public class TestBloomFilter {
             }
         }
         System.out.println("有误伤的数量：" + list.size());
+        Assert.assertTrue(list.size() == 330);
     }
 }
