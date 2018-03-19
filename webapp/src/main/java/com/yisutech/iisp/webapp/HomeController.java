@@ -24,6 +24,6 @@ public class HomeController {
         model.addAttribute("test", Calendar.getInstance().getTime());
         model.addAttribute("env", runtimeEnv);
 
-        return "homePage";
+        return "index";
     }
 }
