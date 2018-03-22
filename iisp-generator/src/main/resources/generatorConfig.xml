@@ -17,22 +17,43 @@
                         password="wgzhxy119@"/>
 
         <!-- 配置pojo目录 -->
-        <javaModelGenerator targetPackage="com.yisutech.iisp.dataops.repository.pojo" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.yisutech.iisp.dataops.repository.pojo"
+                            targetProject="/Users/guangzhong.wgz/antWorkSpace/yisutech-iisp/iisp-dataops/src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaModelGenerator>
 
         <!-- 配置xml映射目录 -->
-        <sqlMapGenerator targetPackage="" targetProject="src/main/resources/mapper">
+        <sqlMapGenerator targetPackage="mybatis/auto"
+                         targetProject="/Users/guangzhong.wgz/antWorkSpace/yisutech-iisp/iisp-dataops/src/main/resources">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
         <!-- 配置dao目录 -->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.yisutech.iisp.dataops.repository.mapper" targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.yisutech.iisp.dataops.repository.mapper"
+                             targetProject="/Users/guangzhong.wgz/antWorkSpace/yisutech-iisp/iisp-dataops/src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
         <!-- tableName是数据库中的表名，domainObjectName是生成的JAVA模型名，后面的参数不用改，要生成更多的表就在下面继续加table标签 -->
         <table tableName="ops_data_source" domainObjectName="OpsDataSource">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+
+        <table tableName="ops_logic_table_column" domainObjectName="OpsLogicTableColumn">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+
+        <table tableName="ops_logic_table" domainObjectName="OpsLogicTable">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+
+        <table tableName="ops_table" domainObjectName="opsTable">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+
+        <table tableName="ops_table_column" domainObjectName="OpsTableColumn">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
     </context>
 </generatorConfiguration>
