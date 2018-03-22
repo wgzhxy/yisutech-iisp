@@ -1,10 +1,10 @@
-package com.yisutech.iisp.dataops.domain;
+package com.yisutech.iisp.dataops.repository.domain;
 
 import java.io.Serializable;
 
 /**
  * 版权：Copyright by www.yisutech.com
- * 文件名：com.yisutech.iisp.dataops.domain.OpsTableDm
+ * 文件名：com.yisutech.iisp.dataops.repository.domain.OpsTableDm
  * 描述：
  *
  * @author guangzhong.wgz
