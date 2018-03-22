@@ -1,6 +1,6 @@
 package com.yisutech.iisp.dataops.repository.pojo;
 
-public class opsTable {
+public class OpsTable {
     private Integer id;
 
     private String tbName;

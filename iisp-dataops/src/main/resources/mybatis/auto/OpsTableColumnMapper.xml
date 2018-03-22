@@ -1,0 +1,892 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yisutech.iisp.dataops.repository.mapper.OpsTableColumnMapper">
+  <resultMap id="BaseResultMap" type="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumn">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="tb_id" jdbcType="INTEGER" property="tbId" />
+    <result column="fd_name" jdbcType="VARCHAR" property="fdName" />
+    <result column="fd_desc" jdbcType="VARCHAR" property="fdDesc" />
+    <result column="fd_type" jdbcType="VARCHAR" property="fdType" />
+    <result column="fd_length" jdbcType="INTEGER" property="fdLength" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, tb_id, fd_name, fd_desc, fd_type, fd_length
+  </sql>
+  <select id="selectByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumnExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ops_table_column
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ops_table_column
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ops_table_column
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumnExample">
+    delete from ops_table_column
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumn">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ops_table_column (tb_id, fd_name, fd_desc, 
+      fd_type, fd_length)
+    values (#{tbId,jdbcType=INTEGER}, #{fdName,jdbcType=VARCHAR}, #{fdDesc,jdbcType=VARCHAR}, 
+      #{fdType,jdbcType=VARCHAR}, #{fdLength,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumn">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ops_table_column
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tbId != null">
+        tb_id,
+      </if>
+      <if test="fdName != null">
+        fd_name,
+      </if>
+      <if test="fdDesc != null">
+        fd_desc,
+      </if>
+      <if test="fdType != null">
+        fd_type,
+      </if>
+      <if test="fdLength != null">
+        fd_length,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tbId != null">
+        #{tbId,jdbcType=INTEGER},
+      </if>
+      <if test="fdName != null">
+        #{fdName,jdbcType=VARCHAR},
+      </if>
+      <if test="fdDesc != null">
+        #{fdDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="fdType != null">
+        #{fdType,jdbcType=VARCHAR},
+      </if>
+      <if test="fdLength != null">
+        #{fdLength,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumnExample" resultType="java.lang.Long">
+    select count(*) from ops_table_column
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ops_table_column
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.tbId != null">
+        tb_id = #{record.tbId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fdName != null">
+        fd_name = #{record.fdName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fdDesc != null">
+        fd_desc = #{record.fdDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fdType != null">
+        fd_type = #{record.fdType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fdLength != null">
+        fd_length = #{record.fdLength,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ops_table_column
+    set id = #{record.id,jdbcType=INTEGER},
+      tb_id = #{record.tbId,jdbcType=INTEGER},
+      fd_name = #{record.fdName,jdbcType=VARCHAR},
+      fd_desc = #{record.fdDesc,jdbcType=VARCHAR},
+      fd_type = #{record.fdType,jdbcType=VARCHAR},
+      fd_length = #{record.fdLength,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumn">
+    update ops_table_column
+    <set>
+      <if test="tbId != null">
+        tb_id = #{tbId,jdbcType=INTEGER},
+      </if>
+      <if test="fdName != null">
+        fd_name = #{fdName,jdbcType=VARCHAR},
+      </if>
+      <if test="fdDesc != null">
+        fd_desc = #{fdDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="fdType != null">
+        fd_type = #{fdType,jdbcType=VARCHAR},
+      </if>
+      <if test="fdLength != null">
+        fd_length = #{fdLength,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumn">
+    update ops_table_column
+    set tb_id = #{tbId,jdbcType=INTEGER},
+      fd_name = #{fdName,jdbcType=VARCHAR},
+      fd_desc = #{fdDesc,jdbcType=VARCHAR},
+      fd_type = #{fdType,jdbcType=VARCHAR},
+      fd_length = #{fdLength,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumn">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="tb_id" jdbcType="INTEGER" property="tbId" />
+    <result column="fd_name" jdbcType="VARCHAR" property="fdName" />
+    <result column="fd_desc" jdbcType="VARCHAR" property="fdDesc" />
+    <result column="fd_type" jdbcType="VARCHAR" property="fdType" />
+    <result column="fd_length" jdbcType="INTEGER" property="fdLength" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, tb_id, fd_name, fd_desc, fd_type, fd_length
+  </sql>
+  <select id="selectByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumnExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ops_table_column
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ops_table_column
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ops_table_column
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumnExample">
+    delete from ops_table_column
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumn">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ops_table_column (tb_id, fd_name, fd_desc, 
+      fd_type, fd_length)
+    values (#{tbId,jdbcType=INTEGER}, #{fdName,jdbcType=VARCHAR}, #{fdDesc,jdbcType=VARCHAR}, 
+      #{fdType,jdbcType=VARCHAR}, #{fdLength,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumn">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ops_table_column
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tbId != null">
+        tb_id,
+      </if>
+      <if test="fdName != null">
+        fd_name,
+      </if>
+      <if test="fdDesc != null">
+        fd_desc,
+      </if>
+      <if test="fdType != null">
+        fd_type,
+      </if>
+      <if test="fdLength != null">
+        fd_length,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tbId != null">
+        #{tbId,jdbcType=INTEGER},
+      </if>
+      <if test="fdName != null">
+        #{fdName,jdbcType=VARCHAR},
+      </if>
+      <if test="fdDesc != null">
+        #{fdDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="fdType != null">
+        #{fdType,jdbcType=VARCHAR},
+      </if>
+      <if test="fdLength != null">
+        #{fdLength,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumnExample" resultType="java.lang.Long">
+    select count(*) from ops_table_column
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ops_table_column
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.tbId != null">
+        tb_id = #{record.tbId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fdName != null">
+        fd_name = #{record.fdName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fdDesc != null">
+        fd_desc = #{record.fdDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fdType != null">
+        fd_type = #{record.fdType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fdLength != null">
+        fd_length = #{record.fdLength,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ops_table_column
+    set id = #{record.id,jdbcType=INTEGER},
+      tb_id = #{record.tbId,jdbcType=INTEGER},
+      fd_name = #{record.fdName,jdbcType=VARCHAR},
+      fd_desc = #{record.fdDesc,jdbcType=VARCHAR},
+      fd_type = #{record.fdType,jdbcType=VARCHAR},
+      fd_length = #{record.fdLength,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumn">
+    update ops_table_column
+    <set>
+      <if test="tbId != null">
+        tb_id = #{tbId,jdbcType=INTEGER},
+      </if>
+      <if test="fdName != null">
+        fd_name = #{fdName,jdbcType=VARCHAR},
+      </if>
+      <if test="fdDesc != null">
+        fd_desc = #{fdDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="fdType != null">
+        fd_type = #{fdType,jdbcType=VARCHAR},
+      </if>
+      <if test="fdLength != null">
+        fd_length = #{fdLength,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumn">
+    update ops_table_column
+    set tb_id = #{tbId,jdbcType=INTEGER},
+      fd_name = #{fdName,jdbcType=VARCHAR},
+      fd_desc = #{fdDesc,jdbcType=VARCHAR},
+      fd_type = #{fdType,jdbcType=VARCHAR},
+      fd_length = #{fdLength,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumn">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="tb_id" jdbcType="INTEGER" property="tbId" />
+    <result column="fd_name" jdbcType="VARCHAR" property="fdName" />
+    <result column="fd_desc" jdbcType="VARCHAR" property="fdDesc" />
+    <result column="fd_type" jdbcType="VARCHAR" property="fdType" />
+    <result column="fd_length" jdbcType="INTEGER" property="fdLength" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, tb_id, fd_name, fd_desc, fd_type, fd_length
+  </sql>
+  <select id="selectByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumnExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ops_table_column
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ops_table_column
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ops_table_column
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumnExample">
+    delete from ops_table_column
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumn">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ops_table_column (tb_id, fd_name, fd_desc, 
+      fd_type, fd_length)
+    values (#{tbId,jdbcType=INTEGER}, #{fdName,jdbcType=VARCHAR}, #{fdDesc,jdbcType=VARCHAR}, 
+      #{fdType,jdbcType=VARCHAR}, #{fdLength,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumn">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ops_table_column
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tbId != null">
+        tb_id,
+      </if>
+      <if test="fdName != null">
+        fd_name,
+      </if>
+      <if test="fdDesc != null">
+        fd_desc,
+      </if>
+      <if test="fdType != null">
+        fd_type,
+      </if>
+      <if test="fdLength != null">
+        fd_length,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tbId != null">
+        #{tbId,jdbcType=INTEGER},
+      </if>
+      <if test="fdName != null">
+        #{fdName,jdbcType=VARCHAR},
+      </if>
+      <if test="fdDesc != null">
+        #{fdDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="fdType != null">
+        #{fdType,jdbcType=VARCHAR},
+      </if>
+      <if test="fdLength != null">
+        #{fdLength,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumnExample" resultType="java.lang.Long">
+    select count(*) from ops_table_column
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ops_table_column
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.tbId != null">
+        tb_id = #{record.tbId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fdName != null">
+        fd_name = #{record.fdName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fdDesc != null">
+        fd_desc = #{record.fdDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fdType != null">
+        fd_type = #{record.fdType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fdLength != null">
+        fd_length = #{record.fdLength,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ops_table_column
+    set id = #{record.id,jdbcType=INTEGER},
+      tb_id = #{record.tbId,jdbcType=INTEGER},
+      fd_name = #{record.fdName,jdbcType=VARCHAR},
+      fd_desc = #{record.fdDesc,jdbcType=VARCHAR},
+      fd_type = #{record.fdType,jdbcType=VARCHAR},
+      fd_length = #{record.fdLength,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumn">
+    update ops_table_column
+    <set>
+      <if test="tbId != null">
+        tb_id = #{tbId,jdbcType=INTEGER},
+      </if>
+      <if test="fdName != null">
+        fd_name = #{fdName,jdbcType=VARCHAR},
+      </if>
+      <if test="fdDesc != null">
+        fd_desc = #{fdDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="fdType != null">
+        fd_type = #{fdType,jdbcType=VARCHAR},
+      </if>
+      <if test="fdLength != null">
+        fd_length = #{fdLength,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumn">
+    update ops_table_column
+    set tb_id = #{tbId,jdbcType=INTEGER},
+      fd_name = #{fdName,jdbcType=VARCHAR},
+      fd_desc = #{fdDesc,jdbcType=VARCHAR},
+      fd_type = #{fdType,jdbcType=VARCHAR},
+      fd_length = #{fdLength,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumn">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="tb_id" jdbcType="INTEGER" property="tbId" />
+    <result column="fd_name" jdbcType="VARCHAR" property="fdName" />
+    <result column="fd_desc" jdbcType="VARCHAR" property="fdDesc" />
+    <result column="fd_type" jdbcType="VARCHAR" property="fdType" />
+    <result column="fd_length" jdbcType="INTEGER" property="fdLength" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, tb_id, fd_name, fd_desc, fd_type, fd_length
+  </sql>
+  <select id="selectByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumnExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ops_table_column
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ops_table_column
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ops_table_column
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumnExample">
+    delete from ops_table_column
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumn">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ops_table_column (tb_id, fd_name, fd_desc, 
+      fd_type, fd_length)
+    values (#{tbId,jdbcType=INTEGER}, #{fdName,jdbcType=VARCHAR}, #{fdDesc,jdbcType=VARCHAR}, 
+      #{fdType,jdbcType=VARCHAR}, #{fdLength,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumn">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ops_table_column
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tbId != null">
+        tb_id,
+      </if>
+      <if test="fdName != null">
+        fd_name,
+      </if>
+      <if test="fdDesc != null">
+        fd_desc,
+      </if>
+      <if test="fdType != null">
+        fd_type,
+      </if>
+      <if test="fdLength != null">
+        fd_length,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tbId != null">
+        #{tbId,jdbcType=INTEGER},
+      </if>
+      <if test="fdName != null">
+        #{fdName,jdbcType=VARCHAR},
+      </if>
+      <if test="fdDesc != null">
+        #{fdDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="fdType != null">
+        #{fdType,jdbcType=VARCHAR},
+      </if>
+      <if test="fdLength != null">
+        #{fdLength,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumnExample" resultType="java.lang.Long">
+    select count(*) from ops_table_column
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ops_table_column
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.tbId != null">
+        tb_id = #{record.tbId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fdName != null">
+        fd_name = #{record.fdName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fdDesc != null">
+        fd_desc = #{record.fdDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fdType != null">
+        fd_type = #{record.fdType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fdLength != null">
+        fd_length = #{record.fdLength,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ops_table_column
+    set id = #{record.id,jdbcType=INTEGER},
+      tb_id = #{record.tbId,jdbcType=INTEGER},
+      fd_name = #{record.fdName,jdbcType=VARCHAR},
+      fd_desc = #{record.fdDesc,jdbcType=VARCHAR},
+      fd_type = #{record.fdType,jdbcType=VARCHAR},
+      fd_length = #{record.fdLength,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumn">
+    update ops_table_column
+    <set>
+      <if test="tbId != null">
+        tb_id = #{tbId,jdbcType=INTEGER},
+      </if>
+      <if test="fdName != null">
+        fd_name = #{fdName,jdbcType=VARCHAR},
+      </if>
+      <if test="fdDesc != null">
+        fd_desc = #{fdDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="fdType != null">
+        fd_type = #{fdType,jdbcType=VARCHAR},
+      </if>
+      <if test="fdLength != null">
+        fd_length = #{fdLength,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumn">
+    update ops_table_column
+    set tb_id = #{tbId,jdbcType=INTEGER},
+      fd_name = #{fdName,jdbcType=VARCHAR},
+      fd_desc = #{fdDesc,jdbcType=VARCHAR},
+      fd_type = #{fdType,jdbcType=VARCHAR},
+      fd_length = #{fdLength,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

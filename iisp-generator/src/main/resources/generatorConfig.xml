@@ -48,7 +48,7 @@
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
 
-        <table tableName="ops_table" domainObjectName="opsTable">
+        <table tableName="ops_table" domainObjectName="OpsTable">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
 

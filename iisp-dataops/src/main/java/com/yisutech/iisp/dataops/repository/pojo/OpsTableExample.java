@@ -3,14 +3,14 @@ package com.yisutech.iisp.dataops.repository.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class opsTableExample {
+public class OpsTableExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public opsTableExample() {
+    public OpsTableExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
