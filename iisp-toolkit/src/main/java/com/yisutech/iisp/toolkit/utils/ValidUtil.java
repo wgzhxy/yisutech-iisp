@@ -30,7 +30,7 @@ public class ValidUtil {
      * 字段: <false, 校验消息>
      */
     public static Map<String, MutablePair> allValid(Object pojoBean) {
-        Set<ConstraintViolation<Object>> validResult = getValidator(true).validate(pojoBean);
+        Set<ConstraintViolation<Object>> validResult = getValidator(false).validate(pojoBean);
         Map<String, MutablePair> validRts = Maps.newHashMap();
         validResult.forEach(result -> {
             validRts.put(result.getPropertyPath().toString(), MutablePair.of(false, result.getMessage()));
@@ -51,7 +51,7 @@ public class ValidUtil {
      * 字段: <false, 校验消息>
      */
     public static MutablePair fastValid(Object pojoBean) {
-        Set<ConstraintViolation<Object>> validResult = getValidator(false).validate(pojoBean);
+        Set<ConstraintViolation<Object>> validResult = getValidator(true).validate(pojoBean);
         if (validResult.isEmpty()) {
             return null;
         }
@@ -68,7 +68,7 @@ public class ValidUtil {
     private static Validator getValidator(Boolean fast) {
         ValidatorFactory validatorFactory = Validation.byProvider(HibernateValidator.class)
                 .configure()
-                .failFast(true)
+                .failFast(fast)
                 .buildValidatorFactory();
         return validatorFactory.getValidator();
     }
