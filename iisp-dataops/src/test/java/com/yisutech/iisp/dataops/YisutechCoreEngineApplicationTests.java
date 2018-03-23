@@ -12,10 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.ConstraintViolation;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = StarterApplication.class)
@@ -25,21 +22,33 @@ public class YisutechCoreEngineApplicationTests {
     private OpsDataSourceMapper opsDataSourceMapper;
 
     @Test
-    @Transactional
-    public void test3() {
+    public void testDataSourceMapperInsert() {
 
         OpsDataSource opsDataSource = new OpsDataSource();
-        opsDataSource.setDsDesc("测试数据库");
-        opsDataSource.setDsName("yisuyun_admin");
-        opsDataSource.setDsPassword("");
+        opsDataSource.setDsUser("yisuyun_admin");
+        opsDataSource.setDsPassword("wgzhxy119@");
+        opsDataSource.setDsUrl("jdbc:mysql://localhost:3306/yisuyun_console?useUnicode=true&characterEncoding=UTF-8" +
+                "&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
+        opsDataSource.setDsName("yisuyun_console");
 
         Map<String, MutablePair> message = ValidUtil.allValid(opsDataSource);
-
-        opsDataSourceMapper.insert(opsDataSource);
+        if(message.size() > 0) {
+            throw new NullPointerException("error");
+        }
 
         OpsDataSource opsDataSourceDo = opsDataSourceMapper.selectByPrimaryKey(1);
+        if(opsDataSourceDo == null) {
+            opsDataSourceMapper.insert(opsDataSource);
+        }
 
-        Assert.assertEquals(null, opsDataSourceDo);
+        Assert.assertNotNull(opsDataSource);
+    }
+
+    @Test
+    @Transactional
+    public void testDataSourceMapperSelect() {
+        OpsDataSource opsDataSourceDo = opsDataSourceMapper.selectByPrimaryKey(4);
+        Assert.assertNotNull(opsDataSourceDo);
     }
 
 }
