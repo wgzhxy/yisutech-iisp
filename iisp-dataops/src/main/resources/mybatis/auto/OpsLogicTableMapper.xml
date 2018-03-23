@@ -208,4 +208,1246 @@
       ltb_desc = #{ltbDesc,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <resultMap id="BaseResultMap" type="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="ltb_source_id" jdbcType="INTEGER" property="ltbSourceId" />
+    <result column="itb_tables" jdbcType="VARCHAR" property="itbTables" />
+    <result column="ltb_sql_express" jdbcType="VARCHAR" property="ltbSqlExpress" />
+    <result column="ltb_desc" jdbcType="VARCHAR" property="ltbDesc" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, ltb_source_id, itb_tables, ltb_sql_express, ltb_desc
+  </sql>
+  <select id="selectByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTableExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ops_logic_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ops_logic_table
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ops_logic_table
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTableExample">
+    delete from ops_logic_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ops_logic_table (ltb_source_id, itb_tables, ltb_sql_express, 
+      ltb_desc)
+    values (#{ltbSourceId,jdbcType=INTEGER}, #{itbTables,jdbcType=VARCHAR}, #{ltbSqlExpress,jdbcType=VARCHAR}, 
+      #{ltbDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ops_logic_table
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ltbSourceId != null">
+        ltb_source_id,
+      </if>
+      <if test="itbTables != null">
+        itb_tables,
+      </if>
+      <if test="ltbSqlExpress != null">
+        ltb_sql_express,
+      </if>
+      <if test="ltbDesc != null">
+        ltb_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ltbSourceId != null">
+        #{ltbSourceId,jdbcType=INTEGER},
+      </if>
+      <if test="itbTables != null">
+        #{itbTables,jdbcType=VARCHAR},
+      </if>
+      <if test="ltbSqlExpress != null">
+        #{ltbSqlExpress,jdbcType=VARCHAR},
+      </if>
+      <if test="ltbDesc != null">
+        #{ltbDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTableExample" resultType="java.lang.Long">
+    select count(*) from ops_logic_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ops_logic_table
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.ltbSourceId != null">
+        ltb_source_id = #{record.ltbSourceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.itbTables != null">
+        itb_tables = #{record.itbTables,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ltbSqlExpress != null">
+        ltb_sql_express = #{record.ltbSqlExpress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ltbDesc != null">
+        ltb_desc = #{record.ltbDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ops_logic_table
+    set id = #{record.id,jdbcType=INTEGER},
+      ltb_source_id = #{record.ltbSourceId,jdbcType=INTEGER},
+      itb_tables = #{record.itbTables,jdbcType=VARCHAR},
+      ltb_sql_express = #{record.ltbSqlExpress,jdbcType=VARCHAR},
+      ltb_desc = #{record.ltbDesc,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable">
+    update ops_logic_table
+    <set>
+      <if test="ltbSourceId != null">
+        ltb_source_id = #{ltbSourceId,jdbcType=INTEGER},
+      </if>
+      <if test="itbTables != null">
+        itb_tables = #{itbTables,jdbcType=VARCHAR},
+      </if>
+      <if test="ltbSqlExpress != null">
+        ltb_sql_express = #{ltbSqlExpress,jdbcType=VARCHAR},
+      </if>
+      <if test="ltbDesc != null">
+        ltb_desc = #{ltbDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable">
+    update ops_logic_table
+    set ltb_source_id = #{ltbSourceId,jdbcType=INTEGER},
+      itb_tables = #{itbTables,jdbcType=VARCHAR},
+      ltb_sql_express = #{ltbSqlExpress,jdbcType=VARCHAR},
+      ltb_desc = #{ltbDesc,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="ltb_source_id" jdbcType="INTEGER" property="ltbSourceId" />
+    <result column="itb_tables" jdbcType="VARCHAR" property="itbTables" />
+    <result column="ltb_sql_express" jdbcType="VARCHAR" property="ltbSqlExpress" />
+    <result column="ltb_desc" jdbcType="VARCHAR" property="ltbDesc" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, ltb_source_id, itb_tables, ltb_sql_express, ltb_desc
+  </sql>
+  <select id="selectByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTableExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ops_logic_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ops_logic_table
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ops_logic_table
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTableExample">
+    delete from ops_logic_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ops_logic_table (ltb_source_id, itb_tables, ltb_sql_express, 
+      ltb_desc)
+    values (#{ltbSourceId,jdbcType=INTEGER}, #{itbTables,jdbcType=VARCHAR}, #{ltbSqlExpress,jdbcType=VARCHAR}, 
+      #{ltbDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ops_logic_table
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ltbSourceId != null">
+        ltb_source_id,
+      </if>
+      <if test="itbTables != null">
+        itb_tables,
+      </if>
+      <if test="ltbSqlExpress != null">
+        ltb_sql_express,
+      </if>
+      <if test="ltbDesc != null">
+        ltb_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ltbSourceId != null">
+        #{ltbSourceId,jdbcType=INTEGER},
+      </if>
+      <if test="itbTables != null">
+        #{itbTables,jdbcType=VARCHAR},
+      </if>
+      <if test="ltbSqlExpress != null">
+        #{ltbSqlExpress,jdbcType=VARCHAR},
+      </if>
+      <if test="ltbDesc != null">
+        #{ltbDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTableExample" resultType="java.lang.Long">
+    select count(*) from ops_logic_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ops_logic_table
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.ltbSourceId != null">
+        ltb_source_id = #{record.ltbSourceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.itbTables != null">
+        itb_tables = #{record.itbTables,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ltbSqlExpress != null">
+        ltb_sql_express = #{record.ltbSqlExpress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ltbDesc != null">
+        ltb_desc = #{record.ltbDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ops_logic_table
+    set id = #{record.id,jdbcType=INTEGER},
+      ltb_source_id = #{record.ltbSourceId,jdbcType=INTEGER},
+      itb_tables = #{record.itbTables,jdbcType=VARCHAR},
+      ltb_sql_express = #{record.ltbSqlExpress,jdbcType=VARCHAR},
+      ltb_desc = #{record.ltbDesc,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable">
+    update ops_logic_table
+    <set>
+      <if test="ltbSourceId != null">
+        ltb_source_id = #{ltbSourceId,jdbcType=INTEGER},
+      </if>
+      <if test="itbTables != null">
+        itb_tables = #{itbTables,jdbcType=VARCHAR},
+      </if>
+      <if test="ltbSqlExpress != null">
+        ltb_sql_express = #{ltbSqlExpress,jdbcType=VARCHAR},
+      </if>
+      <if test="ltbDesc != null">
+        ltb_desc = #{ltbDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable">
+    update ops_logic_table
+    set ltb_source_id = #{ltbSourceId,jdbcType=INTEGER},
+      itb_tables = #{itbTables,jdbcType=VARCHAR},
+      ltb_sql_express = #{ltbSqlExpress,jdbcType=VARCHAR},
+      ltb_desc = #{ltbDesc,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="ltb_source_id" jdbcType="INTEGER" property="ltbSourceId" />
+    <result column="itb_tables" jdbcType="VARCHAR" property="itbTables" />
+    <result column="ltb_sql_express" jdbcType="VARCHAR" property="ltbSqlExpress" />
+    <result column="ltb_desc" jdbcType="VARCHAR" property="ltbDesc" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, ltb_source_id, itb_tables, ltb_sql_express, ltb_desc
+  </sql>
+  <select id="selectByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTableExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ops_logic_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ops_logic_table
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ops_logic_table
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTableExample">
+    delete from ops_logic_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ops_logic_table (ltb_source_id, itb_tables, ltb_sql_express, 
+      ltb_desc)
+    values (#{ltbSourceId,jdbcType=INTEGER}, #{itbTables,jdbcType=VARCHAR}, #{ltbSqlExpress,jdbcType=VARCHAR}, 
+      #{ltbDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ops_logic_table
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ltbSourceId != null">
+        ltb_source_id,
+      </if>
+      <if test="itbTables != null">
+        itb_tables,
+      </if>
+      <if test="ltbSqlExpress != null">
+        ltb_sql_express,
+      </if>
+      <if test="ltbDesc != null">
+        ltb_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ltbSourceId != null">
+        #{ltbSourceId,jdbcType=INTEGER},
+      </if>
+      <if test="itbTables != null">
+        #{itbTables,jdbcType=VARCHAR},
+      </if>
+      <if test="ltbSqlExpress != null">
+        #{ltbSqlExpress,jdbcType=VARCHAR},
+      </if>
+      <if test="ltbDesc != null">
+        #{ltbDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTableExample" resultType="java.lang.Long">
+    select count(*) from ops_logic_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ops_logic_table
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.ltbSourceId != null">
+        ltb_source_id = #{record.ltbSourceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.itbTables != null">
+        itb_tables = #{record.itbTables,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ltbSqlExpress != null">
+        ltb_sql_express = #{record.ltbSqlExpress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ltbDesc != null">
+        ltb_desc = #{record.ltbDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ops_logic_table
+    set id = #{record.id,jdbcType=INTEGER},
+      ltb_source_id = #{record.ltbSourceId,jdbcType=INTEGER},
+      itb_tables = #{record.itbTables,jdbcType=VARCHAR},
+      ltb_sql_express = #{record.ltbSqlExpress,jdbcType=VARCHAR},
+      ltb_desc = #{record.ltbDesc,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable">
+    update ops_logic_table
+    <set>
+      <if test="ltbSourceId != null">
+        ltb_source_id = #{ltbSourceId,jdbcType=INTEGER},
+      </if>
+      <if test="itbTables != null">
+        itb_tables = #{itbTables,jdbcType=VARCHAR},
+      </if>
+      <if test="ltbSqlExpress != null">
+        ltb_sql_express = #{ltbSqlExpress,jdbcType=VARCHAR},
+      </if>
+      <if test="ltbDesc != null">
+        ltb_desc = #{ltbDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable">
+    update ops_logic_table
+    set ltb_source_id = #{ltbSourceId,jdbcType=INTEGER},
+      itb_tables = #{itbTables,jdbcType=VARCHAR},
+      ltb_sql_express = #{ltbSqlExpress,jdbcType=VARCHAR},
+      ltb_desc = #{ltbDesc,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="ltb_source_id" jdbcType="INTEGER" property="ltbSourceId" />
+    <result column="itb_tables" jdbcType="VARCHAR" property="itbTables" />
+    <result column="ltb_sql_express" jdbcType="VARCHAR" property="ltbSqlExpress" />
+    <result column="ltb_desc" jdbcType="VARCHAR" property="ltbDesc" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, ltb_source_id, itb_tables, ltb_sql_express, ltb_desc
+  </sql>
+  <select id="selectByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTableExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ops_logic_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ops_logic_table
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ops_logic_table
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTableExample">
+    delete from ops_logic_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ops_logic_table (ltb_source_id, itb_tables, ltb_sql_express, 
+      ltb_desc)
+    values (#{ltbSourceId,jdbcType=INTEGER}, #{itbTables,jdbcType=VARCHAR}, #{ltbSqlExpress,jdbcType=VARCHAR}, 
+      #{ltbDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ops_logic_table
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ltbSourceId != null">
+        ltb_source_id,
+      </if>
+      <if test="itbTables != null">
+        itb_tables,
+      </if>
+      <if test="ltbSqlExpress != null">
+        ltb_sql_express,
+      </if>
+      <if test="ltbDesc != null">
+        ltb_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ltbSourceId != null">
+        #{ltbSourceId,jdbcType=INTEGER},
+      </if>
+      <if test="itbTables != null">
+        #{itbTables,jdbcType=VARCHAR},
+      </if>
+      <if test="ltbSqlExpress != null">
+        #{ltbSqlExpress,jdbcType=VARCHAR},
+      </if>
+      <if test="ltbDesc != null">
+        #{ltbDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTableExample" resultType="java.lang.Long">
+    select count(*) from ops_logic_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ops_logic_table
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.ltbSourceId != null">
+        ltb_source_id = #{record.ltbSourceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.itbTables != null">
+        itb_tables = #{record.itbTables,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ltbSqlExpress != null">
+        ltb_sql_express = #{record.ltbSqlExpress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ltbDesc != null">
+        ltb_desc = #{record.ltbDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ops_logic_table
+    set id = #{record.id,jdbcType=INTEGER},
+      ltb_source_id = #{record.ltbSourceId,jdbcType=INTEGER},
+      itb_tables = #{record.itbTables,jdbcType=VARCHAR},
+      ltb_sql_express = #{record.ltbSqlExpress,jdbcType=VARCHAR},
+      ltb_desc = #{record.ltbDesc,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable">
+    update ops_logic_table
+    <set>
+      <if test="ltbSourceId != null">
+        ltb_source_id = #{ltbSourceId,jdbcType=INTEGER},
+      </if>
+      <if test="itbTables != null">
+        itb_tables = #{itbTables,jdbcType=VARCHAR},
+      </if>
+      <if test="ltbSqlExpress != null">
+        ltb_sql_express = #{ltbSqlExpress,jdbcType=VARCHAR},
+      </if>
+      <if test="ltbDesc != null">
+        ltb_desc = #{ltbDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable">
+    update ops_logic_table
+    set ltb_source_id = #{ltbSourceId,jdbcType=INTEGER},
+      itb_tables = #{itbTables,jdbcType=VARCHAR},
+      ltb_sql_express = #{ltbSqlExpress,jdbcType=VARCHAR},
+      ltb_desc = #{ltbDesc,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="ltb_source_id" jdbcType="INTEGER" property="ltbSourceId" />
+    <result column="itb_tables" jdbcType="VARCHAR" property="itbTables" />
+    <result column="ltb_sql_express" jdbcType="VARCHAR" property="ltbSqlExpress" />
+    <result column="ltb_desc" jdbcType="VARCHAR" property="ltbDesc" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, ltb_source_id, itb_tables, ltb_sql_express, ltb_desc
+  </sql>
+  <select id="selectByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTableExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ops_logic_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ops_logic_table
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ops_logic_table
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTableExample">
+    delete from ops_logic_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ops_logic_table (ltb_source_id, itb_tables, ltb_sql_express, 
+      ltb_desc)
+    values (#{ltbSourceId,jdbcType=INTEGER}, #{itbTables,jdbcType=VARCHAR}, #{ltbSqlExpress,jdbcType=VARCHAR}, 
+      #{ltbDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ops_logic_table
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ltbSourceId != null">
+        ltb_source_id,
+      </if>
+      <if test="itbTables != null">
+        itb_tables,
+      </if>
+      <if test="ltbSqlExpress != null">
+        ltb_sql_express,
+      </if>
+      <if test="ltbDesc != null">
+        ltb_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ltbSourceId != null">
+        #{ltbSourceId,jdbcType=INTEGER},
+      </if>
+      <if test="itbTables != null">
+        #{itbTables,jdbcType=VARCHAR},
+      </if>
+      <if test="ltbSqlExpress != null">
+        #{ltbSqlExpress,jdbcType=VARCHAR},
+      </if>
+      <if test="ltbDesc != null">
+        #{ltbDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTableExample" resultType="java.lang.Long">
+    select count(*) from ops_logic_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ops_logic_table
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.ltbSourceId != null">
+        ltb_source_id = #{record.ltbSourceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.itbTables != null">
+        itb_tables = #{record.itbTables,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ltbSqlExpress != null">
+        ltb_sql_express = #{record.ltbSqlExpress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ltbDesc != null">
+        ltb_desc = #{record.ltbDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ops_logic_table
+    set id = #{record.id,jdbcType=INTEGER},
+      ltb_source_id = #{record.ltbSourceId,jdbcType=INTEGER},
+      itb_tables = #{record.itbTables,jdbcType=VARCHAR},
+      ltb_sql_express = #{record.ltbSqlExpress,jdbcType=VARCHAR},
+      ltb_desc = #{record.ltbDesc,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable">
+    update ops_logic_table
+    <set>
+      <if test="ltbSourceId != null">
+        ltb_source_id = #{ltbSourceId,jdbcType=INTEGER},
+      </if>
+      <if test="itbTables != null">
+        itb_tables = #{itbTables,jdbcType=VARCHAR},
+      </if>
+      <if test="ltbSqlExpress != null">
+        ltb_sql_express = #{ltbSqlExpress,jdbcType=VARCHAR},
+      </if>
+      <if test="ltbDesc != null">
+        ltb_desc = #{ltbDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable">
+    update ops_logic_table
+    set ltb_source_id = #{ltbSourceId,jdbcType=INTEGER},
+      itb_tables = #{itbTables,jdbcType=VARCHAR},
+      ltb_sql_express = #{ltbSqlExpress,jdbcType=VARCHAR},
+      ltb_desc = #{ltbDesc,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="ltb_source_id" jdbcType="INTEGER" property="ltbSourceId" />
+    <result column="itb_tables" jdbcType="VARCHAR" property="itbTables" />
+    <result column="ltb_sql_express" jdbcType="VARCHAR" property="ltbSqlExpress" />
+    <result column="ltb_desc" jdbcType="VARCHAR" property="ltbDesc" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, ltb_source_id, itb_tables, ltb_sql_express, ltb_desc
+  </sql>
+  <select id="selectByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTableExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ops_logic_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ops_logic_table
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ops_logic_table
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTableExample">
+    delete from ops_logic_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ops_logic_table (ltb_source_id, itb_tables, ltb_sql_express, 
+      ltb_desc)
+    values (#{ltbSourceId,jdbcType=INTEGER}, #{itbTables,jdbcType=VARCHAR}, #{ltbSqlExpress,jdbcType=VARCHAR}, 
+      #{ltbDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ops_logic_table
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ltbSourceId != null">
+        ltb_source_id,
+      </if>
+      <if test="itbTables != null">
+        itb_tables,
+      </if>
+      <if test="ltbSqlExpress != null">
+        ltb_sql_express,
+      </if>
+      <if test="ltbDesc != null">
+        ltb_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ltbSourceId != null">
+        #{ltbSourceId,jdbcType=INTEGER},
+      </if>
+      <if test="itbTables != null">
+        #{itbTables,jdbcType=VARCHAR},
+      </if>
+      <if test="ltbSqlExpress != null">
+        #{ltbSqlExpress,jdbcType=VARCHAR},
+      </if>
+      <if test="ltbDesc != null">
+        #{ltbDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTableExample" resultType="java.lang.Long">
+    select count(*) from ops_logic_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ops_logic_table
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.ltbSourceId != null">
+        ltb_source_id = #{record.ltbSourceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.itbTables != null">
+        itb_tables = #{record.itbTables,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ltbSqlExpress != null">
+        ltb_sql_express = #{record.ltbSqlExpress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ltbDesc != null">
+        ltb_desc = #{record.ltbDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ops_logic_table
+    set id = #{record.id,jdbcType=INTEGER},
+      ltb_source_id = #{record.ltbSourceId,jdbcType=INTEGER},
+      itb_tables = #{record.itbTables,jdbcType=VARCHAR},
+      ltb_sql_express = #{record.ltbSqlExpress,jdbcType=VARCHAR},
+      ltb_desc = #{record.ltbDesc,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable">
+    update ops_logic_table
+    <set>
+      <if test="ltbSourceId != null">
+        ltb_source_id = #{ltbSourceId,jdbcType=INTEGER},
+      </if>
+      <if test="itbTables != null">
+        itb_tables = #{itbTables,jdbcType=VARCHAR},
+      </if>
+      <if test="ltbSqlExpress != null">
+        ltb_sql_express = #{ltbSqlExpress,jdbcType=VARCHAR},
+      </if>
+      <if test="ltbDesc != null">
+        ltb_desc = #{ltbDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable">
+    update ops_logic_table
+    set ltb_source_id = #{ltbSourceId,jdbcType=INTEGER},
+      itb_tables = #{itbTables,jdbcType=VARCHAR},
+      ltb_sql_express = #{ltbSqlExpress,jdbcType=VARCHAR},
+      ltb_desc = #{ltbDesc,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 </mapper>
