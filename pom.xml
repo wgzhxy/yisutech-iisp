@@ -44,11 +44,18 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- 本地模块依赖 -->
             <dependency>
                 <groupId>com.yisutech.iisp</groupId>
                 <artifactId>iisp-dataops</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
+            <dependency>
+                <groupId>com.yisutech.iisp</groupId>
+                <artifactId>iisp-toolkit</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
@@ -98,6 +105,17 @@
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpmime</artifactId>
                 <version>4.5.2</version>
+            </dependency>
+            <!-- valid object -->
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>5.2.2.Final</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.el</groupId>
+                <artifactId>javax.el-api</artifactId>
+                <version>3.0.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
