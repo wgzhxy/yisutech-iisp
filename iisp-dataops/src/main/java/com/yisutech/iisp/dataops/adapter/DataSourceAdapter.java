@@ -11,4 +11,6 @@ package com.yisutech.iisp.dataops.adapter;
  * @create 2018-03-22 下午5:20
  **/
 public interface DataSourceAdapter {
+
+
 }
