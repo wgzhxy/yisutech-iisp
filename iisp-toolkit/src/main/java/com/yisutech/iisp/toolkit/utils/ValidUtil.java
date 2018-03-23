@@ -8,10 +8,8 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * 版权：Copyright by www.yisutech.com
@@ -23,21 +21,16 @@ import java.util.stream.Collectors;
  **/
 public class ValidUtil {
 
-    public static Validator getValidator(Boolean fast) {
-        ValidatorFactory validatorFactory = Validation.byProvider(HibernateValidator.class)
-                .configure()
-                .failFast(true)
-                .buildValidatorFactory();
-        return validatorFactory.getValidator();
-    }
-
-    public List<String> valid(Object validObj, Boolean fast) {
-        Set<ConstraintViolation<Object>> validResult = getValidator(false).validate(validObj);
-        return validResult.stream().map(result -> result.getMessage()).collect(Collectors.toList());
-    }
-
-    public static Map<String, MutablePair> allValid(Object validObj) {
-        Set<ConstraintViolation<Object>> validResult = getValidator(true).validate(validObj);
+    /**
+     * 校验所有对象属性
+     *
+     * @param pojoBean Java Pojo对象
+     * @return {@link Map<String, MutablePair>}
+     * ps :
+     * 字段: <false, 校验消息>
+     */
+    public static Map<String, MutablePair> allValid(Object pojoBean) {
+        Set<ConstraintViolation<Object>> validResult = getValidator(true).validate(pojoBean);
         Map<String, MutablePair> validRts = Maps.newHashMap();
         validResult.forEach(result -> {
             validRts.put(result.getPropertyPath().toString(), MutablePair.of(false, result.getMessage()));
@@ -45,12 +38,38 @@ public class ValidUtil {
         return validRts;
     }
 
-    public static MutablePair fastValid(Object validObj) {
-        Set<ConstraintViolation<Object>> validResult = getValidator(false).validate(validObj);
+    /**
+     * 快速检查对象
+     * <p>
+     * ps:
+     * 有一个属性检查未通过就返回
+     *
+     * @param pojoBean Java Pojo对象
+     * @return {@link MutablePair}
+     * <p>
+     * ps:
+     * 字段: <false, 校验消息>
+     */
+    public static MutablePair fastValid(Object pojoBean) {
+        Set<ConstraintViolation<Object>> validResult = getValidator(false).validate(pojoBean);
         if (validResult.isEmpty()) {
             return null;
         }
         ConstraintViolation constraintViolation = validResult.iterator().next();
         return MutablePair.of(constraintViolation.getPropertyPath().toString(), constraintViolation.getMessage());
+    }
+
+    /**
+     * 获取验证器
+     *
+     * @param fast
+     * @return {@link Validator}
+     */
+    private static Validator getValidator(Boolean fast) {
+        ValidatorFactory validatorFactory = Validation.byProvider(HibernateValidator.class)
+                .configure()
+                .failFast(true)
+                .buildValidatorFactory();
+        return validatorFactory.getValidator();
     }
 }
