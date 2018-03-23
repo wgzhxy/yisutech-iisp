@@ -2,7 +2,6 @@ package com.yisutech.iisp.dataops.repository.pojo;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class OpsDataSource {
@@ -22,7 +21,7 @@ public class OpsDataSource {
     private String dsPassword;
 
     @NotEmpty(message = "数据库名不能为空")
-    @Size(min=1, max = 64, message = "数据库名不能超过64字符")
+    @Size(min = 1, max = 64, message = "数据库名不能超过64字符")
     private String dsName;
 
     @Max(value = 256, message = "数据库描述不能超过256字符")
