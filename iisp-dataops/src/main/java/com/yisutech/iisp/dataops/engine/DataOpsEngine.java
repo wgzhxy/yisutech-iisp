@@ -38,10 +38,12 @@ public class DataOpsEngine<T extends DataOps> {
         });
     }
 
-    public static class Builder<T> {
-    }
-
     public interface DataOpsSourceAdapter {
+
+        /**
+         * 初始化数据源
+         */
+        void initDataSource(DtSource dtSource);
 
         /**
          * 获取操作模板

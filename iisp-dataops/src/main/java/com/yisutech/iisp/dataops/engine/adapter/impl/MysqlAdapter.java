@@ -1,12 +1,13 @@
 package com.yisutech.iisp.dataops.engine.adapter.impl;
 
 import com.yisutech.iisp.dataops.engine.DataOpsEngine;
+import com.yisutech.iisp.dataops.engine.DtSource;
+import com.yisutech.iisp.dataops.engine.dtsource.MysqlDataSource;
 import com.yisutech.iisp.dataops.engine.template.DataOpsTemplate;
 import com.yisutech.iisp.dataops.engine.template.impl.MysqlOpsTemplateImpl;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
-import javax.sql.DataSource;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -21,12 +22,18 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class MysqlAdapter implements DataOpsEngine.DataOpsSourceAdapter {
 
     @Override
+    public void initDataSource(DtSource dtSource) {
+        Assert.notNull(dtSource, "DtSource is null");
+        this.dtSource = dtSource;
+    }
+
+    @Override
     public DataOpsTemplate getDataOps() {
-        Assert.notNull(dataSource, "dataSource is null");
+        Assert.notNull(dtSource, "dataSource is null");
         // 保证只初始化一次
         if (mysqlOpsTemplate == null
                 && comp.compareAndSet(Boolean.TRUE, Boolean.FALSE)) {
-            mysqlOpsTemplate = new MysqlOpsTemplateImpl(dataSource);
+            mysqlOpsTemplate = new MysqlOpsTemplateImpl(((MysqlDataSource) dtSource).getDataSource());
         }
         return mysqlOpsTemplate;
     }
@@ -35,18 +42,7 @@ public class MysqlAdapter implements DataOpsEngine.DataOpsSourceAdapter {
         return DataOpsEngine.DataOpsTplType.MYSQL;
     }
 
-    public DataSource getDataSource() {
-        return dataSource;
-    }
-
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
-
-    /**
-     * 数据原对象
-     */
-    private DataSource dataSource;
+    private DtSource dtSource;
     /**
      * mysql操作模板实现
      */
