@@ -3,6 +3,7 @@ package com.yisutech.iisp.dataops.engine.template;
 import com.yisutech.iisp.dataops.engine.DataOps;
 import com.yisutech.iisp.dataops.engine.template.model.ColumnMeta;
 import com.yisutech.iisp.dataops.engine.template.model.TableMeta;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.List;
 import java.util.Map;
@@ -66,7 +67,7 @@ public interface DataOpsTemplate extends DataOps {
      * @param values      Map<String, Object> 模板内动态变量
      * @return List<Map<String, Object>>
      */
-    List<Map<String, Object>> query(String sqlTemplate, Map<String, Object> values);
+    List<Map<String, Object>> query(String sqlTemplate, List<Pair<String, Object>> values);
 
     /**
      * 查询表
@@ -77,7 +78,7 @@ public interface DataOpsTemplate extends DataOps {
      * @param size        记录数
      * @return List<Map<String, Object>>
      */
-    List<Map<String, Object>> query(String sqlTemplate, Map<String, Object> values, int offset, int size);
+    List<Map<String, Object>> query(String sqlTemplate, List<Pair<String, Object>> values, int offset, int size);
 
     /**
      * 写入记录
@@ -86,7 +87,7 @@ public interface DataOpsTemplate extends DataOps {
      * @param values    值集合
      * @return 主键ID
      */
-    int insert(TableMeta tableMeta, Map<String, Object> values);
+    int insert(TableMeta tableMeta, List<Pair<String, Object>> values);
 
     /**
      * 写入记录
@@ -95,7 +96,7 @@ public interface DataOpsTemplate extends DataOps {
      * @param values      值集合
      * @return 主键ID
      */
-    int insert(String sqlTemplate, Map<String, Object> values);
+    int insert(String sqlTemplate, List<Pair<String, Object>> values);
 
     /**
      * 批量写入记录
@@ -104,7 +105,7 @@ public interface DataOpsTemplate extends DataOps {
      * @param values      值集合
      * @return 主键集合
      */
-    List<Integer> batchInsert(String sqlTemplate, List<Map<String, Object>> values);
+    int[] batchInsert(String sqlTemplate, List<List<Pair<String, Object>>> values);
 
     /**
      * 更新记录
@@ -113,7 +114,7 @@ public interface DataOpsTemplate extends DataOps {
      * @param values    值集合
      * @return 记录数
      */
-    int update(TableMeta tableMeta, Map<String, Object> values);
+    int update(TableMeta tableMeta, List<Pair<String, Object>> values);
 
     /**
      * 更新记录
@@ -122,7 +123,7 @@ public interface DataOpsTemplate extends DataOps {
      * @param values      值集合
      * @return 记录数
      */
-    int update(String sqlTemplate, Map<String, Object> values);
+    int update(String sqlTemplate, List<Pair<String, Object>> values);
 
     /**
      * 批量更新记录
@@ -131,5 +132,5 @@ public interface DataOpsTemplate extends DataOps {
      * @param values      值集合
      * @return 记录数
      */
-    List<Integer> batchUpdate(String sqlTemplate, List<Map<String, Object>> values);
+    int[] batchUpdate(String sqlTemplate, List<List<Pair<String, Object>>> values);
 }
