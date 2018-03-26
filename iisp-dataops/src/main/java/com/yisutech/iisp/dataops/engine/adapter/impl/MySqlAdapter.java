@@ -20,7 +20,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @create 2018-03-26 上午11:04
  **/
 @Component
-public class MysqlAdapter implements DataOpsEngine.DataOpsSourceAdapter {
+public class MySqlAdapter implements DataOpsEngine.DataOpsSourceAdapter {
 
     @Override
     public void initDataSource(DataOpsSource dtSource) {
