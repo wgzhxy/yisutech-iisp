@@ -55,10 +55,10 @@ public class MySqlAdapter implements DataOpsEngine.DataOpsSourceAdapter {
 
         // 保证只初始化一次
         if (comp.compareAndSet(Boolean.TRUE, Boolean.FALSE)) {
-            dataOpsMap.put(getDataOpsType().MYSQL.name(), new MysqlOpsTemplateImpl(dataSource));
+            dataOpsMap.putIfAbsent(dataOpsContext.getDataOpsType().name(), new MysqlOpsTemplateImpl(dataSource));
         }
 
-        return dataOpsMap.get(dataOpsContext);
+        return dataOpsMap.get(dataOpsContext.getDataOpsType().name());
     }
 
     public DataOpsContext.DataOpsType getDataOpsType() {

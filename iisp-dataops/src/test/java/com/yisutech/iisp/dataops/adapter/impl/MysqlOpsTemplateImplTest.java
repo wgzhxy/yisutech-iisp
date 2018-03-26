@@ -23,7 +23,11 @@ public class MysqlOpsTemplateImplTest {
 
     @Test
     public void query() throws Exception {
-        DataOpsTemplate dataOpsTemplate = (DataOpsTemplate) dataOpsEngine.getDefaultInstance(DataOpsContext.DataOpsType.MYSQL);
+        
+        DataOpsContext dataOpsContext = new DataOpsContext();
+        dataOpsContext.setDataOpsType(DataOpsContext.DataOpsType.MYSQL);
+
+        DataOpsTemplate dataOpsTemplate = (DataOpsTemplate) dataOpsEngine.getDefaultDataOpsTemplate(dataOpsContext);
 
         List<Map<String, Object>> list = dataOpsTemplate.query("select * from ops_data_source", null);
         Assert.assertNotNull(list);
