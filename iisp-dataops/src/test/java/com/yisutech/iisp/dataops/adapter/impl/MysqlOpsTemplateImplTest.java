@@ -36,16 +36,4 @@ public class MysqlOpsTemplateImplTest {
         Assert.assertNotNull(list);
     }
 
-    @Test
-    public void query1() throws Exception {
-    }
-
-    @Test
-    public void query2() throws Exception {
-    }
-
-    @Test
-    public void query3() throws Exception {
-    }
-
 }
