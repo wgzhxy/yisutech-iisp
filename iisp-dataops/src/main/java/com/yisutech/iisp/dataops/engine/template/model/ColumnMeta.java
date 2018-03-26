@@ -48,7 +48,7 @@ public class ColumnMeta implements Serializable {
     @Setter
     String defaultValue;
     /**
-     * 是不允许为空
+     * 是否允许为空
      */
     @Getter
     @Setter

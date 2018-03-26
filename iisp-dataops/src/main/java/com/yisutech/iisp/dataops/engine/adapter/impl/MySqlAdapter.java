@@ -15,6 +15,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * 版权：Copyright by www.yisutech.com
  * 文件名：com.yisutech.iisp.dataops.engine.adapter.impl.MysqlAdapter
  * 描述：
+ * <p>
+ * MySql适配器
  *
  * @author guangzhong.wgz
  * @create 2018-03-26 上午11:04
