@@ -14,6 +14,9 @@ import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author guangzhong.wgz
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = StarterApplication.class)
 public class MysqlOpsTemplateImplTest {
@@ -23,7 +26,7 @@ public class MysqlOpsTemplateImplTest {
 
     @Test
     public void query() throws Exception {
-        
+
         DataOpsContext dataOpsContext = new DataOpsContext();
         dataOpsContext.setDataOpsType(DataOpsContext.DataOpsType.MYSQL);
 
