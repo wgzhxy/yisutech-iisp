@@ -10,5 +10,5 @@ package com.yisutech.iisp.dataops.engine.adapter;
  **/
 public interface DataOpsSource {
 
-    void createDataSource();
+    String buildDataSource(String config);
 }

@@ -1,6 +1,5 @@
 package com.yisutech.iisp.dataops.engine;
 
-import com.sun.tools.javac.util.Name;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,8 +34,25 @@ public class DataOpsContext implements Serializable {
     @Setter
     private String dataSourceConfig;
 
+    public DataOpsType getDataOpsType() {
+        return dataOpsType;
+    }
+
+    public void setDataOpsType(DataOpsType dataOpsType) {
+        this.dataOpsType = dataOpsType;
+    }
+
+    public String getDataSourceConfig() {
+        return dataSourceConfig;
+    }
+
+    public void setDataSourceConfig(String dataSourceConfig) {
+        this.dataSourceConfig = dataSourceConfig;
+    }
 
     public enum DataOpsType {
         MYSQL, REDIS, MONGODB;
     }
+
+
 }

@@ -1,7 +1,6 @@
 package com.yisutech.iisp.dataops.engine;
 
 import com.google.common.collect.Maps;
-import com.yisutech.iisp.dataops.engine.adapter.DataOpsSource;
 import com.yisutech.iisp.toolkit.utils.SpringHelper;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
@@ -25,24 +24,31 @@ public class DataOpsEngine<T extends DataOps> {
     /**
      * 获取DataOps实例
      */
-    public T getDefaultInstance(DataOpsContext.DataOpsType dataOpsType) {
-        return (T) engineAdapters.get(dataOpsType);
+    public T getDefaultDataOpsTemplate(DataOpsContext dataOpsContext) {
+
+        DataOpsSourceAdapter adapter = engineAdapters.get(dataOpsContext.getDataOpsType());
+        Assert.notNull(adapter, dataOpsContext.getDataOpsType() + " adapter not exists");
+
+        if (dataOpsContext.getDataOpsType() == DataOpsContext.DataOpsType.MYSQL) {
+            return (T) adapter.getDataOps(dataOpsContext);
+        }
+        return (T) adapter.build(dataOpsContext);
     }
 
     /**
      * 获取DataOps实例
      */
-    public T getDefaultInstance(DataOpsContext dataOpsContext) {
-        return null;
+    public T getDataOpsTemplate(DataOpsContext dataOpsContext) {
+        DataOpsSourceAdapter adapter = engineAdapters.get(dataOpsContext.getDataOpsType());
+        return (T) adapter.getDataOps(dataOpsContext);
     }
 
-
     @PostConstruct
-    public void init() {
-        Map<String, DataOpsSourceAdapter> adapterMap = SpringHelper.getBeansOfType(DataOpsSourceAdapter.class);
-        Assert.notNull(adapterMap, "DataOpsSourceAdapter is Null, need to init");
-        adapterMap.forEach((k, v) -> {
-            engineAdapters.put(v.getDataOpsType(), v.getDataOps());
+    private void init() {
+        Map<String, DataOpsSourceAdapter> opsSourceAdapters = SpringHelper.getBeansOfType(DataOpsSourceAdapter.class);
+        Assert.notNull(opsSourceAdapters, "no DataOpsSourceAdapter init");
+        opsSourceAdapters.forEach((k, v) -> {
+            engineAdapters.put(v.getDataOpsType(), v);
         });
     }
 
@@ -51,14 +57,14 @@ public class DataOpsEngine<T extends DataOps> {
         /**
          * 初始化数据源
          */
-        void initDataSource(DataOpsSource dtSource);
+        DataOps build(DataOpsContext dataOpsContext);
 
         /**
          * 获取操作模板
          *
          * @return {@link DataOps}
          */
-        DataOps getDataOps();
+        DataOps getDataOps(DataOpsContext dataOpsContext);
 
         /**
          * 获取模板类型，跟dataOps是对应关系
@@ -71,5 +77,5 @@ public class DataOpsEngine<T extends DataOps> {
     /**
      * 引擎缓存块
      */
-    private Map<DataOpsContext.DataOpsType, DataOps> engineAdapters = Maps.newConcurrentMap();
+    private Map<DataOpsContext.DataOpsType, DataOpsSourceAdapter> engineAdapters = Maps.newConcurrentMap();
 }
