@@ -1,5 +1,6 @@
 package com.yisutech.iisp.dataops.engine.adapter.impl;
 
+import com.yisutech.iisp.dataops.engine.DataOpsContext;
 import com.yisutech.iisp.dataops.engine.DataOpsEngine;
 import com.yisutech.iisp.dataops.engine.adapter.DataOpsSource;
 import com.yisutech.iisp.dataops.engine.template.DataOpsTemplate;
@@ -42,8 +43,8 @@ public class MySqlAdapter implements DataOpsEngine.DataOpsSourceAdapter {
         return mysqlOpsTemplate;
     }
 
-    public DataOpsEngine.DataOpsTplType getDataOpsTplType() {
-        return DataOpsEngine.DataOpsTplType.MYSQL;
+    public DataOpsContext.DataOpsType getDataOpsType() {
+        return DataOpsContext.DataOpsType.MYSQL;
     }
 
     private DataOpsSource dtSource;

@@ -1,6 +1,7 @@
 package com.yisutech.iisp.dataops.adapter.impl;
 
 import com.yisutech.iisp.dataops.StarterApplication;
+import com.yisutech.iisp.dataops.engine.DataOpsContext;
 import com.yisutech.iisp.dataops.engine.DataOpsEngine;
 import com.yisutech.iisp.dataops.engine.template.DataOpsTemplate;
 import org.junit.Assert;
@@ -22,7 +23,7 @@ public class MysqlOpsTemplateImplTest {
 
     @Test
     public void query() throws Exception {
-        DataOpsTemplate dataOpsTemplate = (DataOpsTemplate) dataOpsEngine.getInstance(DataOpsEngine.DataOpsTplType.MYSQL);
+        DataOpsTemplate dataOpsTemplate = (DataOpsTemplate) dataOpsEngine.getDefaultInstance(DataOpsContext.DataOpsType.MYSQL);
 
         List<Map<String, Object>> list = dataOpsTemplate.query("select * from ops_data_source", null);
         Assert.assertNotNull(list);
