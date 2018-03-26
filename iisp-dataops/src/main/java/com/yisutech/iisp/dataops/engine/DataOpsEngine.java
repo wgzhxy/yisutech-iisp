@@ -24,21 +24,25 @@ public class DataOpsEngine<T extends DataOps> {
     /**
      * 获取DataOps实例
      */
-    public T getDefaultDataOpsTemplate(DataOpsContext dataOpsContext) {
+    public T getDataOpsTemplate(DataOpsContext dataOpsContext) {
+
+        Assert.notNull(dataOpsContext, "dataOpsContext is null");
+        Assert.notNull(dataOpsContext.getDataOpsType(), "dataOpsType is null");
 
         DataOpsSourceAdapter adapter = engineAdapters.get(dataOpsContext.getDataOpsType());
-        Assert.notNull(adapter, dataOpsContext.getDataOpsType() + " adapter not exists");
-
-        if (dataOpsContext.getDataOpsType() == DataOpsContext.DataOpsType.MYSQL) {
-            return (T) adapter.getDataOps(dataOpsContext);
-        }
+        Assert.notNull(adapter, "adapter not exists");
+        
         return (T) adapter.build(dataOpsContext);
     }
 
     /**
      * 获取DataOps实例
      */
-    public T getDataOpsTemplate(DataOpsContext dataOpsContext) {
+    public T getDefaultDataOpsTemplate(DataOpsContext dataOpsContext) {
+
+        Assert.notNull(dataOpsContext, "dataOpsContext is null");
+        Assert.notNull(dataOpsContext.getDataOpsType(), "dataOpsType is null");
+
         DataOpsSourceAdapter adapter = engineAdapters.get(dataOpsContext.getDataOpsType());
         return (T) adapter.getDataOps(dataOpsContext);
     }
