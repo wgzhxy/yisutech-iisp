@@ -1,6 +1,7 @@
 package com.yisutech.iisp.dataops.adapter.impl;
 
 import com.yisutech.iisp.dataops.StarterApplication;
+import com.yisutech.iisp.dataops.engine.template.impl.MysqlOpsTemplateImpl;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,8 +13,6 @@ import javax.sql.DataSource;
 
 import java.util.List;
 import java.util.Map;
-
-import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = StarterApplication.class)

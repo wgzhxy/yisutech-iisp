@@ -1,4 +1,4 @@
-package com.yisutech.iisp.dataops.engine.model;
+package com.yisutech.iisp.dataops.engine.template.model;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +8,7 @@ import java.util.Map;
 
 /**
  * 版权：Copyright by www.yisutech.com
- * 文件名：com.yisutech.iisp.dataops.engine.model.TableMeta
+ * 文件名：com.yisutech.iisp.dataops.engine.template.model.TableMeta
  * <p>
  * 描述：
  * 数据表元信息

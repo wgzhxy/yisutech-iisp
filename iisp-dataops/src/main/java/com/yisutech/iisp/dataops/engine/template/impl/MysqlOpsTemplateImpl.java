@@ -1,8 +1,8 @@
-package com.yisutech.iisp.dataops.adapter.impl;
+package com.yisutech.iisp.dataops.engine.template.impl;
 
-import com.yisutech.iisp.dataops.engine.DataOpsTemplate;
-import com.yisutech.iisp.dataops.engine.model.ColumnMeta;
-import com.yisutech.iisp.dataops.engine.model.TableMeta;
+import com.yisutech.iisp.dataops.engine.template.DataOpsTemplate;
+import com.yisutech.iisp.dataops.engine.template.model.ColumnMeta;
+import com.yisutech.iisp.dataops.engine.template.model.TableMeta;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.Assert;
 
@@ -13,8 +13,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * 版权：Copyright by www.yisutech.com
- * 文件名：com.yisutech.iisp.dataops.adapter.impl.MysqlOpsTemplateImpl
+ * 文件名：com.yisutech.iisp.dataops.engine.template.impl.MysqlOpsTemplateImpl
  * 描述：
+ * <p>
+ * MySql 模板实现
  *
  * @author guangzhong.wgz
  * @create 2018-03-23 下午4:56

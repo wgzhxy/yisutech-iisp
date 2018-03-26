@@ -1,20 +1,21 @@
-package com.yisutech.iisp.dataops.engine;
+package com.yisutech.iisp.dataops.engine.template;
 
-import com.yisutech.iisp.dataops.engine.model.ColumnMeta;
-import com.yisutech.iisp.dataops.engine.model.TableMeta;
+import com.yisutech.iisp.dataops.engine.DataOps;
+import com.yisutech.iisp.dataops.engine.template.model.ColumnMeta;
+import com.yisutech.iisp.dataops.engine.template.model.TableMeta;
 
 import java.util.List;
 import java.util.Map;
 
 /**
  * 版权：Copyright by www.yisutech.com
- * 文件名：com.yisutech.iisp.dataops.engine.DataOpsTemplate
+ * 文件名：com.yisutech.iisp.dataops.engine.template.DataOpsTemplate
  * 描述：
  *
  * @author guangzhong.wgz
  * @create 2018-03-23 下午4:48
  **/
-public interface DataOpsTemplate {
+public interface DataOpsTemplate extends DataOps {
 
     /**
      * 创建表

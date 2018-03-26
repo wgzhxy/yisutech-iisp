@@ -1,4 +1,4 @@
-package com.yisutech.iisp.dataops.engine.model;
+package com.yisutech.iisp.dataops.engine.template.model;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 /**
  * 版权：Copyright by www.yisutech.com
- * 文件名：com.yisutech.iisp.dataops.engine.model.ColumnMeta
+ * 文件名：com.yisutech.iisp.dataops.engine.template.model.ColumnMeta
  * 描述：
  *
  * @author guangzhong.wgz
