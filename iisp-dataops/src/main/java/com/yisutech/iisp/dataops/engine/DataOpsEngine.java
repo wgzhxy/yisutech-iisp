@@ -1,11 +1,13 @@
 package com.yisutech.iisp.dataops.engine;
 
 import com.google.common.collect.Maps;
+import com.yisutech.iisp.dataops.engine.adapter.DataOpsSource;
 import com.yisutech.iisp.toolkit.utils.SpringHelper;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.util.Map;
 
 /**
@@ -43,7 +45,7 @@ public class DataOpsEngine<T extends DataOps> {
         /**
          * 初始化数据源
          */
-        void initDataSource(DtSource dtSource);
+        void initDataSource(DataOpsSource dtSource);
 
         /**
          * 获取操作模板
