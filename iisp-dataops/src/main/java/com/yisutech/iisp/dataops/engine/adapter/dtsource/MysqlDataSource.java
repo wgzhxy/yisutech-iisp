@@ -28,4 +28,41 @@ public class MysqlDataSource implements DataOpsSource {
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }
+
+    @Override
+    public void createDataSource() {
+        /**try {
+         DruidDataSource datasource = new DruidDataSource();
+         datasource.setUrl(this.dbUrl);
+         datasource.setUsername(username);
+         datasource.setPassword(password);
+         datasource.setDriverClassName(driverClassName);
+
+         //configuration
+         datasource.setInitialSize(initialSize);
+         datasource.setMinIdle(minIdle);
+         datasource.setMaxActive(maxActive);
+         datasource.setMaxWait(maxWait);
+         datasource.setTimeBetweenEvictionRunsMillis(timeBetweenEvictionRunsMillis);
+         datasource.setMinEvictableIdleTimeMillis(minEvictableIdleTimeMillis);
+         datasource.setValidationQuery(validationQuery);
+         datasource.setTestWhileIdle(testWhileIdle);
+         datasource.setTestOnBorrow(testOnBorrow);
+         datasource.setTestOnReturn(testOnReturn);
+         datasource.setPoolPreparedStatements(poolPreparedStatements);
+         datasource.setMaxPoolPreparedStatementPerConnectionSize(maxPoolPreparedStatementPerConnectionSize);
+         datasource.setUseGlobalDataSourceStat(useGlobalDataSourceStat);
+         try {
+         datasource.setFilters(filters);
+         } catch (SQLException e) {
+         System.err.println("druid configuration initialization filter: " + e);
+         }
+         datasource.setConnectionProperties(connectionProperties);
+         this.dataSource = datasource;
+         } catch (Throwable e) {
+         e.printStackTrace();
+         throw e;
+         }
+         **/
+    }
 }

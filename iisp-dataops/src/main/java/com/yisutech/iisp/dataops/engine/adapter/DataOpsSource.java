@@ -9,4 +9,6 @@ package com.yisutech.iisp.dataops.engine.adapter;
  * @create 2018-03-26 上午11:50
  **/
 public interface DataOpsSource {
+
+    void createDataSource();
 }
