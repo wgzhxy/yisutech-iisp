@@ -36,22 +36,6 @@ public class TableMeta implements Serializable {
     @NotNull(message = "属性信息不能为空")
     Map<String, ColumnMeta> columnsMeta;
 
-    public String getTableName() {
-        return tableName;
-    }
-
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
-    }
-
-    public Map<String, ColumnMeta> getColumnsMeta() {
-        return columnsMeta;
-    }
-
-    public void setColumnsMeta(Map<String, ColumnMeta> columnsMeta) {
-        this.columnsMeta = columnsMeta;
-    }
-
     /**
      * 获取查询全部表信息接口
      * ps :
@@ -222,5 +206,21 @@ public class TableMeta implements Serializable {
         } else {
             return false;
         }
+    }
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
+
+    public Map<String, ColumnMeta> getColumnsMeta() {
+        return columnsMeta;
+    }
+
+    public void setColumnsMeta(Map<String, ColumnMeta> columnsMeta) {
+        this.columnsMeta = columnsMeta;
     }
 }

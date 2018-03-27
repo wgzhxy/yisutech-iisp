@@ -55,7 +55,7 @@ public class ColumnMeta implements Serializable {
     }
 
     enum ColumnType {
-        String, Date, DateTime, Text, Int;
+        String, Date, DateTime, Text, Int, Long, Varchar;
     }
 
     public String getColumnName() {
