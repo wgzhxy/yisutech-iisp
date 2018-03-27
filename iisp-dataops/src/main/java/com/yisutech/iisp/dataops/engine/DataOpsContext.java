@@ -1,8 +1,5 @@
 package com.yisutech.iisp.dataops.engine;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.io.Serializable;
 
 /**
@@ -23,15 +20,10 @@ public class DataOpsContext implements Serializable {
      * 数据操作类型
      * {@link DataOpsType}
      */
-    @Getter
-    @Setter
     private DataOpsType dataOpsType;
-
     /**
      * 数据源配置参数
      */
-    @Getter
-    @Setter
     private String dataSourceConfig;
 
     public DataOpsType getDataOpsType() {
@@ -53,6 +45,4 @@ public class DataOpsContext implements Serializable {
     public enum DataOpsType {
         MYSQL, REDIS, MONGODB;
     }
-
-
 }
