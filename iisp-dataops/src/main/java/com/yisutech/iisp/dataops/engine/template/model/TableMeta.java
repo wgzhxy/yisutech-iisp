@@ -3,8 +3,6 @@ package com.yisutech.iisp.dataops.engine.template.model;
 import com.yisutech.iisp.dataops.engine.template.SqlBuilder;
 import com.yisutech.iisp.dataops.engine.template.SqlConstant;
 import com.yisutech.iisp.toolkit.utils.ValidUtil;
-import lombok.Getter;
-import lombok.Setter;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.springframework.util.Assert;
 
@@ -30,17 +28,29 @@ public class TableMeta implements Serializable {
     /**
      * 表名
      */
-    @Getter
-    @Setter
     @NotEmpty(message = "表名不能为空")
     String tableName;
     /**
      * 表字段meta信息
      */
-    @Getter
-    @Setter
     @NotNull(message = "属性信息不能为空")
     Map<String, ColumnMeta> columnsMeta;
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
+
+    public Map<String, ColumnMeta> getColumnsMeta() {
+        return columnsMeta;
+    }
+
+    public void setColumnsMeta(Map<String, ColumnMeta> columnsMeta) {
+        this.columnsMeta = columnsMeta;
+    }
 
     /**
      * 获取查询全部表信息接口

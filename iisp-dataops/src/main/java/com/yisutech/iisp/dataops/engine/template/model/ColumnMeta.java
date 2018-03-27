@@ -1,8 +1,6 @@
 package com.yisutech.iisp.dataops.engine.template.model;
 
 import com.yisutech.iisp.toolkit.utils.ValidUtil;
-import lombok.Getter;
-import lombok.Setter;
 import org.apache.commons.lang3.tuple.MutablePair;
 
 import javax.validation.constraints.NotNull;
@@ -23,40 +21,28 @@ public class ColumnMeta implements Serializable {
     /**
      * 字段名称
      */
-    @Getter
-    @Setter
     @NotNull(message = "columnName is empty")
     String columnName;
     /**
      * 类型
      */
-    @Getter
-    @Setter
     @NotNull(message = "type is null")
     ColumnType type;
     /**
      * 长度
      */
-    @Getter
-    @Setter
     int size;
     /**
      * 是否主键
      */
-    @Getter
-    @Setter
     boolean primaryKey;
     /**
      * 默认值
      */
-    @Getter
-    @Setter
     String defaultValue;
     /**
      * 是否允许为空
      */
-    @Getter
-    @Setter
     boolean tagNull;
 
     public boolean valid() {
@@ -72,4 +58,51 @@ public class ColumnMeta implements Serializable {
         String, Date, DateTime, Text;
     }
 
+    public String getColumnName() {
+        return columnName;
+    }
+
+    public void setColumnName(String columnName) {
+        this.columnName = columnName;
+    }
+
+    public ColumnType getType() {
+        return type;
+    }
+
+    public void setType(ColumnType type) {
+        this.type = type;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public boolean isPrimaryKey() {
+        return primaryKey;
+    }
+
+    public void setPrimaryKey(boolean primaryKey) {
+        this.primaryKey = primaryKey;
+    }
+
+    public String getDefaultValue() {
+        return defaultValue;
+    }
+
+    public void setDefaultValue(String defaultValue) {
+        this.defaultValue = defaultValue;
+    }
+
+    public boolean isTagNull() {
+        return tagNull;
+    }
+
+    public void setTagNull(boolean tagNull) {
+        this.tagNull = tagNull;
+    }
 }
