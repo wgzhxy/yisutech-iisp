@@ -66,9 +66,9 @@ public class TableMeta implements Serializable {
         if (whereColumns != null && whereColumns.size() > 0) {
             sql.append(SqlConstant.WHERE);
             whereColumns.forEach((k, v) -> {
-                sql.append(v.columnName).append("=?").append(" and");
+                sql.append(v.columnName).append(" = ? ").append(" and ");
             });
-            sql.setLength(sql.length() - 3);
+            sql.setLength(sql.length() - 4);
         }
 
         return sql.toString();

@@ -61,6 +61,9 @@ public class SqlBuilder {
 
         // 拼装字段列表
         updateColumns.forEach((k, v) -> {
+            if (v.isPrimaryKey()) {
+                return;
+            }
             sql.append(v.getColumnName()).append(" = ").append(" ? ").append(",");
         });
         sql.setLength(sql.length() - 1);
@@ -75,9 +78,9 @@ public class SqlBuilder {
         if (whereColumns != null && whereColumns.size() > 0) {
             sql.append(SqlConstant.WHERE);
             whereColumns.forEach((k, v) -> {
-                sql.append(v.getColumnName()).append("=?").append(" and");
+                sql.append(v.getColumnName()).append(" = ? ").append(" and ");
             });
-            sql.setLength(sql.length() - 3);
+            sql.setLength(sql.length() - 4);
         }
     }
 }
