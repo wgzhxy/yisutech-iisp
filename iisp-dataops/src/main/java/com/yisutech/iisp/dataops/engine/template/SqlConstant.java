@@ -13,6 +13,7 @@ public interface SqlConstant {
     String SELECT = "select ";
     String SELECT_ALL = "select * from ";
     String INSERT_INTO = "insert into ";
+    String DROP_TABLE = "drop table ";
     String UPDATE = "update ";
     String VALUE = "value ";
     String DELETE = "delete ";

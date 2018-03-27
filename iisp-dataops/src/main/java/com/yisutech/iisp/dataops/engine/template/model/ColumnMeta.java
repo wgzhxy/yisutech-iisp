@@ -33,6 +33,10 @@ public class ColumnMeta implements Serializable {
      */
     int size;
     /**
+     * 属性注释
+     */
+    String comment;
+    /**
      * 是否主键
      */
     boolean primaryKey;
@@ -55,7 +59,22 @@ public class ColumnMeta implements Serializable {
     }
 
     enum ColumnType {
-        String, Date, DateTime, Text, Int, Long, Varchar;
+
+        String("varchar"), Date("date"), DateTime("datetime"), Text("text"), Int("int"), Long("bigint");
+
+        ColumnType(String value) {
+            this.value = value;
+        }
+
+        String value;
+
+        public String getValue() {
+            return this.value;
+        }
+    }
+
+    enum ColumnOps {
+        add, drop, alter, rename;
     }
 
     public String getColumnName() {
@@ -104,5 +123,13 @@ public class ColumnMeta implements Serializable {
 
     public void setTagNull(boolean tagNull) {
         this.tagNull = tagNull;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

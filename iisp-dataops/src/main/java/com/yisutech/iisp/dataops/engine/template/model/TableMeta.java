@@ -37,6 +37,122 @@ public class TableMeta implements Serializable {
     Map<String, ColumnMeta> columnsMeta;
 
     /**
+     * 变更表sql语句
+     */
+    public String getAlterTableSql(Map<String, ColumnMeta> columnsMetas, ColumnMeta.ColumnOps columnOps) {
+
+        Assert.notNull(columnsMetas, "columnsMetas is null");
+        Assert.notNull(columnOps, "columnOps is null");
+
+        StringBuilder sql = new StringBuilder(); // ALTER TABLE table_name ADD column_name datatype
+        columnsMetas.forEach((k, v) -> {
+
+            if (ColumnMeta.ColumnOps.add == columnOps) {
+                sql.append(SqlConstant.ALTER_TABLE)
+                        .append(this.tableName)
+                        .append(SqlConstant.BLANK)
+                        .append(columnOps.name())
+                        .append(v.getColumnName()).append(SqlConstant.BLANK).append(v.getType());
+                if (v.getSize() != 0) {
+                    sql.append("(").append(v.getSize()).append(")");
+                }
+                sql.append(";");
+
+            } else if (ColumnMeta.ColumnOps.drop == columnOps) {
+                sql.append(SqlConstant.ALTER_TABLE)
+                        .append(this.tableName)
+                        .append(SqlConstant.BLANK)
+                        .append(columnOps.name())
+                        .append(v.getColumnName()).append(SqlConstant.BLANK).append(v.getType());
+                sql.append(";");
+
+            } else if (ColumnMeta.ColumnOps.alter == columnOps) {
+                sql.append(SqlConstant.ALTER_TABLE)
+                        .append(this.tableName)
+                        .append(SqlConstant.BLANK)
+                        .append(columnOps.name())
+                        .append(v.getColumnName()).append(SqlConstant.BLANK).append(v.getType());
+                if (v.getSize() != 0) {
+                    sql.append("(").append(v.getSize()).append(")");
+                }
+                sql.append(";");
+
+            }
+        });
+        return sql.toString();
+    }
+
+    /**
+     * 删除表
+     */
+    public String getDropTableSql() {
+
+        Assert.notNull(this.tableName, "columnMetaOne is null");
+
+        StringBuilder sql = new StringBuilder(); // ALTER TABLE table_name ADD column_name datatype
+        sql.append(SqlConstant.DROP_TABLE).append(this.tableName).append(";");
+
+        return sql.toString();
+    }
+
+    /**
+     * 表字段重命名
+     */
+    public String getRenameTableSql(ColumnMeta columnMetaOne, ColumnMeta columnMetaTwo) {
+
+        Assert.notNull(columnMetaOne, "columnMetaOne is null");
+        Assert.notNull(columnMetaTwo, "columnMetaTwo is null");
+
+        StringBuilder sql = new StringBuilder(); // ALTER TABLE table_name ADD column_name datatype
+
+        sql.append(SqlConstant.ALTER_TABLE)
+                .append(this.tableName)
+                .append(SqlConstant.BLANK)
+                .append(ColumnMeta.ColumnOps.rename.name())
+                .append(columnMetaOne.getColumnName()).append(" to ")
+                .append(columnMetaTwo.getColumnName());
+        sql.append(";");
+
+        return sql.toString();
+    }
+
+    /**
+     * 拼装创建表sql语句
+     */
+    public String getCreateTableSql() {
+
+        // 拼装表创建sql
+        StringBuilder sql = new StringBuilder();
+        sql.append(SqlConstant.CREATE_TABLE).append(this.tableName).append("(");
+
+        StringBuilder primaryKey = new StringBuilder();
+        columnsMeta.forEach((k, v) -> {
+            // 字段
+            sql.append("'").append(v.getColumnName()).append("'").append(SqlConstant.BLANK);
+            // 类型及长度
+            sql.append(v.getType().getValue()).append("(").append(v.getSize()).append(")").append(SqlConstant.BLANK);
+            // 约束
+            if (v.isTagNull()) {
+                sql.append("default null").append(SqlConstant.BLANK);
+            } else {
+                sql.append("not null").append(SqlConstant.BLANK);
+            }
+            if (v.isPrimaryKey()) {
+                primaryKey.append(" primary key ('").append(v.getColumnName()).append("')");
+                sql.append("auto_increment").append(SqlConstant.BLANK);
+            }
+            // 注释
+            sql.append("comment").append(" '").append(v.getComment()).append("'").append(",");
+        });
+
+        sql.append(primaryKey.toString());
+        sql.append(")");
+        sql.append(" DEFAULT CHARSET=utf8mb4");
+
+        return sql.toString();
+    }
+
+    /**
      * 获取查询全部表信息接口
      * ps :
      * select * from tableA;
