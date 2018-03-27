@@ -1,7 +1,6 @@
 package com.yisutech.iisp.dataops.engine.template.impl;
 
 import com.yisutech.iisp.dataops.engine.template.MongoDBTemplate;
-import org.springframework.stereotype.Component;
 
 /**
  * 版权：Copyright by www.yisutech.com
