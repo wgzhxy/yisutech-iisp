@@ -45,20 +45,20 @@ public interface DataOpsTemplate extends DataOps {
     /**
      * 查询表
      *
-     * @param tableMetas {@link TableMeta}
+     * @param tableMeta {@link TableMeta}
      * @return List<Map<String, Object>>
      */
-    List<Map<String, Object>> query(List<TableMeta> tableMetas);
+    List<Map<String, Object>> query(TableMeta tableMeta);
 
     /**
      * 查询表
      *
-     * @param tableMetas {@link TableMeta}
+     * @param tableMeta {@link TableMeta}
      * @param offset     开始记录
      * @param size       记录数
      * @return List<Map<String, Object>>
      */
-    List<Map<String, Object>> query(List<TableMeta> tableMetas, int offset, int size);
+    List<Map<String, Object>> query(TableMeta tableMeta, int offset, int size);
 
     /**
      * 查询表

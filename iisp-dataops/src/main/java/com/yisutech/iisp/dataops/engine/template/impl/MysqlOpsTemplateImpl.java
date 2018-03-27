@@ -52,13 +52,16 @@ public class MysqlOpsTemplateImpl implements DataOpsTemplate {
     }
 
     @Override
-    public List<Map<String, Object>> query(List<TableMeta> tableMetas) {
-        return null;
+    public List<Map<String, Object>> query(TableMeta tableMeta) {
+        Assert.notNull(tableMeta, "tableMeta is null");
+        return jdbcTemplate.queryForList(tableMeta.getFullSelectSql(null));
     }
 
     @Override
-    public List<Map<String, Object>> query(List<TableMeta> tableMetas, int offset, int size) {
-        return null;
+    public List<Map<String, Object>> query(TableMeta tableMeta, int offset, int size) {
+        String sql = tableMeta.getFullSelectSql(null);
+        sql += " limit ?, ?";
+        return jdbcTemplate.queryForList(sql, offset, size);
     }
 
     @Override
@@ -99,7 +102,9 @@ public class MysqlOpsTemplateImpl implements DataOpsTemplate {
 
     @Override
     public int insert(TableMeta tableMeta, List<Pair<String, Object>> values) {
-        return 0;
+
+        String sqlTemplate = tableMeta.getFullInsertSql();
+        return this.insert(sqlTemplate, values);
     }
 
     @Override
@@ -141,7 +146,9 @@ public class MysqlOpsTemplateImpl implements DataOpsTemplate {
 
     @Override
     public int update(TableMeta tableMeta, List<Pair<String, Object>> values) {
-        return 0;
+
+        String sql = tableMeta.getFullUpdateSql();
+        return this.update(sql, values);
     }
 
     @Override
