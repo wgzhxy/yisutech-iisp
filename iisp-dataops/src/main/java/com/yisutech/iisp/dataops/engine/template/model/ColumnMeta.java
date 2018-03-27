@@ -1,7 +1,9 @@
 package com.yisutech.iisp.dataops.engine.template.model;
 
+import com.yisutech.iisp.toolkit.utils.ValidUtil;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.lang3.tuple.MutablePair;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -56,6 +58,15 @@ public class ColumnMeta implements Serializable {
     @Getter
     @Setter
     boolean tagNull;
+
+    public boolean valid() {
+        MutablePair pair = ValidUtil.fastValid(this);
+        if (pair == null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     enum ColumnType {
         String, Date, DateTime, Text;
