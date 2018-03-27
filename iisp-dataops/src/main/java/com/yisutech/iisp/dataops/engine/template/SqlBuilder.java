@@ -38,6 +38,9 @@ public class SqlBuilder {
         // 拼装字段列表
         List<String> specialChars = Lists.newArrayList();
         columnMetas.forEach((k, v) -> {
+            if (v.isPrimaryKey()) {
+                return;
+            }
             sql.append(v.getColumnName()).append(",");
             specialChars.add("?");
         });
