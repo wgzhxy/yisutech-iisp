@@ -3,6 +3,7 @@ package com.yisutech.iisp.dataops.engine.template.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -22,12 +23,14 @@ public class ColumnMeta implements Serializable {
      */
     @Getter
     @Setter
+    @NotNull(message = "columnName is empty")
     String columnName;
     /**
      * 类型
      */
     @Getter
     @Setter
+    @NotNull(message = "type is null")
     ColumnType type;
     /**
      * 长度
