@@ -27,13 +27,17 @@ public class ValidUtil {
      * @param pojoBean Java Pojo对象
      * @return {@link Map<String, MutablePair>}
      * ps :
-     * 字段: <false, 校验消息>
+     * 字段: <字段属性, 校验消息>
      */
-    public static Map<String, MutablePair> allValid(Object pojoBean) {
+    public static Map<String, String> allValid(Object pojoBean) {
+
+        // 验证器
         Set<ConstraintViolation<Object>> validResult = getValidator(false).validate(pojoBean);
-        Map<String, MutablePair> validRts = Maps.newHashMap();
+
+        // 验证返回
+        Map<String, String> validRts = Maps.newHashMap();
         validResult.forEach(result -> {
-            validRts.put(result.getPropertyPath().toString(), MutablePair.of(false, result.getMessage()));
+            validRts.put(result.getPropertyPath().toString(), result.getMessage());
         });
         return validRts;
     }
@@ -51,10 +55,13 @@ public class ValidUtil {
      * 字段: <false, 校验消息>
      */
     public static MutablePair fastValid(Object pojoBean) {
+        // 验证器
         Set<ConstraintViolation<Object>> validResult = getValidator(true).validate(pojoBean);
         if (validResult.isEmpty()) {
             return null;
         }
+
+        // 验证器
         ConstraintViolation constraintViolation = validResult.iterator().next();
         return MutablePair.of(constraintViolation.getPropertyPath().toString(), constraintViolation.getMessage());
     }
