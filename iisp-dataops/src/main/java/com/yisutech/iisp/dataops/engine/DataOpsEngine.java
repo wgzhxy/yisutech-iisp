@@ -1,6 +1,7 @@
 package com.yisutech.iisp.dataops.engine;
 
 import com.google.common.collect.Maps;
+import com.yisutech.iisp.dataops.engine.template.model.DataSourceMeta;
 import com.yisutech.iisp.toolkit.utils.SpringHelper;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
@@ -75,11 +76,11 @@ public class DataOpsEngine<T extends DataOps> {
          *
          * @return
          */
-        DataOpsContext.DataOpsType getDataOpsType();
+        DataSourceMeta.DataOpsType getDataOpsType();
     }
 
     /**
      * 引擎缓存块
      */
-    private Map<DataOpsContext.DataOpsType, DataOpsSourceAdapter> engineAdapters = Maps.newConcurrentMap();
+    private Map<DataSourceMeta.DataOpsType, DataOpsSourceAdapter> engineAdapters = Maps.newConcurrentMap();
 }

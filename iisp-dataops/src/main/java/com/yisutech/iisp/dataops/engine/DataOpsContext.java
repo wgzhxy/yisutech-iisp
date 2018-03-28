@@ -1,5 +1,7 @@
 package com.yisutech.iisp.dataops.engine;
 
+import com.yisutech.iisp.dataops.engine.template.model.DataSourceMeta;
+
 import java.io.Serializable;
 
 /**
@@ -18,19 +20,19 @@ public class DataOpsContext implements Serializable {
 
     /**
      * 数据操作类型
-     * {@link DataOpsType}
+     * {@link DataSourceMeta.DataOpsType}
      */
-    private DataOpsType dataOpsType;
+    private DataSourceMeta.DataOpsType dataOpsType;
     /**
      * 数据源配置参数
      */
     private String dataSourceConfig;
 
-    public DataOpsType getDataOpsType() {
+    public DataSourceMeta.DataOpsType getDataOpsType() {
         return dataOpsType;
     }
 
-    public void setDataOpsType(DataOpsType dataOpsType) {
+    public void setDataOpsType(DataSourceMeta.DataOpsType dataOpsType) {
         this.dataOpsType = dataOpsType;
     }
 
@@ -40,9 +42,5 @@ public class DataOpsContext implements Serializable {
 
     public void setDataSourceConfig(String dataSourceConfig) {
         this.dataSourceConfig = dataSourceConfig;
-    }
-
-    public enum DataOpsType {
-        MYSQL, REDIS, MONGODB;
     }
 }
