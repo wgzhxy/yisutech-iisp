@@ -24,4 +24,7 @@ public interface SqlConstant {
     String ALTER_TABLE = "alter table ";
     String LIMIT_PAGE = " limit 0, 800";
     String BLANK = " ";
+    String SPECIAL_CHAR = "`";
+    String S_QUOTATION = "'";
+    String COLUMN = "column ";
 }

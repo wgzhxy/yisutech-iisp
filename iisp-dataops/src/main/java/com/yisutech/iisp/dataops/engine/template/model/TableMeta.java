@@ -3,6 +3,7 @@ package com.yisutech.iisp.dataops.engine.template.model;
 import com.yisutech.iisp.dataops.engine.template.SqlBuilder;
 import com.yisutech.iisp.dataops.engine.template.SqlConstant;
 import com.yisutech.iisp.toolkit.utils.ValidUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.springframework.util.Assert;
 
@@ -47,11 +48,12 @@ public class TableMeta implements Serializable {
         StringBuilder sql = new StringBuilder(); // ALTER TABLE table_name ADD column_name datatype
         columnsMetas.forEach((k, v) -> {
 
+            Assert.isTrue(v.valid(), "columnMeta is null");
+
             if (ColumnMeta.ColumnOps.add == columnOps) {
                 sql.append(SqlConstant.ALTER_TABLE)
-                        .append(this.tableName)
-                        .append(SqlConstant.BLANK)
-                        .append(columnOps.name())
+                        .append(this.tableName).append(SqlConstant.BLANK)
+                        .append(columnOps.name()).append(SqlConstant.BLANK)
                         .append(v.getColumnName()).append(SqlConstant.BLANK).append(v.getType());
                 if (v.getSize() != 0) {
                     sql.append("(").append(v.getSize()).append(")");
@@ -60,18 +62,19 @@ public class TableMeta implements Serializable {
 
             } else if (ColumnMeta.ColumnOps.drop == columnOps) {
                 sql.append(SqlConstant.ALTER_TABLE)
-                        .append(this.tableName)
-                        .append(SqlConstant.BLANK)
-                        .append(columnOps.name())
-                        .append(v.getColumnName()).append(SqlConstant.BLANK).append(v.getType());
-                sql.append(";");
+                        .append(this.tableName).append(SqlConstant.BLANK)
+                        .append(columnOps.name()).append(SqlConstant.BLANK)
+                        .append(SqlConstant.COLUMN)
+                        .append(v.getColumnName()).append(SqlConstant.BLANK)
+                        .append(";");
 
             } else if (ColumnMeta.ColumnOps.alter == columnOps) {
                 sql.append(SqlConstant.ALTER_TABLE)
-                        .append(this.tableName)
-                        .append(SqlConstant.BLANK)
-                        .append(columnOps.name())
-                        .append(v.getColumnName()).append(SqlConstant.BLANK).append(v.getType());
+                        .append(this.tableName).append(SqlConstant.BLANK)
+                        .append(columnOps.name()).append(SqlConstant.BLANK)
+                        .append(SqlConstant.COLUMN)
+                        .append(v.getColumnName()).append(SqlConstant.BLANK)
+                        .append(v.getType());
                 if (v.getSize() != 0) {
                     sql.append("(").append(v.getSize()).append(")");
                 }
@@ -106,12 +109,10 @@ public class TableMeta implements Serializable {
         StringBuilder sql = new StringBuilder(); // ALTER TABLE table_name ADD column_name datatype
 
         sql.append(SqlConstant.ALTER_TABLE)
-                .append(this.tableName)
-                .append(SqlConstant.BLANK)
-                .append(ColumnMeta.ColumnOps.rename.name())
+                .append(this.tableName).append(SqlConstant.BLANK)
+                .append(ColumnMeta.ColumnOps.rename.name()).append(SqlConstant.BLANK)
                 .append(columnMetaOne.getColumnName()).append(" to ")
                 .append(columnMetaTwo.getColumnName());
-        sql.append(";");
 
         return sql.toString();
     }
@@ -123,12 +124,12 @@ public class TableMeta implements Serializable {
 
         // 拼装表创建sql
         StringBuilder sql = new StringBuilder();
-        sql.append(SqlConstant.CREATE_TABLE).append(this.tableName).append("(");
+        sql.append(SqlConstant.CREATE_TABLE).append(SqlConstant.SPECIAL_CHAR).append(this.tableName).append(SqlConstant.SPECIAL_CHAR).append(" (");
 
         StringBuilder primaryKey = new StringBuilder();
         columnsMeta.forEach((k, v) -> {
             // 字段
-            sql.append("'").append(v.getColumnName()).append("'").append(SqlConstant.BLANK);
+            sql.append(SqlConstant.SPECIAL_CHAR).append(v.getColumnName()).append(SqlConstant.SPECIAL_CHAR).append(SqlConstant.BLANK);
             // 类型及长度
             sql.append(v.getType().getValue()).append("(").append(v.getSize()).append(")").append(SqlConstant.BLANK);
             // 约束
@@ -138,11 +139,18 @@ public class TableMeta implements Serializable {
                 sql.append("not null").append(SqlConstant.BLANK);
             }
             if (v.isPrimaryKey()) {
-                primaryKey.append(" primary key ('").append(v.getColumnName()).append("')");
+                primaryKey.append(" primary key (")
+                        .append(SqlConstant.SPECIAL_CHAR).append(v.getColumnName()).append(SqlConstant.SPECIAL_CHAR)
+                        .append(")");
                 sql.append("auto_increment").append(SqlConstant.BLANK);
             }
             // 注释
-            sql.append("comment").append(" '").append(v.getComment()).append("'").append(",");
+            if (StringUtils.isNotBlank(v.getComment())) {
+                sql.append("comment").append(SqlConstant.BLANK)
+                        .append(SqlConstant.S_QUOTATION).append(v.getComment()).append(SqlConstant.S_QUOTATION)
+                        .append(",");
+            }
+            sql.append(",");
         });
 
         sql.append(primaryKey.toString());
