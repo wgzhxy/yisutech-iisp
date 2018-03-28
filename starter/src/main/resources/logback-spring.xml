@@ -21,12 +21,31 @@
         </rollingPolicy>
     </appender>
 
+    <appender name="dataopsEngine" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}dataopsEngine.log</file>
+        <encoder>
+            <Pattern>%d{HH:mm:ss.SSS} %-5level %class %line #end %msg %n</Pattern>
+            <charset>utf-8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>dataopsEngine.log.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+            <maxFileSize>50MB</maxFileSize>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <Pattern>.%d{HH:mm:ss.SSS} %-5level %msg %n</Pattern>
             <charset>utf8</charset>
         </encoder>
     </appender>
+
+    <logger name="flush_dataops_engine" additivity="false">
+        <level value="info"/>
+        <appender-ref ref="dataopsEngine"/>
+    </logger>
 
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
