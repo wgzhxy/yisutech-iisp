@@ -15,6 +15,4 @@ import com.yisutech.iisp.toolkit.result.YisuResult;
 public class DataOpsResponse<T> extends YisuResult<T> {
 
     private static final long serialVersionUID = -2323339805228271280L;
-
-
 }

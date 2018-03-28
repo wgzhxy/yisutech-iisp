@@ -11,7 +11,7 @@ import java.util.Map;
  * 文件名：com.yisutech.iisp.dataops.service.DataOpsService
  * 描述：
  * <p>
- * DB数据操作接口
+ * 数据操作服务接口
  *
  * @author guangzhong.wgz
  * @create 2018-03-28 上午11:01
