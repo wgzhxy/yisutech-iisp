@@ -2,6 +2,9 @@ package com.yisutech.iisp.dataops.service;
 
 import com.yisutech.iisp.dataops.service.model.DataOpsRequest;
 import com.yisutech.iisp.dataops.service.model.DataOpsResponse;
+import com.yisutech.iisp.toolkit.utils.PageInfo;
+
+import java.util.Map;
 
 /**
  * 版权：Copyright by www.yisutech.com
@@ -21,7 +24,7 @@ public interface DataOpsService {
      * @param dataOpsRequest {@link DataOpsRequest}
      * @return {@link DataOpsResponse}
      */
-    DataOpsResponse save(DataOpsRequest dataOpsRequest);
+    DataOpsResponse<Map<String, Object>> save(DataOpsRequest dataOpsRequest);
 
     /**
      * 查询数据
@@ -29,7 +32,7 @@ public interface DataOpsService {
      * @param dataOpsRequest {@link DataOpsRequest}
      * @return {@link DataOpsResponse}
      */
-    DataOpsResponse query(DataOpsRequest dataOpsRequest);
+    DataOpsResponse<PageInfo<Map<String, Object>>> query(DataOpsRequest dataOpsRequest);
 
     /**
      * 删除数据记录
@@ -37,5 +40,5 @@ public interface DataOpsService {
      * @param dataOpsRequest {@link DataOpsRequest}
      * @return {@link DataOpsResponse}
      */
-    DataOpsResponse delete(DataOpsRequest dataOpsRequest);
+    DataOpsResponse<Integer> delete(DataOpsRequest dataOpsRequest);
 }
