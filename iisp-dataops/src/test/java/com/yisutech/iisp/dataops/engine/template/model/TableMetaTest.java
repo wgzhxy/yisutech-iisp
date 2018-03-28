@@ -50,6 +50,95 @@ public class TableMetaTest {
     }
 
     @Test
+    public void getCreateTableSql() {
+        String createSql = tableMeta.getCreateTableSql();
+        Assert.assertNotNull(createSql);
+    }
+
+    @Test
+    public void getRenameTableSql() {
+
+        ColumnMeta orig = new ColumnMeta();
+        orig.setColumnName("ds_url");
+
+        ColumnMeta target = new ColumnMeta();
+        target.setColumnName("ds_url_01");
+
+        String renameTableSql = tableMeta.getRenameTableSql(orig, target);
+        Assert.assertNotNull(renameTableSql);
+
+    }
+
+    @Test
+    public void getDropTableSql() {
+        String dropTableSql = tableMeta.getDropTableSql();
+        Assert.assertNotNull(dropTableSql);
+    }
+
+    @Test
+    public void getAlterTableSql_add() {
+
+        ColumnMeta orig = new ColumnMeta();
+        orig.setSize(256);
+        orig.setType(ColumnMeta.ColumnType.String);
+        orig.setColumnName("ds_url");
+
+        ColumnMeta target = new ColumnMeta();
+        target.setSize(64);
+        target.setType(ColumnMeta.ColumnType.String);
+        target.setColumnName("ds_url_01");
+
+        Map<String, ColumnMeta> columnMetaMap = Maps.newHashMap();
+        columnMetaMap.putIfAbsent(orig.getColumnName(), orig);
+        columnMetaMap.putIfAbsent(target.getColumnName(), target);
+
+        String alterTableSql = tableMeta.getAlterTableSql(columnMetaMap, ColumnMeta.ColumnOps.add);
+        Assert.assertNotNull(alterTableSql);
+    }
+
+    @Test
+    public void getAlterTableSql_drop() {
+
+        ColumnMeta orig = new ColumnMeta();
+        orig.setSize(256);
+        orig.setType(ColumnMeta.ColumnType.String);
+        orig.setColumnName("ds_url");
+
+        ColumnMeta target = new ColumnMeta();
+        target.setSize(64);
+        target.setType(ColumnMeta.ColumnType.String);
+        target.setColumnName("ds_url_01");
+
+        Map<String, ColumnMeta> columnMetaMap = Maps.newHashMap();
+        columnMetaMap.putIfAbsent(orig.getColumnName(), orig);
+        columnMetaMap.putIfAbsent(target.getColumnName(), target);
+
+        String alterTableSql = tableMeta.getAlterTableSql(columnMetaMap, ColumnMeta.ColumnOps.drop);
+        Assert.assertNotNull(alterTableSql);
+    }
+
+    @Test
+    public void getAlterTableSql_alter() {
+
+        ColumnMeta orig = new ColumnMeta();
+        orig.setSize(256);
+        orig.setType(ColumnMeta.ColumnType.String);
+        orig.setColumnName("ds_url");
+
+        ColumnMeta target = new ColumnMeta();
+        target.setSize(64);
+        target.setType(ColumnMeta.ColumnType.String);
+        target.setColumnName("ds_url_01");
+
+        Map<String, ColumnMeta> columnMetaMap = Maps.newHashMap();
+        columnMetaMap.putIfAbsent(orig.getColumnName(), orig);
+        columnMetaMap.putIfAbsent(target.getColumnName(), target);
+
+        String alterTableSql = tableMeta.getAlterTableSql(columnMetaMap, ColumnMeta.ColumnOps.alter);
+        Assert.assertNotNull(alterTableSql);
+    }
+
+    @Test
     public void getFullSelectSql() throws Exception {
         String fullSql = tableMeta.getFullSelectSql(null);
         Assert.assertNotNull(fullSql);
