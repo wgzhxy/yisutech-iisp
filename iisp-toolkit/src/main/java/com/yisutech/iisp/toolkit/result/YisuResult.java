@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @author guangzhong.wgz
  * @create 2018-03-28 下午3:02
  **/
-public class YisuResult<T extends Serializable> implements Serializable {
+public class YisuResult<T> implements Serializable {
 
     private static final long serialVersionUID = 5536332498957162424L;
 
