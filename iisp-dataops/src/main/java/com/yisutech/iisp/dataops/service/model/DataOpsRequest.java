@@ -1,6 +1,7 @@
 package com.yisutech.iisp.dataops.service.model;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.yisutech.iisp.toolkit.utils.ValidUtil;
 
 import javax.validation.constraints.NotEmpty;
@@ -33,9 +34,26 @@ public class DataOpsRequest implements Serializable {
     @NotEmpty
     String tableName;
     /**
-     * 操作字段列表
+     * 查询字段列表
+     * ps :
+     * 为空，则返回所有字段信息；
+     * 非空，返回指定字段信息；
      */
-    List<String> columns = Lists.newArrayList();
+    List<String> queryColumns = Lists.newArrayList();
+    /**
+     * 操作字段及值集合
+     * ps:
+     * 写入记录时，为写入记录信息
+     * 对象: <columnName, value>
+     */
+    Map<String, Object> columnValues = Maps.newHashMap();
+    /**
+     * 条件字段及值集合
+     * ps:
+     * 做查询，更新记录时条件
+     * 对象: <columnName, value>
+     */
+    Map<String, Object> whereColumnValues = Maps.newHashMap();
 
     public Map<String, String> valid() {
         return ValidUtil.allValid(this);
@@ -57,11 +75,27 @@ public class DataOpsRequest implements Serializable {
         this.tableName = tableName;
     }
 
-    public List<String> getColumns() {
-        return columns;
+    public Map<String, Object> getColumnValues() {
+        return columnValues;
     }
 
-    public void setColumns(List<String> columns) {
-        this.columns = columns;
+    public void setColumnValues(Map<String, Object> columnValues) {
+        this.columnValues = columnValues;
+    }
+
+    public Map<String, Object> getWhereColumnValues() {
+        return whereColumnValues;
+    }
+
+    public void setWhereColumnValues(Map<String, Object> whereColumnValues) {
+        this.whereColumnValues = whereColumnValues;
+    }
+
+    public List<String> getQueryColumns() {
+        return queryColumns;
+    }
+
+    public void setQueryColumns(List<String> queryColumns) {
+        this.queryColumns = queryColumns;
     }
 }

@@ -1,10 +1,6 @@
 package com.yisutech.iisp.dataops.service.model;
 
-import com.google.common.collect.Lists;
-
-import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
+import com.yisutech.iisp.toolkit.result.YisuResult;
 
 /**
  * 版权：Copyright by www.yisutech.com
@@ -16,26 +12,9 @@ import java.util.Map;
  * @author guangzhong.wgz
  * @create 2018-03-28 下午2:20
  **/
-public class DataOpsResponse implements Serializable {
+public class DataOpsResponse<T> extends YisuResult<T> {
 
-    private static final long serialVersionUID = 3835693824958520585L;
-
-    /**
-     * 返回数据对象
-     */
-    List<Map<String, Object>> data = Lists.newArrayList();
-    /**
-     * 请求处理信息
-     */
-    String messageInfo;
-    /**
-     * 请求处理编码
-     */
-    String code;
-    /**
-     * 请求状态
-     */
-    boolean success;
+    private static final long serialVersionUID = -2323339805228271280L;
 
 
 }
