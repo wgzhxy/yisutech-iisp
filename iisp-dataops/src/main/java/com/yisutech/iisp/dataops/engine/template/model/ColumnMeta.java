@@ -73,7 +73,7 @@ public class ColumnMeta implements Serializable {
         }
     }
 
-    enum ColumnOps {
+    public enum ColumnOps {
         add, drop, alter, rename;
     }
 

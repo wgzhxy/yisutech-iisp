@@ -40,7 +40,7 @@ public interface DataOpsTemplate extends DataOps {
      * @param tableMeta {@link TableMeta}
      * @return true, 成功; false, 失败
      */
-    boolean alterTable(TableMeta tableMeta, Map<String, ColumnMeta> columnMetas);
+    boolean alterTable(TableMeta tableMeta, Map<String, ColumnMeta> columnMetas, ColumnMeta.ColumnOps columnOps);
 
     /**
      * 查询表

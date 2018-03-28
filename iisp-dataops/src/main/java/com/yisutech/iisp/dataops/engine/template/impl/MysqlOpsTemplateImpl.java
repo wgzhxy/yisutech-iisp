@@ -36,18 +36,22 @@ public class MysqlOpsTemplateImpl implements DataOpsTemplate {
 
     @Override
     public boolean createTable(TableMeta tableMeta) {
-
-        return false;
+        String createTableSql = tableMeta.getCreateTableSql();
+        jdbcTemplate.execute(createTableSql);
+        return true;
     }
 
     @Override
     public boolean dropTable(TableMeta tableMeta) {
-
-        return false;
+        String dropTableSql = tableMeta.getDropTableSql();
+        jdbcTemplate.execute(dropTableSql);
+        return true;
     }
 
     @Override
-    public boolean alterTable(TableMeta tableMeta, Map<String, ColumnMeta> columnMetas) {
+    public boolean alterTable(TableMeta tableMeta, Map<String, ColumnMeta> columnMetas, ColumnMeta.ColumnOps columnOps) {
+        String alterTableSql = tableMeta.getAlterTableSql(columnMetas, columnOps);
+        jdbcTemplate.execute(alterTableSql);
         return false;
     }
 
