@@ -52,14 +52,14 @@ public class MysqlOpsTemplateImpl implements DataOpsTemplate {
     }
 
     @Override
-    public List<Map<String, Object>> query(TableMeta tableMeta) {
+    public List<Map<String, Object>> query(TableMeta tableMeta, Map<String, ColumnMeta> whereColumns) {
         Assert.notNull(tableMeta, "tableMeta is null");
-        return jdbcTemplate.queryForList(tableMeta.getFullSelectSql(null));
+        return jdbcTemplate.queryForList(tableMeta.getFullSelectSql(whereColumns));
     }
 
     @Override
-    public List<Map<String, Object>> query(TableMeta tableMeta, int offset, int size) {
-        String sql = tableMeta.getFullSelectSql(null);
+    public List<Map<String, Object>> query(TableMeta tableMeta, Map<String, ColumnMeta> whereColumns, int offset, int size) {
+        String sql = tableMeta.getFullSelectSql(whereColumns);
         sql += " limit ?, ?";
         return jdbcTemplate.queryForList(sql, offset, size);
     }
@@ -145,9 +145,9 @@ public class MysqlOpsTemplateImpl implements DataOpsTemplate {
     }
 
     @Override
-    public int update(TableMeta tableMeta, List<Pair<String, Object>> values) {
+    public int update(TableMeta tableMeta, Map<String, ColumnMeta> whereColumns, List<Pair<String, Object>> values) {
 
-        String sql = tableMeta.getFullUpdateSql();
+        String sql = tableMeta.getUpdateSqlByColumns(tableMeta.getColumnsMeta(), whereColumns);
         return this.update(sql, values);
     }
 
@@ -159,7 +159,7 @@ public class MysqlOpsTemplateImpl implements DataOpsTemplate {
 
         // 更新记录
         return jdbcTemplate.update((conn) -> {
-            final PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            final PreparedStatement ps = conn.prepareStatement(sql, Statement.NO_GENERATED_KEYS);
             initPreparedStatement(ps, values);
             return ps;
         });
@@ -181,6 +181,29 @@ public class MysqlOpsTemplateImpl implements DataOpsTemplate {
             objects.add(array.toArray());
         });
         return jdbcTemplate.batchUpdate(sql, objects);
+    }
+
+    @Override
+    public int delete(String sqlTemplate, List<Pair<String, Object>> values) {
+
+        // 生成sql
+        String sql = FmTemplateEngine.process(md5(sqlTemplate), sqlTemplate, null);
+
+        // 拼装参数
+        List<Object> objects = Lists.newArrayList();
+
+        values.forEach(pair -> {
+            objects.add(pair.getValue());
+        });
+
+        // 更新记录
+        return jdbcTemplate.update(sql, objects.toArray());
+    }
+
+    @Override
+    public int delete(TableMeta tableMeta, Map<String, ColumnMeta> whereColumns, List<Pair<String, Object>> values) {
+        String sql = tableMeta.getDeleteSql(whereColumns);
+        return this.delete(sql, values);
     }
 
     public MysqlOpsTemplateImpl() {

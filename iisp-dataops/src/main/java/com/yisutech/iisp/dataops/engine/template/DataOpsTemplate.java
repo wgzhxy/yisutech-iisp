@@ -48,17 +48,17 @@ public interface DataOpsTemplate extends DataOps {
      * @param tableMeta {@link TableMeta}
      * @return List<Map<String, Object>>
      */
-    List<Map<String, Object>> query(TableMeta tableMeta);
+    List<Map<String, Object>> query(TableMeta tableMeta, Map<String, ColumnMeta> whereColumns);
 
     /**
      * 查询表
      *
      * @param tableMeta {@link TableMeta}
-     * @param offset     开始记录
-     * @param size       记录数
+     * @param offset    开始记录
+     * @param size      记录数
      * @return List<Map<String, Object>>
      */
-    List<Map<String, Object>> query(TableMeta tableMeta, int offset, int size);
+    List<Map<String, Object>> query(TableMeta tableMeta, Map<String, ColumnMeta> whereColumns, int offset, int size);
 
     /**
      * 查询表
@@ -78,7 +78,8 @@ public interface DataOpsTemplate extends DataOps {
      * @param size        记录数
      * @return List<Map<String, Object>>
      */
-    List<Map<String, Object>> query(String sqlTemplate, List<Pair<String, Object>> values, int offset, int size);
+    List<Map<String, Object>> query(String sqlTemplate, List<Pair<String, Object>> values, int offset, int
+            size);
 
     /**
      * 写入记录
@@ -114,7 +115,7 @@ public interface DataOpsTemplate extends DataOps {
      * @param values    值集合
      * @return 记录数
      */
-    int update(TableMeta tableMeta, List<Pair<String, Object>> values);
+    int update(TableMeta tableMeta, Map<String, ColumnMeta> whereColumns, List<Pair<String, Object>> values);
 
     /**
      * 更新记录
@@ -133,4 +134,22 @@ public interface DataOpsTemplate extends DataOps {
      * @return 记录数
      */
     int[] batchUpdate(String sqlTemplate, List<List<Pair<String, Object>>> values);
+
+    /**
+     * 批量删除记录
+     *
+     * @param sqlTemplate sql模板
+     * @param values      值集合
+     * @return 记录数
+     */
+    int delete(String sqlTemplate, List<Pair<String, Object>> values);
+
+    /**
+     * 批量删除记录
+     *
+     * @param tableMeta 表元信息
+     * @param values    值集合
+     * @return 记录数
+     */
+    int delete(TableMeta tableMeta, Map<String, ColumnMeta> whereColumns, List<Pair<String, Object>> values);
 }
