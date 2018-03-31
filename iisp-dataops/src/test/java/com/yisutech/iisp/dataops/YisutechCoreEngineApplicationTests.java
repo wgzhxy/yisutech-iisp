@@ -31,7 +31,7 @@ public class YisutechCoreEngineApplicationTests {
                 "&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
         opsDataSource.setDsName("yisuyun_console");
 
-        Map<String, MutablePair> message = ValidUtil.allValid(opsDataSource);
+        Map<String, String> message = ValidUtil.allValid(opsDataSource);
         if(message.size() > 0) {
             throw new NullPointerException("error");
         }

@@ -32,6 +32,10 @@ public class TableMeta implements Serializable {
     @NotEmpty(message = "表名不能为空")
     String tableName;
     /**
+     * 数据源信息
+     */
+    DataSourceMeta dataSourceMeta;
+    /**
      * 表字段meta信息
      */
     @NotNull(message = "属性信息不能为空")
@@ -330,6 +334,14 @@ public class TableMeta implements Serializable {
         } else {
             return false;
         }
+    }
+
+    public DataSourceMeta getDataSourceMeta() {
+        return dataSourceMeta;
+    }
+
+    public void setDataSourceMeta(DataSourceMeta dataSourceMeta) {
+        this.dataSourceMeta = dataSourceMeta;
     }
 
     public String getTableName() {

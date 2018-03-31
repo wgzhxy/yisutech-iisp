@@ -4,6 +4,7 @@ import com.yisutech.iisp.dataops.StarterApplication;
 import com.yisutech.iisp.dataops.engine.DataOpsContext;
 import com.yisutech.iisp.dataops.engine.DataOpsEngine;
 import com.yisutech.iisp.dataops.engine.template.DataOpsTemplate;
+import com.yisutech.iisp.dataops.engine.template.model.DataSourceMeta;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,7 +29,7 @@ public class MysqlOpsTemplateImplTest {
     public void query() throws Exception {
 
         DataOpsContext dataOpsContext = new DataOpsContext();
-        dataOpsContext.setDataOpsType(DataOpsContext.DataOpsType.MYSQL);
+        dataOpsContext.setDataOpsType(DataSourceMeta.DataOpsType.MYSQL);
 
         DataOpsTemplate dataOpsTemplate = (DataOpsTemplate) dataOpsEngine.getDefaultDataOpsTemplate(dataOpsContext);
 

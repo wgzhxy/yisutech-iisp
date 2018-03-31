@@ -4,6 +4,8 @@ import com.yisutech.iisp.dataops.engine.DataOps;
 import com.yisutech.iisp.dataops.engine.template.model.ColumnMeta;
 import com.yisutech.iisp.dataops.engine.template.model.TableMeta;
 import org.apache.commons.lang3.tuple.Pair;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
 
 import java.util.List;
 import java.util.Map;
@@ -152,4 +154,9 @@ public interface DataOpsTemplate extends DataOps {
      * @return 记录数
      */
     int delete(TableMeta tableMeta, Map<String, ColumnMeta> whereColumns, List<Pair<String, Object>> values);
+
+    /**
+     * 获取事务
+     */
+    PlatformTransactionManager getTransactionManager();
 }

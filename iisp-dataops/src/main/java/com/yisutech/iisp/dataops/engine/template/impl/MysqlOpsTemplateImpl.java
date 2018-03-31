@@ -10,8 +10,10 @@ import com.yisutech.iisp.dataops.engine.template.model.TableMeta;
 import com.yisutech.iisp.toolkit.freemarker.FmTemplateEngine;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.util.Assert;
 
 import javax.sql.DataSource;
@@ -218,6 +220,7 @@ public class MysqlOpsTemplateImpl implements DataOpsTemplate {
         Assert.notNull(dataSource, "dataSource is null");
         if (comp.compareAndSet(Boolean.FALSE, Boolean.TRUE)) {
             this.jdbcTemplate = new JdbcTemplate(dataSource);
+            transactionManager = new DataSourceTransactionManager(dataSource);
         }
     }
 
@@ -296,6 +299,11 @@ public class MysqlOpsTemplateImpl implements DataOpsTemplate {
         });
     }
 
+    public PlatformTransactionManager getTransactionManager() {
+        return transactionManager;
+    }
+
     private JdbcTemplate jdbcTemplate;
+    private PlatformTransactionManager transactionManager;
     private AtomicBoolean comp = new AtomicBoolean(Boolean.FALSE);
 }

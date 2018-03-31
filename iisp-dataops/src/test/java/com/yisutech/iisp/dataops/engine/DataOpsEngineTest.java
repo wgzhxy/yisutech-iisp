@@ -2,6 +2,7 @@ package com.yisutech.iisp.dataops.engine;
 
 import com.yisutech.iisp.dataops.StarterApplication;
 import com.yisutech.iisp.dataops.engine.template.impl.MysqlOpsTemplateImpl;
+import com.yisutech.iisp.dataops.engine.template.model.DataSourceMeta;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,7 +25,7 @@ public class DataOpsEngineTest {
     public void getDataOpsTemplate() throws Exception {
 
         DataOpsContext dataOpsContext = new DataOpsContext();
-        dataOpsContext.setDataOpsType(DataOpsContext.DataOpsType.MYSQL);
+        dataOpsContext.setDataOpsType(DataSourceMeta.DataOpsType.MYSQL);
 
         MysqlOpsTemplateImpl mysqlOpsTemplate = dataOpsEngine.getDataOpsTemplate(dataOpsContext);
 
