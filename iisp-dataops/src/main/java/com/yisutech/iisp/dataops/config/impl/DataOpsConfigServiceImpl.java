@@ -4,6 +4,7 @@ import com.yisutech.iisp.dataops.config.DataOpsConfigService;
 import com.yisutech.iisp.dataops.engine.template.model.TableMeta;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -18,8 +19,10 @@ import java.util.List;
 @Service
 public class DataOpsConfigServiceImpl implements DataOpsConfigService {
 
+
     @Override
     public TableMeta getTableMeta(String tableCode) {
+
         return null;
     }
 
@@ -27,4 +30,6 @@ public class DataOpsConfigServiceImpl implements DataOpsConfigService {
     public TableMeta getTableMetas(List<String> tableCodes) {
         return null;
     }
+
+
 }
