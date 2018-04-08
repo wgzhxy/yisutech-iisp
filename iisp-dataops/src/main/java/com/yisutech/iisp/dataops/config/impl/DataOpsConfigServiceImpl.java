@@ -2,6 +2,7 @@ package com.yisutech.iisp.dataops.config.impl;
 
 import com.yisutech.iisp.dataops.config.DataOpsConfigService;
 import com.yisutech.iisp.dataops.engine.template.model.TableMeta;
+import com.yisutech.iisp.dataops.repository.mapper.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -19,10 +20,25 @@ import java.util.List;
 @Service
 public class DataOpsConfigServiceImpl implements DataOpsConfigService {
 
+    @Resource
+    private OpsTableMapper opsTableMapper;
+    @Resource
+    private OpsDataSourceMapper opsDataSourceMapper;
+    @Resource
+    private OpsLogicTableMapper opsLogicTableMapper;
+    @Resource
+    private OpsTableColumnMapper opsTableColumnMapper;
+
+    @Resource
+    private OpsLogicTableColumnMapper opsLogicTableColumnMapper;
 
     @Override
     public TableMeta getTableMeta(String tableCode) {
-
+        // 查逻辑表
+        // 查逻辑字段
+        // 查物理表
+        // 查物理字段
+        // 拼装 TableMeta对象
         return null;
     }
 

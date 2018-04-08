@@ -30,6 +30,4 @@ public interface DataOpsConfigService {
      * @return
      */
     TableMeta getTableMetas(List<String> tableCodes);
-
-
 }
