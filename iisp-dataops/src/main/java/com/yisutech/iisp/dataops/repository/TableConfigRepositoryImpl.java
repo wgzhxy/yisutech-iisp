@@ -1,4 +1,4 @@
-package com.yisutech.iisp.dataops.repository.impl;
+package com.yisutech.iisp.dataops.repository;
 
 import com.yisutech.iisp.dataops.repository.TableConfigRepository;
 import com.yisutech.iisp.dataops.repository.mapper.*;
@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * 版权：Copyright by www.yisutech.com
- * 文件名：com.yisutech.iisp.dataops.repository.impl.TableConfigRepositoryImpl
+ * 文件名：com.yisutech.iisp.dataops.repository.TableConfigRepositoryImpl
  * 描述：
  * <p>
  * 表元信息查询
