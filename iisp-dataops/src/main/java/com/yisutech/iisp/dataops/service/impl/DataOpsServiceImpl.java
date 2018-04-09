@@ -33,9 +33,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @Service
 public class DataOpsServiceImpl implements DataOpsService {
 
-
     @Override
-    public DataOpsResponse<Map<String, Object>> save(DataOpsRequest dataOpsRequest) {
+    public DataOpsResponse<Map<String, Object>> add(DataOpsRequest dataOpsRequest) {
 
         DataOpsTemplate opsTemplate = getTemplate("");
         PlatformTransactionManager txManager = opsTemplate.getTransactionManager();
@@ -52,13 +51,18 @@ public class DataOpsServiceImpl implements DataOpsService {
     }
 
     @Override
-    public DataOpsResponse<PageInfo<Map<String, Object>>> query(DataOpsRequest dataOpsRequest) {
+    public DataOpsResponse<Integer> delete(DataOpsRequest dataOpsRequest) {
 
         return null;
     }
 
     @Override
-    public DataOpsResponse<Integer> delete(DataOpsRequest dataOpsRequest) {
+    public DataOpsResponse<Map<String, Object>> update(DataOpsRequest dataOpsRequest) {
+        return null;
+    }
+
+    @Override
+    public DataOpsResponse<PageInfo<Map<String, Object>>> query(DataOpsRequest dataOpsRequest) {
 
         return null;
     }

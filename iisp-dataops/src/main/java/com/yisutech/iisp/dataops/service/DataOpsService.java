@@ -19,12 +19,28 @@ import java.util.Map;
 public interface DataOpsService {
 
     /**
-     * 存储数据对象
+     * 新增数据对象
      *
      * @param dataOpsRequest {@link DataOpsRequest}
      * @return {@link DataOpsResponse}
      */
-    DataOpsResponse<Map<String, Object>> save(DataOpsRequest dataOpsRequest);
+    DataOpsResponse<Map<String, Object>> add(DataOpsRequest dataOpsRequest);
+
+    /**
+     * 删除数据对象
+     *
+     * @param dataOpsRequest {@link DataOpsRequest}
+     * @return {@link DataOpsResponse}
+     */
+    DataOpsResponse<Integer> delete(DataOpsRequest dataOpsRequest);
+
+    /**
+     * 更新数据对象
+     *
+     * @param dataOpsRequest {@link DataOpsRequest}
+     * @return {@link DataOpsResponse}
+     */
+    DataOpsResponse<Map<String, Object>> update(DataOpsRequest dataOpsRequest);
 
     /**
      * 查询数据
@@ -33,12 +49,4 @@ public interface DataOpsService {
      * @return {@link DataOpsResponse}
      */
     DataOpsResponse<PageInfo<Map<String, Object>>> query(DataOpsRequest dataOpsRequest);
-
-    /**
-     * 删除数据记录
-     *
-     * @param dataOpsRequest {@link DataOpsRequest}
-     * @return {@link DataOpsResponse}
-     */
-    DataOpsResponse<Integer> delete(DataOpsRequest dataOpsRequest);
 }
