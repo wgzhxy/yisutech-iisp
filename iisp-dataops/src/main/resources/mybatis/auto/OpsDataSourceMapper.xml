@@ -7,6 +7,7 @@
     <result column="ds_user" jdbcType="VARCHAR" property="dsUser" />
     <result column="ds_password" jdbcType="VARCHAR" property="dsPassword" />
     <result column="ds_name" jdbcType="VARCHAR" property="dsName" />
+    <result column="ds_ext_param" jdbcType="VARCHAR" property="dsExtParam" />
     <result column="ds_desc" jdbcType="VARCHAR" property="dsDesc" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, ds_url, ds_user, ds_password, ds_name, ds_desc
+    id, ds_url, ds_user, ds_password, ds_name, ds_ext_param, ds_desc
   </sql>
   <select id="selectByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsDataSourceExample" resultMap="BaseResultMap">
     select
@@ -105,9 +106,11 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into ops_data_source (ds_url, ds_user, ds_password, 
-      ds_name, ds_desc)
+      ds_name, ds_ext_param, ds_desc
+      )
     values (#{dsUrl,jdbcType=VARCHAR}, #{dsUser,jdbcType=VARCHAR}, #{dsPassword,jdbcType=VARCHAR}, 
-      #{dsName,jdbcType=VARCHAR}, #{dsDesc,jdbcType=VARCHAR})
+      #{dsName,jdbcType=VARCHAR}, #{dsExtParam,jdbcType=VARCHAR}, #{dsDesc,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsDataSource">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -127,6 +130,9 @@
       <if test="dsName != null">
         ds_name,
       </if>
+      <if test="dsExtParam != null">
+        ds_ext_param,
+      </if>
       <if test="dsDesc != null">
         ds_desc,
       </if>
@@ -143,6 +149,9 @@
       </if>
       <if test="dsName != null">
         #{dsName,jdbcType=VARCHAR},
+      </if>
+      <if test="dsExtParam != null">
+        #{dsExtParam,jdbcType=VARCHAR},
       </if>
       <if test="dsDesc != null">
         #{dsDesc,jdbcType=VARCHAR},
@@ -173,6 +182,9 @@
       <if test="record.dsName != null">
         ds_name = #{record.dsName,jdbcType=VARCHAR},
       </if>
+      <if test="record.dsExtParam != null">
+        ds_ext_param = #{record.dsExtParam,jdbcType=VARCHAR},
+      </if>
       <if test="record.dsDesc != null">
         ds_desc = #{record.dsDesc,jdbcType=VARCHAR},
       </if>
@@ -188,6 +200,7 @@
       ds_user = #{record.dsUser,jdbcType=VARCHAR},
       ds_password = #{record.dsPassword,jdbcType=VARCHAR},
       ds_name = #{record.dsName,jdbcType=VARCHAR},
+      ds_ext_param = #{record.dsExtParam,jdbcType=VARCHAR},
       ds_desc = #{record.dsDesc,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -208,6 +221,9 @@
       <if test="dsName != null">
         ds_name = #{dsName,jdbcType=VARCHAR},
       </if>
+      <if test="dsExtParam != null">
+        ds_ext_param = #{dsExtParam,jdbcType=VARCHAR},
+      </if>
       <if test="dsDesc != null">
         ds_desc = #{dsDesc,jdbcType=VARCHAR},
       </if>
@@ -220,6 +236,7 @@
       ds_user = #{dsUser,jdbcType=VARCHAR},
       ds_password = #{dsPassword,jdbcType=VARCHAR},
       ds_name = #{dsName,jdbcType=VARCHAR},
+      ds_ext_param = #{dsExtParam,jdbcType=VARCHAR},
       ds_desc = #{dsDesc,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>

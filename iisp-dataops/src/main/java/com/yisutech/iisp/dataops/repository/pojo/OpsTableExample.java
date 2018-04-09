@@ -363,66 +363,6 @@ public class OpsTableExample {
             addCriterion("tb_fileds_num not between", value1, value2, "tbFiledsNum");
             return (Criteria) this;
         }
-
-        public Criteria andTbSourceIdIsNull() {
-            addCriterion("tb_source_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTbSourceIdIsNotNull() {
-            addCriterion("tb_source_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTbSourceIdEqualTo(Integer value) {
-            addCriterion("tb_source_id =", value, "tbSourceId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTbSourceIdNotEqualTo(Integer value) {
-            addCriterion("tb_source_id <>", value, "tbSourceId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTbSourceIdGreaterThan(Integer value) {
-            addCriterion("tb_source_id >", value, "tbSourceId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTbSourceIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("tb_source_id >=", value, "tbSourceId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTbSourceIdLessThan(Integer value) {
-            addCriterion("tb_source_id <", value, "tbSourceId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTbSourceIdLessThanOrEqualTo(Integer value) {
-            addCriterion("tb_source_id <=", value, "tbSourceId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTbSourceIdIn(List<Integer> values) {
-            addCriterion("tb_source_id in", values, "tbSourceId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTbSourceIdNotIn(List<Integer> values) {
-            addCriterion("tb_source_id not in", values, "tbSourceId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTbSourceIdBetween(Integer value1, Integer value2) {
-            addCriterion("tb_source_id between", value1, value2, "tbSourceId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTbSourceIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("tb_source_id not between", value1, value2, "tbSourceId");
-            return (Criteria) this;
-        }
     }
 
     public static class Criteria extends GeneratedCriteria {

@@ -5,9 +5,11 @@ public class OpsLogicTable {
 
     private Integer ltbSourceId;
 
-    private String itbTables;
+    private String ltbTables;
 
     private String ltbSqlExpress;
+
+    private Integer ltbType;
 
     private String ltbDesc;
 
@@ -27,12 +29,12 @@ public class OpsLogicTable {
         this.ltbSourceId = ltbSourceId;
     }
 
-    public String getItbTables() {
-        return itbTables;
+    public String getLtbTables() {
+        return ltbTables;
     }
 
-    public void setItbTables(String itbTables) {
-        this.itbTables = itbTables;
+    public void setLtbTables(String ltbTables) {
+        this.ltbTables = ltbTables;
     }
 
     public String getLtbSqlExpress() {
@@ -41,6 +43,14 @@ public class OpsLogicTable {
 
     public void setLtbSqlExpress(String ltbSqlExpress) {
         this.ltbSqlExpress = ltbSqlExpress;
+    }
+
+    public Integer getLtbType() {
+        return ltbType;
+    }
+
+    public void setLtbType(Integer ltbType) {
+        this.ltbType = ltbType;
     }
 
     public String getLtbDesc() {

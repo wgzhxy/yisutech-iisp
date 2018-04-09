@@ -4,8 +4,9 @@
   <resultMap id="BaseResultMap" type="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="ltb_source_id" jdbcType="INTEGER" property="ltbSourceId" />
-    <result column="itb_tables" jdbcType="VARCHAR" property="itbTables" />
+    <result column="ltb_tables" jdbcType="VARCHAR" property="ltbTables" />
     <result column="ltb_sql_express" jdbcType="VARCHAR" property="ltbSqlExpress" />
+    <result column="ltb_type" jdbcType="INTEGER" property="ltbType" />
     <result column="ltb_desc" jdbcType="VARCHAR" property="ltbDesc" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, ltb_source_id, itb_tables, ltb_sql_express, ltb_desc
+    id, ltb_source_id, ltb_tables, ltb_sql_express, ltb_type, ltb_desc
   </sql>
   <select id="selectByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTableExample" resultMap="BaseResultMap">
     select
@@ -103,10 +104,10 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into ops_logic_table (ltb_source_id, itb_tables, ltb_sql_express, 
-      ltb_desc)
-    values (#{ltbSourceId,jdbcType=INTEGER}, #{itbTables,jdbcType=VARCHAR}, #{ltbSqlExpress,jdbcType=VARCHAR}, 
-      #{ltbDesc,jdbcType=VARCHAR})
+    insert into ops_logic_table (ltb_source_id, ltb_tables, ltb_sql_express, 
+      ltb_type, ltb_desc)
+    values (#{ltbSourceId,jdbcType=INTEGER}, #{ltbTables,jdbcType=VARCHAR}, #{ltbSqlExpress,jdbcType=VARCHAR}, 
+      #{ltbType,jdbcType=INTEGER}, #{ltbDesc,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -117,11 +118,14 @@
       <if test="ltbSourceId != null">
         ltb_source_id,
       </if>
-      <if test="itbTables != null">
-        itb_tables,
+      <if test="ltbTables != null">
+        ltb_tables,
       </if>
       <if test="ltbSqlExpress != null">
         ltb_sql_express,
+      </if>
+      <if test="ltbType != null">
+        ltb_type,
       </if>
       <if test="ltbDesc != null">
         ltb_desc,
@@ -131,11 +135,14 @@
       <if test="ltbSourceId != null">
         #{ltbSourceId,jdbcType=INTEGER},
       </if>
-      <if test="itbTables != null">
-        #{itbTables,jdbcType=VARCHAR},
+      <if test="ltbTables != null">
+        #{ltbTables,jdbcType=VARCHAR},
       </if>
       <if test="ltbSqlExpress != null">
         #{ltbSqlExpress,jdbcType=VARCHAR},
+      </if>
+      <if test="ltbType != null">
+        #{ltbType,jdbcType=INTEGER},
       </if>
       <if test="ltbDesc != null">
         #{ltbDesc,jdbcType=VARCHAR},
@@ -157,11 +164,14 @@
       <if test="record.ltbSourceId != null">
         ltb_source_id = #{record.ltbSourceId,jdbcType=INTEGER},
       </if>
-      <if test="record.itbTables != null">
-        itb_tables = #{record.itbTables,jdbcType=VARCHAR},
+      <if test="record.ltbTables != null">
+        ltb_tables = #{record.ltbTables,jdbcType=VARCHAR},
       </if>
       <if test="record.ltbSqlExpress != null">
         ltb_sql_express = #{record.ltbSqlExpress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ltbType != null">
+        ltb_type = #{record.ltbType,jdbcType=INTEGER},
       </if>
       <if test="record.ltbDesc != null">
         ltb_desc = #{record.ltbDesc,jdbcType=VARCHAR},
@@ -175,8 +185,9 @@
     update ops_logic_table
     set id = #{record.id,jdbcType=INTEGER},
       ltb_source_id = #{record.ltbSourceId,jdbcType=INTEGER},
-      itb_tables = #{record.itbTables,jdbcType=VARCHAR},
+      ltb_tables = #{record.ltbTables,jdbcType=VARCHAR},
       ltb_sql_express = #{record.ltbSqlExpress,jdbcType=VARCHAR},
+      ltb_type = #{record.ltbType,jdbcType=INTEGER},
       ltb_desc = #{record.ltbDesc,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -188,11 +199,14 @@
       <if test="ltbSourceId != null">
         ltb_source_id = #{ltbSourceId,jdbcType=INTEGER},
       </if>
-      <if test="itbTables != null">
-        itb_tables = #{itbTables,jdbcType=VARCHAR},
+      <if test="ltbTables != null">
+        ltb_tables = #{ltbTables,jdbcType=VARCHAR},
       </if>
       <if test="ltbSqlExpress != null">
         ltb_sql_express = #{ltbSqlExpress,jdbcType=VARCHAR},
+      </if>
+      <if test="ltbType != null">
+        ltb_type = #{ltbType,jdbcType=INTEGER},
       </if>
       <if test="ltbDesc != null">
         ltb_desc = #{ltbDesc,jdbcType=VARCHAR},
@@ -203,8 +217,9 @@
   <update id="updateByPrimaryKey" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable">
     update ops_logic_table
     set ltb_source_id = #{ltbSourceId,jdbcType=INTEGER},
-      itb_tables = #{itbTables,jdbcType=VARCHAR},
+      ltb_tables = #{ltbTables,jdbcType=VARCHAR},
       ltb_sql_express = #{ltbSqlExpress,jdbcType=VARCHAR},
+      ltb_type = #{ltbType,jdbcType=INTEGER},
       ltb_desc = #{ltbDesc,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>

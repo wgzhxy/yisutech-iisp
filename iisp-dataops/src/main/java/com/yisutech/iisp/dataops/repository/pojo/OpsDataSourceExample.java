@@ -444,6 +444,76 @@ public class OpsDataSourceExample {
             return (Criteria) this;
         }
 
+        public Criteria andDsExtParamIsNull() {
+            addCriterion("ds_ext_param is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDsExtParamIsNotNull() {
+            addCriterion("ds_ext_param is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDsExtParamEqualTo(String value) {
+            addCriterion("ds_ext_param =", value, "dsExtParam");
+            return (Criteria) this;
+        }
+
+        public Criteria andDsExtParamNotEqualTo(String value) {
+            addCriterion("ds_ext_param <>", value, "dsExtParam");
+            return (Criteria) this;
+        }
+
+        public Criteria andDsExtParamGreaterThan(String value) {
+            addCriterion("ds_ext_param >", value, "dsExtParam");
+            return (Criteria) this;
+        }
+
+        public Criteria andDsExtParamGreaterThanOrEqualTo(String value) {
+            addCriterion("ds_ext_param >=", value, "dsExtParam");
+            return (Criteria) this;
+        }
+
+        public Criteria andDsExtParamLessThan(String value) {
+            addCriterion("ds_ext_param <", value, "dsExtParam");
+            return (Criteria) this;
+        }
+
+        public Criteria andDsExtParamLessThanOrEqualTo(String value) {
+            addCriterion("ds_ext_param <=", value, "dsExtParam");
+            return (Criteria) this;
+        }
+
+        public Criteria andDsExtParamLike(String value) {
+            addCriterion("ds_ext_param like", value, "dsExtParam");
+            return (Criteria) this;
+        }
+
+        public Criteria andDsExtParamNotLike(String value) {
+            addCriterion("ds_ext_param not like", value, "dsExtParam");
+            return (Criteria) this;
+        }
+
+        public Criteria andDsExtParamIn(List<String> values) {
+            addCriterion("ds_ext_param in", values, "dsExtParam");
+            return (Criteria) this;
+        }
+
+        public Criteria andDsExtParamNotIn(List<String> values) {
+            addCriterion("ds_ext_param not in", values, "dsExtParam");
+            return (Criteria) this;
+        }
+
+        public Criteria andDsExtParamBetween(String value1, String value2) {
+            addCriterion("ds_ext_param between", value1, value2, "dsExtParam");
+            return (Criteria) this;
+        }
+
+        public Criteria andDsExtParamNotBetween(String value1, String value2) {
+            addCriterion("ds_ext_param not between", value1, value2, "dsExtParam");
+            return (Criteria) this;
+        }
+
         public Criteria andDsDescIsNull() {
             addCriterion("ds_desc is null");
             return (Criteria) this;

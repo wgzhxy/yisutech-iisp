@@ -224,73 +224,73 @@ public class OpsLogicTableExample {
             return (Criteria) this;
         }
 
-        public Criteria andItbTablesIsNull() {
-            addCriterion("itb_tables is null");
+        public Criteria andLtbTablesIsNull() {
+            addCriterion("ltb_tables is null");
             return (Criteria) this;
         }
 
-        public Criteria andItbTablesIsNotNull() {
-            addCriterion("itb_tables is not null");
+        public Criteria andLtbTablesIsNotNull() {
+            addCriterion("ltb_tables is not null");
             return (Criteria) this;
         }
 
-        public Criteria andItbTablesEqualTo(String value) {
-            addCriterion("itb_tables =", value, "itbTables");
+        public Criteria andLtbTablesEqualTo(String value) {
+            addCriterion("ltb_tables =", value, "ltbTables");
             return (Criteria) this;
         }
 
-        public Criteria andItbTablesNotEqualTo(String value) {
-            addCriterion("itb_tables <>", value, "itbTables");
+        public Criteria andLtbTablesNotEqualTo(String value) {
+            addCriterion("ltb_tables <>", value, "ltbTables");
             return (Criteria) this;
         }
 
-        public Criteria andItbTablesGreaterThan(String value) {
-            addCriterion("itb_tables >", value, "itbTables");
+        public Criteria andLtbTablesGreaterThan(String value) {
+            addCriterion("ltb_tables >", value, "ltbTables");
             return (Criteria) this;
         }
 
-        public Criteria andItbTablesGreaterThanOrEqualTo(String value) {
-            addCriterion("itb_tables >=", value, "itbTables");
+        public Criteria andLtbTablesGreaterThanOrEqualTo(String value) {
+            addCriterion("ltb_tables >=", value, "ltbTables");
             return (Criteria) this;
         }
 
-        public Criteria andItbTablesLessThan(String value) {
-            addCriterion("itb_tables <", value, "itbTables");
+        public Criteria andLtbTablesLessThan(String value) {
+            addCriterion("ltb_tables <", value, "ltbTables");
             return (Criteria) this;
         }
 
-        public Criteria andItbTablesLessThanOrEqualTo(String value) {
-            addCriterion("itb_tables <=", value, "itbTables");
+        public Criteria andLtbTablesLessThanOrEqualTo(String value) {
+            addCriterion("ltb_tables <=", value, "ltbTables");
             return (Criteria) this;
         }
 
-        public Criteria andItbTablesLike(String value) {
-            addCriterion("itb_tables like", value, "itbTables");
+        public Criteria andLtbTablesLike(String value) {
+            addCriterion("ltb_tables like", value, "ltbTables");
             return (Criteria) this;
         }
 
-        public Criteria andItbTablesNotLike(String value) {
-            addCriterion("itb_tables not like", value, "itbTables");
+        public Criteria andLtbTablesNotLike(String value) {
+            addCriterion("ltb_tables not like", value, "ltbTables");
             return (Criteria) this;
         }
 
-        public Criteria andItbTablesIn(List<String> values) {
-            addCriterion("itb_tables in", values, "itbTables");
+        public Criteria andLtbTablesIn(List<String> values) {
+            addCriterion("ltb_tables in", values, "ltbTables");
             return (Criteria) this;
         }
 
-        public Criteria andItbTablesNotIn(List<String> values) {
-            addCriterion("itb_tables not in", values, "itbTables");
+        public Criteria andLtbTablesNotIn(List<String> values) {
+            addCriterion("ltb_tables not in", values, "ltbTables");
             return (Criteria) this;
         }
 
-        public Criteria andItbTablesBetween(String value1, String value2) {
-            addCriterion("itb_tables between", value1, value2, "itbTables");
+        public Criteria andLtbTablesBetween(String value1, String value2) {
+            addCriterion("ltb_tables between", value1, value2, "ltbTables");
             return (Criteria) this;
         }
 
-        public Criteria andItbTablesNotBetween(String value1, String value2) {
-            addCriterion("itb_tables not between", value1, value2, "itbTables");
+        public Criteria andLtbTablesNotBetween(String value1, String value2) {
+            addCriterion("ltb_tables not between", value1, value2, "ltbTables");
             return (Criteria) this;
         }
 
@@ -361,6 +361,66 @@ public class OpsLogicTableExample {
 
         public Criteria andLtbSqlExpressNotBetween(String value1, String value2) {
             addCriterion("ltb_sql_express not between", value1, value2, "ltbSqlExpress");
+            return (Criteria) this;
+        }
+
+        public Criteria andLtbTypeIsNull() {
+            addCriterion("ltb_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLtbTypeIsNotNull() {
+            addCriterion("ltb_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLtbTypeEqualTo(Integer value) {
+            addCriterion("ltb_type =", value, "ltbType");
+            return (Criteria) this;
+        }
+
+        public Criteria andLtbTypeNotEqualTo(Integer value) {
+            addCriterion("ltb_type <>", value, "ltbType");
+            return (Criteria) this;
+        }
+
+        public Criteria andLtbTypeGreaterThan(Integer value) {
+            addCriterion("ltb_type >", value, "ltbType");
+            return (Criteria) this;
+        }
+
+        public Criteria andLtbTypeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("ltb_type >=", value, "ltbType");
+            return (Criteria) this;
+        }
+
+        public Criteria andLtbTypeLessThan(Integer value) {
+            addCriterion("ltb_type <", value, "ltbType");
+            return (Criteria) this;
+        }
+
+        public Criteria andLtbTypeLessThanOrEqualTo(Integer value) {
+            addCriterion("ltb_type <=", value, "ltbType");
+            return (Criteria) this;
+        }
+
+        public Criteria andLtbTypeIn(List<Integer> values) {
+            addCriterion("ltb_type in", values, "ltbType");
+            return (Criteria) this;
+        }
+
+        public Criteria andLtbTypeNotIn(List<Integer> values) {
+            addCriterion("ltb_type not in", values, "ltbType");
+            return (Criteria) this;
+        }
+
+        public Criteria andLtbTypeBetween(Integer value1, Integer value2) {
+            addCriterion("ltb_type between", value1, value2, "ltbType");
+            return (Criteria) this;
+        }
+
+        public Criteria andLtbTypeNotBetween(Integer value1, Integer value2) {
+            addCriterion("ltb_type not between", value1, value2, "ltbType");
             return (Criteria) this;
         }
 
