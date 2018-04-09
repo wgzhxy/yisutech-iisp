@@ -434,73 +434,73 @@ public class OpsLogicTableColumnExample {
             return (Criteria) this;
         }
 
-        public Criteria andLfdTbAliasIsNull() {
-            addCriterion("lfd_tb_alias is null");
+        public Criteria andLfdTbIdIsNull() {
+            addCriterion("lfd_tb_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andLfdTbAliasIsNotNull() {
-            addCriterion("lfd_tb_alias is not null");
+        public Criteria andLfdTbIdIsNotNull() {
+            addCriterion("lfd_tb_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andLfdTbAliasEqualTo(String value) {
-            addCriterion("lfd_tb_alias =", value, "lfdTbAlias");
+        public Criteria andLfdTbIdEqualTo(String value) {
+            addCriterion("lfd_tb_id =", value, "lfdTbId");
             return (Criteria) this;
         }
 
-        public Criteria andLfdTbAliasNotEqualTo(String value) {
-            addCriterion("lfd_tb_alias <>", value, "lfdTbAlias");
+        public Criteria andLfdTbIdNotEqualTo(String value) {
+            addCriterion("lfd_tb_id <>", value, "lfdTbId");
             return (Criteria) this;
         }
 
-        public Criteria andLfdTbAliasGreaterThan(String value) {
-            addCriterion("lfd_tb_alias >", value, "lfdTbAlias");
+        public Criteria andLfdTbIdGreaterThan(String value) {
+            addCriterion("lfd_tb_id >", value, "lfdTbId");
             return (Criteria) this;
         }
 
-        public Criteria andLfdTbAliasGreaterThanOrEqualTo(String value) {
-            addCriterion("lfd_tb_alias >=", value, "lfdTbAlias");
+        public Criteria andLfdTbIdGreaterThanOrEqualTo(String value) {
+            addCriterion("lfd_tb_id >=", value, "lfdTbId");
             return (Criteria) this;
         }
 
-        public Criteria andLfdTbAliasLessThan(String value) {
-            addCriterion("lfd_tb_alias <", value, "lfdTbAlias");
+        public Criteria andLfdTbIdLessThan(String value) {
+            addCriterion("lfd_tb_id <", value, "lfdTbId");
             return (Criteria) this;
         }
 
-        public Criteria andLfdTbAliasLessThanOrEqualTo(String value) {
-            addCriterion("lfd_tb_alias <=", value, "lfdTbAlias");
+        public Criteria andLfdTbIdLessThanOrEqualTo(String value) {
+            addCriterion("lfd_tb_id <=", value, "lfdTbId");
             return (Criteria) this;
         }
 
-        public Criteria andLfdTbAliasLike(String value) {
-            addCriterion("lfd_tb_alias like", value, "lfdTbAlias");
+        public Criteria andLfdTbIdLike(String value) {
+            addCriterion("lfd_tb_id like", value, "lfdTbId");
             return (Criteria) this;
         }
 
-        public Criteria andLfdTbAliasNotLike(String value) {
-            addCriterion("lfd_tb_alias not like", value, "lfdTbAlias");
+        public Criteria andLfdTbIdNotLike(String value) {
+            addCriterion("lfd_tb_id not like", value, "lfdTbId");
             return (Criteria) this;
         }
 
-        public Criteria andLfdTbAliasIn(List<String> values) {
-            addCriterion("lfd_tb_alias in", values, "lfdTbAlias");
+        public Criteria andLfdTbIdIn(List<String> values) {
+            addCriterion("lfd_tb_id in", values, "lfdTbId");
             return (Criteria) this;
         }
 
-        public Criteria andLfdTbAliasNotIn(List<String> values) {
-            addCriterion("lfd_tb_alias not in", values, "lfdTbAlias");
+        public Criteria andLfdTbIdNotIn(List<String> values) {
+            addCriterion("lfd_tb_id not in", values, "lfdTbId");
             return (Criteria) this;
         }
 
-        public Criteria andLfdTbAliasBetween(String value1, String value2) {
-            addCriterion("lfd_tb_alias between", value1, value2, "lfdTbAlias");
+        public Criteria andLfdTbIdBetween(String value1, String value2) {
+            addCriterion("lfd_tb_id between", value1, value2, "lfdTbId");
             return (Criteria) this;
         }
 
-        public Criteria andLfdTbAliasNotBetween(String value1, String value2) {
-            addCriterion("lfd_tb_alias not between", value1, value2, "lfdTbAlias");
+        public Criteria andLfdTbIdNotBetween(String value1, String value2) {
+            addCriterion("lfd_tb_id not between", value1, value2, "lfdTbId");
             return (Criteria) this;
         }
 

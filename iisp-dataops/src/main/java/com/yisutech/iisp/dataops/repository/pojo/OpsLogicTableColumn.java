@@ -11,7 +11,7 @@ public class OpsLogicTableColumn {
 
     private String lfdExpress;
 
-    private String lfdTbAlias;
+    private String lfdTbId;
 
     private String lfdDesc;
 
@@ -55,12 +55,12 @@ public class OpsLogicTableColumn {
         this.lfdExpress = lfdExpress;
     }
 
-    public String getLfdTbAlias() {
-        return lfdTbAlias;
+    public String getLfdTbId() {
+        return lfdTbId;
     }
 
-    public void setLfdTbAlias(String lfdTbAlias) {
-        this.lfdTbAlias = lfdTbAlias;
+    public void setLfdTbId(String lfdTbId) {
+        this.lfdTbId = lfdTbId;
     }
 
     public String getLfdDesc() {

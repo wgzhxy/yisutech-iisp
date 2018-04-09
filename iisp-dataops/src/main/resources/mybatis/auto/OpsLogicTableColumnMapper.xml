@@ -7,7 +7,7 @@
     <result column="lfd_type" jdbcType="VARCHAR" property="lfdType" />
     <result column="lfd_length" jdbcType="INTEGER" property="lfdLength" />
     <result column="lfd_express" jdbcType="VARCHAR" property="lfdExpress" />
-    <result column="lfd_tb_alias" jdbcType="VARCHAR" property="lfdTbAlias" />
+    <result column="lfd_tb_id" jdbcType="VARCHAR" property="lfdTbId" />
     <result column="lfd_desc" jdbcType="VARCHAR" property="lfdDesc" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -69,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, lfd_name, lfd_type, lfd_length, lfd_express, lfd_tb_alias, lfd_desc
+    id, lfd_name, lfd_type, lfd_length, lfd_express, lfd_tb_id, lfd_desc
   </sql>
   <select id="selectByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTableColumnExample" resultMap="BaseResultMap">
     select
@@ -106,10 +106,10 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into ops_logic_table_column (lfd_name, lfd_type, lfd_length, 
-      lfd_express, lfd_tb_alias, lfd_desc
+      lfd_express, lfd_tb_id, lfd_desc
       )
     values (#{lfdName,jdbcType=VARCHAR}, #{lfdType,jdbcType=VARCHAR}, #{lfdLength,jdbcType=INTEGER}, 
-      #{lfdExpress,jdbcType=VARCHAR}, #{lfdTbAlias,jdbcType=VARCHAR}, #{lfdDesc,jdbcType=VARCHAR}
+      #{lfdExpress,jdbcType=VARCHAR}, #{lfdTbId,jdbcType=VARCHAR}, #{lfdDesc,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTableColumn">
@@ -130,8 +130,8 @@
       <if test="lfdExpress != null">
         lfd_express,
       </if>
-      <if test="lfdTbAlias != null">
-        lfd_tb_alias,
+      <if test="lfdTbId != null">
+        lfd_tb_id,
       </if>
       <if test="lfdDesc != null">
         lfd_desc,
@@ -150,8 +150,8 @@
       <if test="lfdExpress != null">
         #{lfdExpress,jdbcType=VARCHAR},
       </if>
-      <if test="lfdTbAlias != null">
-        #{lfdTbAlias,jdbcType=VARCHAR},
+      <if test="lfdTbId != null">
+        #{lfdTbId,jdbcType=VARCHAR},
       </if>
       <if test="lfdDesc != null">
         #{lfdDesc,jdbcType=VARCHAR},
@@ -182,8 +182,8 @@
       <if test="record.lfdExpress != null">
         lfd_express = #{record.lfdExpress,jdbcType=VARCHAR},
       </if>
-      <if test="record.lfdTbAlias != null">
-        lfd_tb_alias = #{record.lfdTbAlias,jdbcType=VARCHAR},
+      <if test="record.lfdTbId != null">
+        lfd_tb_id = #{record.lfdTbId,jdbcType=VARCHAR},
       </if>
       <if test="record.lfdDesc != null">
         lfd_desc = #{record.lfdDesc,jdbcType=VARCHAR},
@@ -200,7 +200,7 @@
       lfd_type = #{record.lfdType,jdbcType=VARCHAR},
       lfd_length = #{record.lfdLength,jdbcType=INTEGER},
       lfd_express = #{record.lfdExpress,jdbcType=VARCHAR},
-      lfd_tb_alias = #{record.lfdTbAlias,jdbcType=VARCHAR},
+      lfd_tb_id = #{record.lfdTbId,jdbcType=VARCHAR},
       lfd_desc = #{record.lfdDesc,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -221,8 +221,8 @@
       <if test="lfdExpress != null">
         lfd_express = #{lfdExpress,jdbcType=VARCHAR},
       </if>
-      <if test="lfdTbAlias != null">
-        lfd_tb_alias = #{lfdTbAlias,jdbcType=VARCHAR},
+      <if test="lfdTbId != null">
+        lfd_tb_id = #{lfdTbId,jdbcType=VARCHAR},
       </if>
       <if test="lfdDesc != null">
         lfd_desc = #{lfdDesc,jdbcType=VARCHAR},
@@ -236,7 +236,7 @@
       lfd_type = #{lfdType,jdbcType=VARCHAR},
       lfd_length = #{lfdLength,jdbcType=INTEGER},
       lfd_express = #{lfdExpress,jdbcType=VARCHAR},
-      lfd_tb_alias = #{lfdTbAlias,jdbcType=VARCHAR},
+      lfd_tb_id = #{lfdTbId,jdbcType=VARCHAR},
       lfd_desc = #{lfdDesc,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>

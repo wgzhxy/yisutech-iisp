@@ -18,7 +18,7 @@ public interface TableConfigRepository {
      * @param tableCode
      * @return
      */
-    List<OpsLogicTable> queryLogicTable(String tableCode);
+    OpsLogicTable queryLogicTable(String tableCode);
 
     /**
      * @param tableCode
@@ -30,7 +30,7 @@ public interface TableConfigRepository {
      * @param tableCode
      * @return
      */
-    List<OpsTable> queryTable(String tableCode);
+    OpsTable queryTable(String tableCode);
 
     /**
      * @param tableCode
@@ -44,6 +44,5 @@ public interface TableConfigRepository {
      * @param dataSourceId 数据源ID
      * @return {@link List<OpsDataSource>}
      */
-    List<OpsDataSource> queryDataSource(String dataSourceId);
-
+    OpsDataSource queryDataSource(String dataSourceId);
 }
