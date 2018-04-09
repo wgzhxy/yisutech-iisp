@@ -8,7 +8,6 @@ import org.apache.commons.lang3.tuple.MutablePair;
 import org.springframework.util.Assert;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Map;
 
@@ -32,14 +31,17 @@ public class TableMeta implements Serializable {
     @NotEmpty(message = "表名不能为空")
     String tableName;
     /**
+     * 表字段meta信息
+     */
+    Map<String, ColumnMeta> columnsMeta;
+    /**
+     * 用户自定义sql
+     */
+    String udSql;
+    /**
      * 数据源信息
      */
     DataSourceMeta dataSourceMeta;
-    /**
-     * 表字段meta信息
-     */
-    @NotNull(message = "属性信息不能为空")
-    Map<String, ColumnMeta> columnsMeta;
 
     /**
      * 变更表sql语句
@@ -334,6 +336,14 @@ public class TableMeta implements Serializable {
         } else {
             return false;
         }
+    }
+
+    public String getUdSql() {
+        return udSql;
+    }
+
+    public void setUdSql(String udSql) {
+        this.udSql = udSql;
     }
 
     public DataSourceMeta getDataSourceMeta() {

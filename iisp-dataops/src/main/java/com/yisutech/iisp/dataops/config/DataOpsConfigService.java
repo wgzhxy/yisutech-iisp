@@ -2,8 +2,6 @@ package com.yisutech.iisp.dataops.config;
 
 import com.yisutech.iisp.dataops.engine.template.model.TableMeta;
 
-import java.util.List;
-
 /**
  * 版权：Copyright by www.yisutech.com
  * 文件名：com.yisutech.iisp.dataops.config.DataOpsConfigService
@@ -22,12 +20,4 @@ public interface DataOpsConfigService {
      * @return
      */
     TableMeta getTableMeta(String tableCode);
-
-    /**
-     * 批量获取表元信息
-     *
-     * @param tableCodes 表编码集合
-     * @return
-     */
-    TableMeta getTableMetas(List<String> tableCodes);
 }

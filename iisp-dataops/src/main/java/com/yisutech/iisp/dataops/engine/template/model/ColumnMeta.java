@@ -58,7 +58,7 @@ public class ColumnMeta implements Serializable {
         }
     }
 
-    enum ColumnType {
+    public enum ColumnType {
 
         String("varchar"), Date("date"), DateTime("datetime"), Text("text"), Int("int"), Long("bigint");
 
