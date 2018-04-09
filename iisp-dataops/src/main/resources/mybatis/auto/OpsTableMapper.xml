@@ -6,6 +6,7 @@
     <result column="tb_name" jdbcType="VARCHAR" property="tbName" />
     <result column="tb_desc" jdbcType="VARCHAR" property="tbDesc" />
     <result column="tb_fileds_num" jdbcType="INTEGER" property="tbFiledsNum" />
+    <result column="tb_ltb_id" jdbcType="INTEGER" property="tbLtbId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, tb_name, tb_desc, tb_fileds_num
+    id, tb_name, tb_desc, tb_fileds_num, tb_ltb_id
   </sql>
   <select id="selectByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsTableExample" resultMap="BaseResultMap">
     select
@@ -102,10 +103,10 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into ops_table (tb_name, tb_desc, tb_fileds_num
-      )
-    values (#{tbName,jdbcType=VARCHAR}, #{tbDesc,jdbcType=VARCHAR}, #{tbFiledsNum,jdbcType=INTEGER}
-      )
+    insert into ops_table (tb_name, tb_desc, tb_fileds_num, 
+      tb_ltb_id)
+    values (#{tbName,jdbcType=VARCHAR}, #{tbDesc,jdbcType=VARCHAR}, #{tbFiledsNum,jdbcType=INTEGER}, 
+      #{tbLtbId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsTable">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -122,6 +123,9 @@
       <if test="tbFiledsNum != null">
         tb_fileds_num,
       </if>
+      <if test="tbLtbId != null">
+        tb_ltb_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="tbName != null">
@@ -132,6 +136,9 @@
       </if>
       <if test="tbFiledsNum != null">
         #{tbFiledsNum,jdbcType=INTEGER},
+      </if>
+      <if test="tbLtbId != null">
+        #{tbLtbId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -156,6 +163,9 @@
       <if test="record.tbFiledsNum != null">
         tb_fileds_num = #{record.tbFiledsNum,jdbcType=INTEGER},
       </if>
+      <if test="record.tbLtbId != null">
+        tb_ltb_id = #{record.tbLtbId,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -166,7 +176,8 @@
     set id = #{record.id,jdbcType=INTEGER},
       tb_name = #{record.tbName,jdbcType=VARCHAR},
       tb_desc = #{record.tbDesc,jdbcType=VARCHAR},
-      tb_fileds_num = #{record.tbFiledsNum,jdbcType=INTEGER}
+      tb_fileds_num = #{record.tbFiledsNum,jdbcType=INTEGER},
+      tb_ltb_id = #{record.tbLtbId,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -183,6 +194,9 @@
       <if test="tbFiledsNum != null">
         tb_fileds_num = #{tbFiledsNum,jdbcType=INTEGER},
       </if>
+      <if test="tbLtbId != null">
+        tb_ltb_id = #{tbLtbId,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -190,7 +204,8 @@
     update ops_table
     set tb_name = #{tbName,jdbcType=VARCHAR},
       tb_desc = #{tbDesc,jdbcType=VARCHAR},
-      tb_fileds_num = #{tbFiledsNum,jdbcType=INTEGER}
+      tb_fileds_num = #{tbFiledsNum,jdbcType=INTEGER},
+      tb_ltb_id = #{tbLtbId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

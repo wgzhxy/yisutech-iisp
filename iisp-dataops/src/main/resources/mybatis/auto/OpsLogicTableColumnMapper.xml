@@ -9,6 +9,9 @@
     <result column="lfd_express" jdbcType="VARCHAR" property="lfdExpress" />
     <result column="lfd_tb_id" jdbcType="VARCHAR" property="lfdTbId" />
     <result column="lfd_desc" jdbcType="VARCHAR" property="lfdDesc" />
+    <result column="lfd_primary_key" jdbcType="BIT" property="lfdPrimaryKey" />
+    <result column="lfd_tag_null" jdbcType="BIT" property="lfdTagNull" />
+    <result column="lfd_default_value" jdbcType="VARCHAR" property="lfdDefaultValue" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,7 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, lfd_name, lfd_type, lfd_length, lfd_express, lfd_tb_id, lfd_desc
+    id, lfd_name, lfd_type, lfd_length, lfd_express, lfd_tb_id, lfd_desc, lfd_primary_key, 
+    lfd_tag_null, lfd_default_value
   </sql>
   <select id="selectByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTableColumnExample" resultMap="BaseResultMap">
     select
@@ -106,10 +110,12 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into ops_logic_table_column (lfd_name, lfd_type, lfd_length, 
-      lfd_express, lfd_tb_id, lfd_desc
+      lfd_express, lfd_tb_id, lfd_desc, 
+      lfd_primary_key, lfd_tag_null, lfd_default_value
       )
     values (#{lfdName,jdbcType=VARCHAR}, #{lfdType,jdbcType=VARCHAR}, #{lfdLength,jdbcType=INTEGER}, 
-      #{lfdExpress,jdbcType=VARCHAR}, #{lfdTbId,jdbcType=VARCHAR}, #{lfdDesc,jdbcType=VARCHAR}
+      #{lfdExpress,jdbcType=VARCHAR}, #{lfdTbId,jdbcType=VARCHAR}, #{lfdDesc,jdbcType=VARCHAR}, 
+      #{lfdPrimaryKey,jdbcType=BIT}, #{lfdTagNull,jdbcType=BIT}, #{lfdDefaultValue,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsLogicTableColumn">
@@ -136,6 +142,15 @@
       <if test="lfdDesc != null">
         lfd_desc,
       </if>
+      <if test="lfdPrimaryKey != null">
+        lfd_primary_key,
+      </if>
+      <if test="lfdTagNull != null">
+        lfd_tag_null,
+      </if>
+      <if test="lfdDefaultValue != null">
+        lfd_default_value,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="lfdName != null">
@@ -155,6 +170,15 @@
       </if>
       <if test="lfdDesc != null">
         #{lfdDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="lfdPrimaryKey != null">
+        #{lfdPrimaryKey,jdbcType=BIT},
+      </if>
+      <if test="lfdTagNull != null">
+        #{lfdTagNull,jdbcType=BIT},
+      </if>
+      <if test="lfdDefaultValue != null">
+        #{lfdDefaultValue,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -188,6 +212,15 @@
       <if test="record.lfdDesc != null">
         lfd_desc = #{record.lfdDesc,jdbcType=VARCHAR},
       </if>
+      <if test="record.lfdPrimaryKey != null">
+        lfd_primary_key = #{record.lfdPrimaryKey,jdbcType=BIT},
+      </if>
+      <if test="record.lfdTagNull != null">
+        lfd_tag_null = #{record.lfdTagNull,jdbcType=BIT},
+      </if>
+      <if test="record.lfdDefaultValue != null">
+        lfd_default_value = #{record.lfdDefaultValue,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -201,7 +234,10 @@
       lfd_length = #{record.lfdLength,jdbcType=INTEGER},
       lfd_express = #{record.lfdExpress,jdbcType=VARCHAR},
       lfd_tb_id = #{record.lfdTbId,jdbcType=VARCHAR},
-      lfd_desc = #{record.lfdDesc,jdbcType=VARCHAR}
+      lfd_desc = #{record.lfdDesc,jdbcType=VARCHAR},
+      lfd_primary_key = #{record.lfdPrimaryKey,jdbcType=BIT},
+      lfd_tag_null = #{record.lfdTagNull,jdbcType=BIT},
+      lfd_default_value = #{record.lfdDefaultValue,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -227,6 +263,15 @@
       <if test="lfdDesc != null">
         lfd_desc = #{lfdDesc,jdbcType=VARCHAR},
       </if>
+      <if test="lfdPrimaryKey != null">
+        lfd_primary_key = #{lfdPrimaryKey,jdbcType=BIT},
+      </if>
+      <if test="lfdTagNull != null">
+        lfd_tag_null = #{lfdTagNull,jdbcType=BIT},
+      </if>
+      <if test="lfdDefaultValue != null">
+        lfd_default_value = #{lfdDefaultValue,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -237,7 +282,10 @@
       lfd_length = #{lfdLength,jdbcType=INTEGER},
       lfd_express = #{lfdExpress,jdbcType=VARCHAR},
       lfd_tb_id = #{lfdTbId,jdbcType=VARCHAR},
-      lfd_desc = #{lfdDesc,jdbcType=VARCHAR}
+      lfd_desc = #{lfdDesc,jdbcType=VARCHAR},
+      lfd_primary_key = #{lfdPrimaryKey,jdbcType=BIT},
+      lfd_tag_null = #{lfdTagNull,jdbcType=BIT},
+      lfd_default_value = #{lfdDefaultValue,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

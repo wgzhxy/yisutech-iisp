@@ -9,6 +9,8 @@ public class OpsTable {
 
     private Integer tbFiledsNum;
 
+    private Integer tbLtbId;
+
     public Integer getId() {
         return id;
     }
@@ -39,5 +41,13 @@ public class OpsTable {
 
     public void setTbFiledsNum(Integer tbFiledsNum) {
         this.tbFiledsNum = tbFiledsNum;
+    }
+
+    public Integer getTbLtbId() {
+        return tbLtbId;
+    }
+
+    public void setTbLtbId(Integer tbLtbId) {
+        this.tbLtbId = tbLtbId;
     }
 }

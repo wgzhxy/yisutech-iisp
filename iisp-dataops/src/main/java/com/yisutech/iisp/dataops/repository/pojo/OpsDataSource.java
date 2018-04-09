@@ -15,6 +15,8 @@ public class OpsDataSource {
 
     private String dsDesc;
 
+    private String dsType;
+
     public Integer getId() {
         return id;
     }
@@ -69,5 +71,13 @@ public class OpsDataSource {
 
     public void setDsDesc(String dsDesc) {
         this.dsDesc = dsDesc;
+    }
+
+    public String getDsType() {
+        return dsType;
+    }
+
+    public void setDsType(String dsType) {
+        this.dsType = dsType;
     }
 }

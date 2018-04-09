@@ -573,6 +573,196 @@ public class OpsLogicTableColumnExample {
             addCriterion("lfd_desc not between", value1, value2, "lfdDesc");
             return (Criteria) this;
         }
+
+        public Criteria andLfdPrimaryKeyIsNull() {
+            addCriterion("lfd_primary_key is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdPrimaryKeyIsNotNull() {
+            addCriterion("lfd_primary_key is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdPrimaryKeyEqualTo(Boolean value) {
+            addCriterion("lfd_primary_key =", value, "lfdPrimaryKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdPrimaryKeyNotEqualTo(Boolean value) {
+            addCriterion("lfd_primary_key <>", value, "lfdPrimaryKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdPrimaryKeyGreaterThan(Boolean value) {
+            addCriterion("lfd_primary_key >", value, "lfdPrimaryKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdPrimaryKeyGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("lfd_primary_key >=", value, "lfdPrimaryKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdPrimaryKeyLessThan(Boolean value) {
+            addCriterion("lfd_primary_key <", value, "lfdPrimaryKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdPrimaryKeyLessThanOrEqualTo(Boolean value) {
+            addCriterion("lfd_primary_key <=", value, "lfdPrimaryKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdPrimaryKeyIn(List<Boolean> values) {
+            addCriterion("lfd_primary_key in", values, "lfdPrimaryKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdPrimaryKeyNotIn(List<Boolean> values) {
+            addCriterion("lfd_primary_key not in", values, "lfdPrimaryKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdPrimaryKeyBetween(Boolean value1, Boolean value2) {
+            addCriterion("lfd_primary_key between", value1, value2, "lfdPrimaryKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdPrimaryKeyNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("lfd_primary_key not between", value1, value2, "lfdPrimaryKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdTagNullIsNull() {
+            addCriterion("lfd_tag_null is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdTagNullIsNotNull() {
+            addCriterion("lfd_tag_null is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdTagNullEqualTo(Boolean value) {
+            addCriterion("lfd_tag_null =", value, "lfdTagNull");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdTagNullNotEqualTo(Boolean value) {
+            addCriterion("lfd_tag_null <>", value, "lfdTagNull");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdTagNullGreaterThan(Boolean value) {
+            addCriterion("lfd_tag_null >", value, "lfdTagNull");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdTagNullGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("lfd_tag_null >=", value, "lfdTagNull");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdTagNullLessThan(Boolean value) {
+            addCriterion("lfd_tag_null <", value, "lfdTagNull");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdTagNullLessThanOrEqualTo(Boolean value) {
+            addCriterion("lfd_tag_null <=", value, "lfdTagNull");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdTagNullIn(List<Boolean> values) {
+            addCriterion("lfd_tag_null in", values, "lfdTagNull");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdTagNullNotIn(List<Boolean> values) {
+            addCriterion("lfd_tag_null not in", values, "lfdTagNull");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdTagNullBetween(Boolean value1, Boolean value2) {
+            addCriterion("lfd_tag_null between", value1, value2, "lfdTagNull");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdTagNullNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("lfd_tag_null not between", value1, value2, "lfdTagNull");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdDefaultValueIsNull() {
+            addCriterion("lfd_default_value is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdDefaultValueIsNotNull() {
+            addCriterion("lfd_default_value is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdDefaultValueEqualTo(String value) {
+            addCriterion("lfd_default_value =", value, "lfdDefaultValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdDefaultValueNotEqualTo(String value) {
+            addCriterion("lfd_default_value <>", value, "lfdDefaultValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdDefaultValueGreaterThan(String value) {
+            addCriterion("lfd_default_value >", value, "lfdDefaultValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdDefaultValueGreaterThanOrEqualTo(String value) {
+            addCriterion("lfd_default_value >=", value, "lfdDefaultValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdDefaultValueLessThan(String value) {
+            addCriterion("lfd_default_value <", value, "lfdDefaultValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdDefaultValueLessThanOrEqualTo(String value) {
+            addCriterion("lfd_default_value <=", value, "lfdDefaultValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdDefaultValueLike(String value) {
+            addCriterion("lfd_default_value like", value, "lfdDefaultValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdDefaultValueNotLike(String value) {
+            addCriterion("lfd_default_value not like", value, "lfdDefaultValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdDefaultValueIn(List<String> values) {
+            addCriterion("lfd_default_value in", values, "lfdDefaultValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdDefaultValueNotIn(List<String> values) {
+            addCriterion("lfd_default_value not in", values, "lfdDefaultValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdDefaultValueBetween(String value1, String value2) {
+            addCriterion("lfd_default_value between", value1, value2, "lfdDefaultValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andLfdDefaultValueNotBetween(String value1, String value2) {
+            addCriterion("lfd_default_value not between", value1, value2, "lfdDefaultValue");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

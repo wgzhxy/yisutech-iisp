@@ -363,6 +363,66 @@ public class OpsTableExample {
             addCriterion("tb_fileds_num not between", value1, value2, "tbFiledsNum");
             return (Criteria) this;
         }
+
+        public Criteria andTbLtbIdIsNull() {
+            addCriterion("tb_ltb_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTbLtbIdIsNotNull() {
+            addCriterion("tb_ltb_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTbLtbIdEqualTo(Integer value) {
+            addCriterion("tb_ltb_id =", value, "tbLtbId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTbLtbIdNotEqualTo(Integer value) {
+            addCriterion("tb_ltb_id <>", value, "tbLtbId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTbLtbIdGreaterThan(Integer value) {
+            addCriterion("tb_ltb_id >", value, "tbLtbId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTbLtbIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("tb_ltb_id >=", value, "tbLtbId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTbLtbIdLessThan(Integer value) {
+            addCriterion("tb_ltb_id <", value, "tbLtbId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTbLtbIdLessThanOrEqualTo(Integer value) {
+            addCriterion("tb_ltb_id <=", value, "tbLtbId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTbLtbIdIn(List<Integer> values) {
+            addCriterion("tb_ltb_id in", values, "tbLtbId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTbLtbIdNotIn(List<Integer> values) {
+            addCriterion("tb_ltb_id not in", values, "tbLtbId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTbLtbIdBetween(Integer value1, Integer value2) {
+            addCriterion("tb_ltb_id between", value1, value2, "tbLtbId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTbLtbIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("tb_ltb_id not between", value1, value2, "tbLtbId");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
