@@ -134,9 +134,47 @@ public class DataOpsServiceImpl implements DataOpsService {
     }
 
     @Override
-    public DataOpsResponse<PageInfo<Map<String, Object>>> query(DataOpsRequest dataOpsRequest) {
+    public DataOpsResponse<PageInfo<List<Map<String, Object>>>> query(DataOpsRequest dataOpsRequest) {
 
-        return null;
+        DataOpsResponse<PageInfo<List<Map<String, Object>>>> result = new DataOpsResponse<>();
+
+        // 字段写入参数检查
+        List<Pair<String, Object>> values = Lists.newArrayList();
+        List<ColumnMeta> columnMetas = Lists.newArrayList();
+        dataOpsRequest.getColumnValues().forEach((k, v) -> {
+            values.add(MutablePair.of(k, v));
+
+            ColumnMeta columnMeta = new ColumnMeta();
+            columnMeta.setColumnName(k);
+            columnMetas.add(columnMeta);
+        });
+
+
+        int pageSize = dataOpsRequest.getPageSize();
+        if (pageSize <= 0) {
+            pageSize = 20;
+        }
+        int currentPage = dataOpsRequest.getCurrentPage();
+        if (currentPage <= 0) {
+            currentPage = 1;
+        }
+
+        final int offset = (currentPage - 1) * pageSize;
+        final int size = pageSize;
+
+        List<Map<String, Object>> resultMap = operation((meta, template) -> {
+            TableMeta tpMeta = (TableMeta) meta;
+            if (StringUtils.isNotBlank(tpMeta.getUdSql())) {
+                return ((DataOpsTemplate) template).query(tpMeta.getUdSql(), values, offset, size);
+            } else {
+                return ((DataOpsTemplate) template).query(tpMeta, columnMetas, values, offset, size);
+            }
+        }, dataOpsRequest);
+
+        PageInfo<List<Map<String, Object>>> pageInfo = new PageInfo(resultMap, currentPage);
+        result.setModel(pageInfo);
+
+        return result;
     }
 
     private <T, U, R> R operation(Processor<T, U, R> processor, DataOpsRequest dataOpsRequest) {

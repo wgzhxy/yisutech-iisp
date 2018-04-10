@@ -64,10 +64,11 @@ public class MysqlOpsTemplateImpl implements DataOpsTemplate {
     }
 
     @Override
-    public List<Map<String, Object>> query(TableMeta tableMeta, List<ColumnMeta> whereColumns, int offset, int size) {
+    public List<Map<String, Object>> query(TableMeta tableMeta, List<ColumnMeta> whereColumns, List<Pair<String, Object>> values, int offset,
+                                           int size) {
         String sql = tableMeta.getFullSelectSql(whereColumns);
         sql += " limit ?, ?";
-        return jdbcTemplate.queryForList(sql, offset, size);
+        return this.query(sql, values, offset, size);
     }
 
     @Override
@@ -96,13 +97,8 @@ public class MysqlOpsTemplateImpl implements DataOpsTemplate {
 
         // 生成sql语句
         String sql = FmTemplateEngine.process(md5(sqlTemplate), sqlTemplate, params);
-        if (offset <= 0) {
-            offset = 0;
-        }
-        if (size <= 0) {
-            size = 10;
-        }
         sql += " limit " + offset + ", " + size;
+
         return jdbcTemplate.queryForList(sql);
     }
 

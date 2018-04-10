@@ -4,6 +4,7 @@ import com.yisutech.iisp.dataops.service.model.DataOpsRequest;
 import com.yisutech.iisp.dataops.service.model.DataOpsResponse;
 import com.yisutech.iisp.toolkit.utils.PageInfo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -48,5 +49,5 @@ public interface DataOpsService {
      * @param dataOpsRequest {@link DataOpsRequest}
      * @return {@link DataOpsResponse}
      */
-    DataOpsResponse<PageInfo<Map<String, Object>>> query(DataOpsRequest dataOpsRequest);
+    DataOpsResponse<PageInfo<List<Map<String, Object>>>> query(DataOpsRequest dataOpsRequest);
 }

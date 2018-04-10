@@ -54,6 +54,14 @@ public class DataOpsRequest implements Serializable {
      * 对象: <columnName, value>
      */
     Map<String, Object> whereColumnValues = Maps.newHashMap();
+    /**
+     * 当前页面
+     */
+    int currentPage = 1;
+    /**
+     * 页面记录数
+     */
+    int pageSize = 20;
 
     public Map<String, String> valid() {
         return ValidUtil.allValid(this);
@@ -97,5 +105,21 @@ public class DataOpsRequest implements Serializable {
 
     public void setQueryColumns(List<String> queryColumns) {
         this.queryColumns = queryColumns;
+    }
+
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
     }
 }

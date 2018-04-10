@@ -59,7 +59,7 @@ public interface DataOpsTemplate extends DataOps {
      * @param size      记录数
      * @return List<Map<String, Object>>
      */
-    List<Map<String, Object>> query(TableMeta tableMeta, List<ColumnMeta> whereColumns, int offset, int size);
+    List<Map<String, Object>> query(TableMeta tableMeta, List<ColumnMeta> whereColumns, List<Pair<String, Object>> values, int offset, int size);
 
     /**
      * 查询表
@@ -79,8 +79,7 @@ public interface DataOpsTemplate extends DataOps {
      * @param size        记录数
      * @return List<Map<String, Object>>
      */
-    List<Map<String, Object>> query(String sqlTemplate, List<Pair<String, Object>> values, int offset, int
-            size);
+    List<Map<String, Object>> query(String sqlTemplate, List<Pair<String, Object>> values, int offset, int size);
 
     /**
      * 写入记录
