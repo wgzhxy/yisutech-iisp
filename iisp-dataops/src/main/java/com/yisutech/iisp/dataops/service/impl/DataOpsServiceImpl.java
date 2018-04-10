@@ -177,6 +177,23 @@ public class DataOpsServiceImpl implements DataOpsService {
         return result;
     }
 
+    private DataOpsTemplate getTemplate(String dataSourceConfig) {
+        DataOpsContext dataOpsContext = new DataOpsContext();
+        dataOpsContext.setDataOpsType(DataSourceMeta.DataOpsType.MYSQL);
+        dataOpsContext.setDataSourceConfig(dataSourceConfig);
+        dataOpsTemplate = dataOpsEngine.getDataOpsTemplate(dataOpsContext);
+        return dataOpsTemplate;
+    }
+
+    @PostConstruct
+    private void init() {
+        if (initComp.compareAndSet(Boolean.FALSE, Boolean.TRUE)) {
+            definition = new DefaultTransactionDefinition();
+            definition.setIsolationLevel(TransactionDefinition.ISOLATION_READ_COMMITTED);
+            definition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+        }
+    }
+
     private <T, U, R> R operation(Processor<T, U, R> processor, DataOpsRequest dataOpsRequest) {
 
         // 参数检查
@@ -203,25 +220,8 @@ public class DataOpsServiceImpl implements DataOpsService {
         return r;
     }
 
-    private DataOpsTemplate getTemplate(String dataSourceConfig) {
-        DataOpsContext dataOpsContext = new DataOpsContext();
-        dataOpsContext.setDataOpsType(DataSourceMeta.DataOpsType.MYSQL);
-        dataOpsContext.setDataSourceConfig(dataSourceConfig);
-        dataOpsTemplate = dataOpsEngine.getDataOpsTemplate(dataOpsContext);
-        return dataOpsTemplate;
-    }
-
-    @PostConstruct
-    private void init() {
-        if (initComp.compareAndSet(Boolean.FALSE, Boolean.TRUE)) {
-            definition = new DefaultTransactionDefinition();
-            definition.setIsolationLevel(TransactionDefinition.ISOLATION_READ_COMMITTED);
-            definition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-        }
-    }
-
     @FunctionalInterface
-    interface Processor<T, U, R> {
+    private interface Processor<T, U, R> {
         R call(T t, U u);
     }
 
