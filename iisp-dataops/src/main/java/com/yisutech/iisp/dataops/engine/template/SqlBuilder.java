@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.yisutech.iisp.dataops.engine.template.model.ColumnMeta;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 版权：Copyright by www.yisutech.com
@@ -16,13 +15,13 @@ import java.util.Map;
  **/
 public class SqlBuilder {
 
-    public static void builderSelect(StringBuilder sql, String tableName, Map<String, ColumnMeta> columnMetas) {
+    public static void builderSelect(StringBuilder sql, String tableName, List<ColumnMeta> columnMetas) {
 
         // 拼装sql
         sql.append(SqlConstant.SELECT);
 
         // 拼装字段列表
-        columnMetas.forEach((k, v) -> {
+        columnMetas.forEach(v -> {
             sql.append(v.getColumnName()).append(",");
         });
         sql.setLength(sql.length() - 1);
@@ -30,14 +29,14 @@ public class SqlBuilder {
         sql.append(SqlConstant.BLANK).append(SqlConstant.FROM).append(tableName);
     }
 
-    public static void builderInsert(StringBuilder sql, String tableName, Map<String, ColumnMeta> columnMetas) {
+    public static void builderInsert(StringBuilder sql, String tableName, List<ColumnMeta> columnMetas) {
 
         // 组装sql
         sql.append(SqlConstant.INSERT_INTO).append(tableName).append("(");
 
         // 拼装字段列表
         List<String> specialChars = Lists.newArrayList();
-        columnMetas.forEach((k, v) -> {
+        columnMetas.forEach(v -> {
             if (v.isPrimaryKey()) {
                 return;
             }
@@ -58,12 +57,12 @@ public class SqlBuilder {
     }
 
 
-    public static void builderUpdate(StringBuilder sql, String tableName, Map<String, ColumnMeta> updateColumns) {
+    public static void builderUpdate(StringBuilder sql, String tableName, List<ColumnMeta> updateColumns) {
 
         sql.append(SqlConstant.UPDATE).append(tableName).append(SqlConstant.BLANK).append(SqlConstant.SET);
 
         // 拼装字段列表
-        updateColumns.forEach((k, v) -> {
+        updateColumns.forEach(v -> {
             if (v.isPrimaryKey()) {
                 return;
             }
@@ -76,11 +75,11 @@ public class SqlBuilder {
         sql.append(SqlConstant.DELETE).append(SqlConstant.FROM).append(tableName);
     }
 
-    public static void builderWhere(StringBuilder sql, Map<String, ColumnMeta> whereColumns) {
+    public static void builderWhere(StringBuilder sql, List<ColumnMeta> whereColumns) {
         // 拼装条件
         if (whereColumns != null && whereColumns.size() > 0) {
             sql.append(SqlConstant.WHERE);
-            whereColumns.forEach((k, v) -> {
+            whereColumns.forEach(v -> {
                 sql.append(v.getColumnName()).append(" = ? ").append(" and ");
             });
             sql.setLength(sql.length() - 4);

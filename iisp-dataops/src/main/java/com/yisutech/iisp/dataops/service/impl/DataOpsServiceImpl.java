@@ -1,13 +1,20 @@
 package com.yisutech.iisp.dataops.service.impl;
 
+import com.google.common.collect.Lists;
+import com.yisutech.iisp.dataops.config.DataOpsConfigService;
 import com.yisutech.iisp.dataops.engine.DataOpsContext;
 import com.yisutech.iisp.dataops.engine.DataOpsEngine;
 import com.yisutech.iisp.dataops.engine.template.DataOpsTemplate;
+import com.yisutech.iisp.dataops.engine.template.model.ColumnMeta;
 import com.yisutech.iisp.dataops.engine.template.model.DataSourceMeta;
+import com.yisutech.iisp.dataops.engine.template.model.TableMeta;
 import com.yisutech.iisp.dataops.service.DataOpsService;
 import com.yisutech.iisp.dataops.service.model.DataOpsRequest;
 import com.yisutech.iisp.dataops.service.model.DataOpsResponse;
 import com.yisutech.iisp.toolkit.utils.PageInfo;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.MutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -15,9 +22,11 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
+import org.springframework.util.Assert;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -34,37 +43,126 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class DataOpsServiceImpl implements DataOpsService {
 
     @Override
-    public DataOpsResponse<Map<String, Object>> add(DataOpsRequest dataOpsRequest) {
+    public DataOpsResponse<Integer> add(DataOpsRequest dataOpsRequest) {
 
-        DataOpsTemplate opsTemplate = getTemplate("");
-        PlatformTransactionManager txManager = opsTemplate.getTransactionManager();
-        TransactionStatus status = txManager.getTransaction(definition);
-        try {
+        DataOpsResponse<Integer> result = new DataOpsResponse<>();
 
+        // 字段写入参数检查
+        Assert.notNull(dataOpsRequest.getColumnValues(), String.format("columnVales is empty"));
 
-            txManager.commit(status);
-        } catch (Throwable e) {
-            txManager.rollback(status);
-            FLUSH_DATAOPS_ENGINE.error("save_error", e);
-        }
-        return null;
+        List<Pair<String, Object>> values = Lists.newArrayList();
+        dataOpsRequest.getColumnValues().forEach((k, v) -> {
+            values.add(MutablePair.of(k, v));
+        });
+
+        Integer count = operation((meta, template) -> {
+            TableMeta tpMeta = (TableMeta) meta;
+            if (StringUtils.isNotBlank(tpMeta.getUdSql())) {
+                return ((DataOpsTemplate) template).insert(tpMeta.getUdSql(), values);
+            } else {
+                return ((DataOpsTemplate) template).insert(tpMeta, values);
+            }
+        }, dataOpsRequest);
+
+        result.setModel(count);
+        return result;
     }
 
     @Override
     public DataOpsResponse<Integer> delete(DataOpsRequest dataOpsRequest) {
 
-        return null;
+        DataOpsResponse<Integer> result = new DataOpsResponse<>();
+
+        // 字段写入参数检查
+        Assert.notNull(dataOpsRequest.getWhereColumnValues(), String.format("whereColumnValues is empty"));
+
+        // 拼装参数
+        List<Pair<String, Object>> whereValues = Lists.newArrayList();
+        List<ColumnMeta> whereColumns = Lists.newArrayList();
+
+        dataOpsRequest.getWhereColumnValues().forEach((k, v) -> {
+
+            ColumnMeta columnMeta = new ColumnMeta();
+            columnMeta.setColumnName(k);
+
+            whereValues.add(MutablePair.of(k, v));
+            whereColumns.add(columnMeta);
+        });
+
+        Integer count = operation((meta, template) -> {
+            TableMeta tpMeta = (TableMeta) meta;
+            if (StringUtils.isNotBlank(tpMeta.getUdSql())) {
+                return ((DataOpsTemplate) template).delete(tpMeta.getUdSql(), whereValues);
+            } else {
+                return ((DataOpsTemplate) template).delete(tpMeta, whereColumns, whereValues);
+            }
+        }, dataOpsRequest);
+
+        result.setModel(count);
+        return result;
     }
 
     @Override
-    public DataOpsResponse<Map<String, Object>> update(DataOpsRequest dataOpsRequest) {
-        return null;
+    public DataOpsResponse<Integer> update(DataOpsRequest dataOpsRequest) {
+
+        DataOpsResponse<Integer> result = new DataOpsResponse<>();
+
+        // 字段写入参数检查
+        Assert.notNull(dataOpsRequest.getWhereColumnValues(), String.format("whereColumnValues is empty"));
+
+        List<Pair<String, Object>> whereValues = Lists.newArrayList();
+        List<Pair<String, Object>> updateValues = Lists.newArrayList();
+
+        dataOpsRequest.getWhereColumnValues().forEach((k, v) -> {
+            whereValues.add(MutablePair.of(k, v));
+        });
+        dataOpsRequest.getColumnValues().forEach((k, v) -> {
+            updateValues.add(MutablePair.of(k, v));
+        });
+
+        Integer count = operation((meta, template) -> {
+            TableMeta tpMeta = (TableMeta) meta;
+            if (StringUtils.isNotBlank(tpMeta.getUdSql())) {
+                return ((DataOpsTemplate) template).update(tpMeta.getUdSql(), whereValues);
+            } else {
+                return ((DataOpsTemplate) template).update(tpMeta, updateValues, whereValues);
+            }
+        }, dataOpsRequest);
+
+        result.setModel(count);
+        return result;
     }
 
     @Override
     public DataOpsResponse<PageInfo<Map<String, Object>>> query(DataOpsRequest dataOpsRequest) {
 
         return null;
+    }
+
+    private <T, U, R> R operation(Processor<T, U, R> processor, DataOpsRequest dataOpsRequest) {
+
+        // 参数检查
+        Assert.notNull(dataOpsRequest, String.format("dataOpsRequest is empty"));
+
+        // 表信息检查
+        final TableMeta tableMeta = dataOpsConfigService.getTableMeta(dataOpsRequest.getTableCode());
+        final DataOpsTemplate opsTemplate = getTemplate(tableMeta.getDataSourceMeta().getDataSourceConfig());
+
+        Assert.notNull(tableMeta, String.format("tableMeta is null"));
+        Assert.notNull(opsTemplate, String.format("opsTemplate is null"));
+
+        PlatformTransactionManager txManager = opsTemplate.getTransactionManager();
+        TransactionStatus status = txManager.getTransaction(definition);
+
+        R r = null;
+        try {
+            r = processor.call((T) tableMeta, (U) opsTemplate);
+            txManager.commit(status);
+        } catch (Throwable e) {
+            txManager.rollback(status);
+            FLUSH_DATAOPS_ENGINE.error("save_error", e);
+        }
+        return r;
     }
 
     private DataOpsTemplate getTemplate(String dataSourceConfig) {
@@ -76,7 +174,7 @@ public class DataOpsServiceImpl implements DataOpsService {
     }
 
     @PostConstruct
-    public void init() {
+    private void init() {
         if (initComp.compareAndSet(Boolean.FALSE, Boolean.TRUE)) {
             definition = new DefaultTransactionDefinition();
             definition.setIsolationLevel(TransactionDefinition.ISOLATION_READ_COMMITTED);
@@ -84,6 +182,13 @@ public class DataOpsServiceImpl implements DataOpsService {
         }
     }
 
+    @FunctionalInterface
+    interface Processor<T, U, R> {
+        R call(T t, U u);
+    }
+
+    @Resource
+    private DataOpsConfigService dataOpsConfigService;
     @Resource
     private DataOpsEngine<DataOpsTemplate> dataOpsEngine;
 

@@ -51,20 +51,20 @@ public class MysqlOpsTemplateImpl implements DataOpsTemplate {
     }
 
     @Override
-    public boolean alterTable(TableMeta tableMeta, Map<String, ColumnMeta> columnMetas, ColumnMeta.ColumnOps columnOps) {
+    public boolean alterTable(TableMeta tableMeta, List<ColumnMeta> columnMetas, ColumnMeta.ColumnOps columnOps) {
         String alterTableSql = tableMeta.getAlterTableSql(columnMetas, columnOps);
         jdbcTemplate.execute(alterTableSql);
         return false;
     }
 
     @Override
-    public List<Map<String, Object>> query(TableMeta tableMeta, Map<String, ColumnMeta> whereColumns) {
+    public List<Map<String, Object>> query(TableMeta tableMeta, List<ColumnMeta> whereColumns) {
         Assert.notNull(tableMeta, "tableMeta is null");
         return jdbcTemplate.queryForList(tableMeta.getFullSelectSql(whereColumns));
     }
 
     @Override
-    public List<Map<String, Object>> query(TableMeta tableMeta, Map<String, ColumnMeta> whereColumns, int offset, int size) {
+    public List<Map<String, Object>> query(TableMeta tableMeta, List<ColumnMeta> whereColumns, int offset, int size) {
         String sql = tableMeta.getFullSelectSql(whereColumns);
         sql += " limit ?, ?";
         return jdbcTemplate.queryForList(sql, offset, size);
@@ -151,9 +151,26 @@ public class MysqlOpsTemplateImpl implements DataOpsTemplate {
     }
 
     @Override
-    public int update(TableMeta tableMeta, Map<String, ColumnMeta> whereColumns, List<Pair<String, Object>> values) {
+    public int update(TableMeta tableMeta, List<Pair<String, Object>> values, List<Pair<String, Object>> whereValues) {
 
-        String sql = tableMeta.getUpdateSqlByColumns(tableMeta.getColumnsMeta(), whereColumns);
+        List<ColumnMeta> whereColumns = Lists.newArrayList();
+        List<ColumnMeta> updateColumns = Lists.newArrayList();
+
+        values.forEach(pair -> {
+            ColumnMeta columnMeta = new ColumnMeta();
+            columnMeta.setColumnName(pair.getKey());
+            updateColumns.add(columnMeta);
+        });
+
+        whereValues.forEach(pair -> {
+            ColumnMeta columnMeta = new ColumnMeta();
+            columnMeta.setColumnName(pair.getKey());
+            whereColumns.add(columnMeta);
+        });
+
+        String sql = tableMeta.getUpdateSqlByColumns(updateColumns, whereColumns);
+        values.addAll(whereValues);
+
         return this.update(sql, values);
     }
 
@@ -207,7 +224,7 @@ public class MysqlOpsTemplateImpl implements DataOpsTemplate {
     }
 
     @Override
-    public int delete(TableMeta tableMeta, Map<String, ColumnMeta> whereColumns, List<Pair<String, Object>> values) {
+    public int delete(TableMeta tableMeta, List<ColumnMeta> whereColumns, List<Pair<String, Object>> values) {
         String sql = tableMeta.getDeleteSql(whereColumns);
         return this.delete(sql, values);
     }

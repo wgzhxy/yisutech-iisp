@@ -4,7 +4,6 @@ import com.yisutech.iisp.dataops.engine.DataOps;
 import com.yisutech.iisp.dataops.engine.template.model.ColumnMeta;
 import com.yisutech.iisp.dataops.engine.template.model.TableMeta;
 import org.apache.commons.lang3.tuple.Pair;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import java.util.List;
@@ -42,7 +41,7 @@ public interface DataOpsTemplate extends DataOps {
      * @param tableMeta {@link TableMeta}
      * @return true, 成功; false, 失败
      */
-    boolean alterTable(TableMeta tableMeta, Map<String, ColumnMeta> columnMetas, ColumnMeta.ColumnOps columnOps);
+    boolean alterTable(TableMeta tableMeta, List<ColumnMeta> columnMetas, ColumnMeta.ColumnOps columnOps);
 
     /**
      * 查询表
@@ -50,7 +49,7 @@ public interface DataOpsTemplate extends DataOps {
      * @param tableMeta {@link TableMeta}
      * @return List<Map<String, Object>>
      */
-    List<Map<String, Object>> query(TableMeta tableMeta, Map<String, ColumnMeta> whereColumns);
+    List<Map<String, Object>> query(TableMeta tableMeta, List<ColumnMeta> whereColumns);
 
     /**
      * 查询表
@@ -60,7 +59,7 @@ public interface DataOpsTemplate extends DataOps {
      * @param size      记录数
      * @return List<Map<String, Object>>
      */
-    List<Map<String, Object>> query(TableMeta tableMeta, Map<String, ColumnMeta> whereColumns, int offset, int size);
+    List<Map<String, Object>> query(TableMeta tableMeta, List<ColumnMeta> whereColumns, int offset, int size);
 
     /**
      * 查询表
@@ -117,7 +116,7 @@ public interface DataOpsTemplate extends DataOps {
      * @param values    值集合
      * @return 记录数
      */
-    int update(TableMeta tableMeta, Map<String, ColumnMeta> whereColumns, List<Pair<String, Object>> values);
+    int update(TableMeta tableMeta, List<Pair<String, Object>> values, List<Pair<String, Object>> whereValues);
 
     /**
      * 更新记录
@@ -153,7 +152,7 @@ public interface DataOpsTemplate extends DataOps {
      * @param values    值集合
      * @return 记录数
      */
-    int delete(TableMeta tableMeta, Map<String, ColumnMeta> whereColumns, List<Pair<String, Object>> values);
+    int delete(TableMeta tableMeta, List<ColumnMeta> whereColumns, List<Pair<String, Object>> values);
 
     /**
      * 获取事务

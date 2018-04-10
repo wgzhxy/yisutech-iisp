@@ -1,5 +1,6 @@
 package com.yisutech.iisp.dataops.config.impl;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.yisutech.iisp.dataops.config.ConfigEnum;
 import com.yisutech.iisp.dataops.config.DataOpsConfigService;
@@ -69,7 +70,7 @@ public class DataOpsConfigServiceImpl implements DataOpsConfigService {
             List<OpsLogicTableColumn> tbColumns = tableConfigRepository.queryLogicTableColumn(String.valueOf(opsTable.getId()));
             Assert.isTrue(!CollectionUtils.isEmpty(tbColumns), String.format("LogicTableColumn is null"));
 
-            Map<String, ColumnMeta> columnMap = Maps.newHashMap();
+            List<ColumnMeta> columnMap = Lists.newArrayList();
             tbColumns.forEach(tbColumn -> {
                 ColumnMeta columnMeta = new ColumnMeta();
                 columnMeta.setType(ColumnMeta.ColumnType.valueOf(tbColumn.getLfdType()));
@@ -78,7 +79,7 @@ public class DataOpsConfigServiceImpl implements DataOpsConfigService {
                 columnMeta.setPrimaryKey(tbColumn.getLfdPrimaryKey());
                 columnMeta.setDefaultValue(tbColumn.getLfdDefaultValue());
                 columnMeta.setTagNull(tbColumn.getLfdTagNull());
-                columnMap.putIfAbsent(tbColumn.getLfdName(), columnMeta);
+                columnMap.add(columnMeta);
             });
             tableMeta.setColumnsMeta(columnMap);
 

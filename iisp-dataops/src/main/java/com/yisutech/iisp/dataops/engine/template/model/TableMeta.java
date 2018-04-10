@@ -9,7 +9,7 @@ import org.springframework.util.Assert;
 
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
-import java.util.Map;
+import java.util.List;
 
 /**
  * 版权：Copyright by www.yisutech.com
@@ -33,7 +33,7 @@ public class TableMeta implements Serializable {
     /**
      * 表字段meta信息
      */
-    Map<String, ColumnMeta> columnsMeta;
+    List<ColumnMeta> columnsMeta;
     /**
      * 用户自定义sql
      */
@@ -46,13 +46,13 @@ public class TableMeta implements Serializable {
     /**
      * 变更表sql语句
      */
-    public String getAlterTableSql(Map<String, ColumnMeta> columnsMetas, ColumnMeta.ColumnOps columnOps) {
+    public String getAlterTableSql(List<ColumnMeta> columnsMetas, ColumnMeta.ColumnOps columnOps) {
 
         Assert.notNull(columnsMetas, "columnsMetas is null");
         Assert.notNull(columnOps, "columnOps is null");
 
         StringBuilder sql = new StringBuilder(); // ALTER TABLE table_name ADD column_name datatype
-        columnsMetas.forEach((k, v) -> {
+        columnsMetas.forEach(v -> {
 
             Assert.isTrue(v.valid(), "columnMeta is null");
 
@@ -133,7 +133,7 @@ public class TableMeta implements Serializable {
         sql.append(SqlConstant.CREATE_TABLE).append(SqlConstant.SPECIAL_CHAR).append(this.tableName).append(SqlConstant.SPECIAL_CHAR).append(" (");
 
         StringBuilder primaryKey = new StringBuilder();
-        columnsMeta.forEach((k, v) -> {
+        columnsMeta.forEach(v -> {
             // 字段
             sql.append(SqlConstant.SPECIAL_CHAR).append(v.getColumnName()).append(SqlConstant.SPECIAL_CHAR).append(SqlConstant.BLANK);
             // 类型及长度
@@ -171,7 +171,7 @@ public class TableMeta implements Serializable {
      * ps :
      * select * from tableA;
      */
-    public String getFullSelectSql(Map<String, ColumnMeta> whereColumns) {
+    public String getFullSelectSql(List<ColumnMeta> whereColumns) {
 
         StringBuilder sql = new StringBuilder();
         sql.append(SqlConstant.SELECT_ALL).append(SqlConstant.BLANK).append(this.tableName);
@@ -179,7 +179,7 @@ public class TableMeta implements Serializable {
         // 拼装条件
         if (whereColumns != null && whereColumns.size() > 0) {
             sql.append(SqlConstant.WHERE);
-            whereColumns.forEach((k, v) -> {
+            whereColumns.forEach(v -> {
                 sql.append(v.columnName).append(" = ? ").append(" and ");
             });
             sql.setLength(sql.length() - 4);
@@ -193,7 +193,7 @@ public class TableMeta implements Serializable {
      * ps :
      * select column1,column2...columnN from tableA;
      */
-    public String getFullSelectSqlByColumns(Map<String, ColumnMeta> whereColumns) {
+    public String getFullSelectSqlByColumns(List<ColumnMeta> whereColumns) {
 
         // 参数检查
         Assert.notNull(tableName, "table is empty");
@@ -214,7 +214,7 @@ public class TableMeta implements Serializable {
      * ps :
      * select column1,column2...columnN from tableA;
      */
-    public String getSelectSqlByColumns(Map<String, ColumnMeta> columnMetas, Map<String, ColumnMeta> whereColumns) {
+    public String getSelectSqlByColumns(List<ColumnMeta> columnMetas, List<ColumnMeta> whereColumns) {
 
         // 参数检查
         Assert.notNull(tableName, "table is empty");
@@ -255,7 +255,7 @@ public class TableMeta implements Serializable {
      * ps:
      * insert into tableB(column1,column2, column3, column4 ...) value(value1, value2, value3, value4 ...)
      */
-    public String getInsertSqlByColumns(Map<String, ColumnMeta> columnMetas) {
+    public String getInsertSqlByColumns(List<ColumnMeta> columnMetas) {
 
         // 参数检查
         Assert.notNull(tableName, "table is empty");
@@ -285,8 +285,7 @@ public class TableMeta implements Serializable {
 
         // 拼装条件
         sql.append(SqlConstant.WHERE)
-                .append(columnsMeta.get("id").columnName)
-                .append(" = ")
+                .append(" id = ")
                 .append(" ? ");
 
         return sql.toString();
@@ -297,7 +296,7 @@ public class TableMeta implements Serializable {
      * ps :
      * update table1 set column1=?, clumn2=?... where id=?
      */
-    public String getUpdateSqlByColumns(Map<String, ColumnMeta> updateColumns, Map<String, ColumnMeta> whereColumns) {
+    public String getUpdateSqlByColumns(List<ColumnMeta> updateColumns, List<ColumnMeta> whereColumns) {
 
         // 参数检查
         Assert.notNull(tableName, "table is empty");
@@ -313,7 +312,7 @@ public class TableMeta implements Serializable {
         return sql.toString();
     }
 
-    public String getDeleteSql(Map<String, ColumnMeta> whereColumns) {
+    public String getDeleteSql(List<ColumnMeta> whereColumns) {
 
         // 参数检查
         Assert.notNull(tableName, "table is empty");
@@ -362,11 +361,11 @@ public class TableMeta implements Serializable {
         this.tableName = tableName;
     }
 
-    public Map<String, ColumnMeta> getColumnsMeta() {
+    public List<ColumnMeta> getColumnsMeta() {
         return columnsMeta;
     }
 
-    public void setColumnsMeta(Map<String, ColumnMeta> columnsMeta) {
+    public void setColumnsMeta(List<ColumnMeta> columnsMeta) {
         this.columnsMeta = columnsMeta;
     }
 }

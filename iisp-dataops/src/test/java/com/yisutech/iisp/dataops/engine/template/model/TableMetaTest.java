@@ -24,7 +24,7 @@ public class TableMetaTest {
     public void init() {
         tableMeta = new TableMeta();
         tableMeta.setTableName("ops_data_source");
-        tableMeta.setColumnsMeta(Maps.newHashMap());
+        tableMeta.setColumnsMeta(Lists.newArrayList());
 
         List<String> columInfo = Lists.newArrayList();
         columInfo.add("id,true,11,false,Int");
@@ -43,7 +43,7 @@ public class TableMetaTest {
             columnMeta.setSize(Integer.valueOf(tpArray[2]));
             columnMeta.setTagNull(Boolean.valueOf(tpArray[3]));
             columnMeta.setType(ColumnMeta.ColumnType.valueOf(tpArray[4]));
-            tableMeta.getColumnsMeta().putIfAbsent(columnMeta.getColumnName(), columnMeta);
+            tableMeta.getColumnsMeta().add(columnMeta);
         });
 
 
@@ -88,9 +88,9 @@ public class TableMetaTest {
         target.setType(ColumnMeta.ColumnType.String);
         target.setColumnName("ds_url_01");
 
-        Map<String, ColumnMeta> columnMetaMap = Maps.newHashMap();
-        columnMetaMap.putIfAbsent(orig.getColumnName(), orig);
-        columnMetaMap.putIfAbsent(target.getColumnName(), target);
+        List<ColumnMeta> columnMetaMap = Lists.newArrayList();
+        columnMetaMap.add(orig);
+        columnMetaMap.add(target);
 
         String alterTableSql = tableMeta.getAlterTableSql(columnMetaMap, ColumnMeta.ColumnOps.add);
         Assert.assertNotNull(alterTableSql);
@@ -109,9 +109,9 @@ public class TableMetaTest {
         target.setType(ColumnMeta.ColumnType.String);
         target.setColumnName("ds_url_01");
 
-        Map<String, ColumnMeta> columnMetaMap = Maps.newHashMap();
-        columnMetaMap.putIfAbsent(orig.getColumnName(), orig);
-        columnMetaMap.putIfAbsent(target.getColumnName(), target);
+        List<ColumnMeta> columnMetaMap = Lists.newArrayList();
+        columnMetaMap.add(orig);
+        columnMetaMap.add(target);
 
         String alterTableSql = tableMeta.getAlterTableSql(columnMetaMap, ColumnMeta.ColumnOps.drop);
         Assert.assertNotNull(alterTableSql);
@@ -130,9 +130,9 @@ public class TableMetaTest {
         target.setType(ColumnMeta.ColumnType.String);
         target.setColumnName("ds_url_01");
 
-        Map<String, ColumnMeta> columnMetaMap = Maps.newHashMap();
-        columnMetaMap.putIfAbsent(orig.getColumnName(), orig);
-        columnMetaMap.putIfAbsent(target.getColumnName(), target);
+        List<ColumnMeta> columnMetaMap = Lists.newArrayList();
+        columnMetaMap.add(orig);
+        columnMetaMap.add(target);
 
         String alterTableSql = tableMeta.getAlterTableSql(columnMetaMap, ColumnMeta.ColumnOps.alter);
         Assert.assertNotNull(alterTableSql);
@@ -147,7 +147,7 @@ public class TableMetaTest {
     @Test
     public void getFullSelectSqlByColumns() throws Exception {
 
-        Map<String, ColumnMeta> whereColumns = getColumnMeta(2);
+        List<ColumnMeta> whereColumns = getColumnMeta(2);
         String fullSql = tableMeta.getFullSelectSql(whereColumns);
 
         Assert.assertNotNull(fullSql);
@@ -156,8 +156,8 @@ public class TableMetaTest {
     @Test
     public void getSelectSqlByColumns() throws Exception {
 
-        Map<String, ColumnMeta> columnMeta = getColumnMeta(1);
-        Map<String, ColumnMeta> whereColumns = getColumnMeta(2);
+        List<ColumnMeta> columnMeta = getColumnMeta(1);
+        List<ColumnMeta> whereColumns = getColumnMeta(2);
 
         String fullSql = tableMeta.getSelectSqlByColumns(columnMeta, whereColumns);
         Assert.assertNotNull(fullSql);
@@ -171,7 +171,7 @@ public class TableMetaTest {
 
     @Test
     public void getInsertSqlByColumns() throws Exception {
-        Map<String, ColumnMeta> columnMeta = getColumnMeta(1);
+        List<ColumnMeta> columnMeta = getColumnMeta(1);
         String fullSql = tableMeta.getInsertSqlByColumns(columnMeta);
         Assert.assertNotNull(fullSql);
     }
@@ -185,8 +185,8 @@ public class TableMetaTest {
     @Test
     public void getUpdateSqlByColumns() throws Exception {
 
-        Map<String, ColumnMeta> columnMeta = getColumnMeta(1);
-        Map<String, ColumnMeta> whereColumns = getColumnMeta(2);
+        List<ColumnMeta> columnMeta = getColumnMeta(1);
+        List<ColumnMeta> whereColumns = getColumnMeta(2);
 
         String fullSql = tableMeta.getUpdateSqlByColumns(columnMeta, whereColumns);
         Assert.assertNotNull(fullSql);
@@ -194,7 +194,7 @@ public class TableMetaTest {
 
     @Test
     public void getDeleteSql() throws Exception {
-        Map<String, ColumnMeta> whereColumns = getColumnMeta(2);
+        List<ColumnMeta> whereColumns = getColumnMeta(2);
         String deleteSql = tableMeta.getDeleteSql(whereColumns);
         Assert.assertNotNull(deleteSql);
     }
@@ -212,7 +212,7 @@ public class TableMetaTest {
         Assert.assertFalse(check);
     }
 
-    private Map<String, ColumnMeta> getColumnMeta(final int bucket) {
+    private List<ColumnMeta> getColumnMeta(final int bucket) {
 
         List<String> columInfo = Lists.newArrayList();
         columInfo.add("id,true,11,false,Int");
@@ -223,7 +223,7 @@ public class TableMetaTest {
         columInfo.add("ds_ext_param,false,512,false,String");
         columInfo.add("ds_desc,false,256,false,String");
 
-        Map<String, ColumnMeta> ret = Maps.newHashMap();
+        List<ColumnMeta> ret = Lists.newArrayList();
         columInfo.forEach(colum -> {
             String[] tpArray = colum.split(",");
             int hashCode = Math.abs(Hashing.md5().hashBytes(tpArray[0].getBytes()).asInt());
@@ -234,7 +234,7 @@ public class TableMetaTest {
                 columnMeta.setSize(Integer.valueOf(tpArray[2]));
                 columnMeta.setTagNull(Boolean.valueOf(tpArray[3]));
                 columnMeta.setType(ColumnMeta.ColumnType.valueOf(tpArray[4]));
-                ret.putIfAbsent(columnMeta.getColumnName(), columnMeta);
+                ret.add(columnMeta);
             }
         });
         return ret;

@@ -24,7 +24,7 @@ public interface DataOpsService {
      * @param dataOpsRequest {@link DataOpsRequest}
      * @return {@link DataOpsResponse}
      */
-    DataOpsResponse<Map<String, Object>> add(DataOpsRequest dataOpsRequest);
+    DataOpsResponse<Integer> add(DataOpsRequest dataOpsRequest);
 
     /**
      * 删除数据对象
@@ -40,7 +40,7 @@ public interface DataOpsService {
      * @param dataOpsRequest {@link DataOpsRequest}
      * @return {@link DataOpsResponse}
      */
-    DataOpsResponse<Map<String, Object>> update(DataOpsRequest dataOpsRequest);
+    DataOpsResponse<Integer> update(DataOpsRequest dataOpsRequest);
 
     /**
      * 查询数据
