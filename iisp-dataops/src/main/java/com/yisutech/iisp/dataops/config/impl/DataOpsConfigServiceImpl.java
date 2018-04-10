@@ -1,7 +1,6 @@
 package com.yisutech.iisp.dataops.config.impl;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.yisutech.iisp.dataops.config.ConfigEnum;
 import com.yisutech.iisp.dataops.config.DataOpsConfigService;
 import com.yisutech.iisp.dataops.engine.template.model.ColumnMeta;
@@ -19,7 +18,6 @@ import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 版权：Copyright by www.yisutech.com
