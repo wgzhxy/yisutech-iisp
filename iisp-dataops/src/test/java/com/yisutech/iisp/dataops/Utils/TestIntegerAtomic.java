@@ -1,5 +1,7 @@
 package com.yisutech.iisp.dataops.Utils;
 
+import com.alibaba.fastjson.JSON;
+import com.yisutech.iisp.dataops.engine.adapter.dtsource.DataSourceConfig;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -41,5 +43,18 @@ public class TestIntegerAtomic {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void generateDataSourceConfig() {
+
+        DataSourceConfig sourceConfig = new DataSourceConfig();
+
+        sourceConfig.setDbUrl("jdbc:mysql://localhost:3306/yisuyun_console?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
+        sourceConfig.setName("testDB");
+        sourceConfig.setUsername("yisuyun_admin");
+        sourceConfig.setPassword("wgzhxy119@");
+
+        Assert.assertNotNull(JSON.toJSONString(sourceConfig));
     }
 }

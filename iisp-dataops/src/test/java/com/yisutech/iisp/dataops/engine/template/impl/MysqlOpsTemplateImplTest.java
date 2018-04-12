@@ -1,8 +1,11 @@
 package com.yisutech.iisp.dataops.engine.template.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.yisutech.iisp.dataops.StarterApplication;
+import com.yisutech.iisp.dataops.engine.adapter.dtsource.DataSourceConfig;
 import com.yisutech.iisp.dataops.engine.template.DataOpsTemplate;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Assert;
 import org.junit.Before;
@@ -62,7 +65,7 @@ public class MysqlOpsTemplateImplTest {
     @Test
     public void insert() throws Exception {
 
-        String sqlTemplate = "insert ops_data_source(ds_url, ds_user, ds_password, ds_name, ds_desc) value(?,?,?,?,?)";
+        String sqlTemplate = "insert ops_data_source(ds_url, ds_user, ds_password, ds_name, ds_ext_param, ds_desc) value(?,?,?,?,?,?)";
 
         List<Pair<String, Object>> values = Lists.newArrayList();
         values.add(Pair.of("ds_url", "ds_url1"));
@@ -86,6 +89,23 @@ public class MysqlOpsTemplateImplTest {
 
     @Test
     public void update() throws Exception {
+
+        // (ds_url, ds_user, ds_password, ds_name, ds_ext_param, ds_desc)
+        String sqlTemplate = "update ops_data_source set ds_ext_param = ? where id=?";
+
+        DataSourceConfig sourceConfig = new DataSourceConfig();
+        sourceConfig.setDbUrl("jdbc:mysql://localhost:3306/yisuyun_console?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
+        sourceConfig.setName("testDB");
+        sourceConfig.setUsername("yisuyun_admin");
+        sourceConfig.setPassword("wgzhxy119@");
+
+        List<Pair<String, Object>> values = Lists.newArrayList();
+        values.add(Pair.of("ds_ext_param", JSON.toJSONString(sourceConfig)));
+        values.add(Pair.of("id", 4));
+
+        int count = dataOpsTemplate.update(sqlTemplate, values);
+
+        Assert.assertNotNull(count);
     }
 
     @Test

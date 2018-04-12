@@ -25,3 +25,29 @@ JVM启动参数配置:
 
     - iisp_dataops
         项目数据引擎模块, 实现对mysql, redis, mongoDB管理
+
+
+数据源配置:
+
+{
+  "connectionProperties": "druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500",
+  "dbUrl": "jdbc:mysql://localhost:3306/yisuyun_console?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
+  "driverClassName": "com.mysql.jdbc.Driver",
+  "filters": "stat,wall,log4j",
+  "initialSize": 5,
+  "maxActive": 20,
+  "maxPoolPreparedStatementPerConnectionSize": 20,
+  "maxWait": 60000,
+  "minEvictableIdleTimeMillis": 300000,
+  "minIdle": 5,
+  "name": "testDB",
+  "password": "wgzhxy119@",
+  "poolPreparedStatements": true,
+  "testOnBorrow": false,
+  "testOnReturn": false,
+  "testWhileIdle": true,
+  "timeBetweenEvictionRunsMillis": 60000,
+  "useGlobalDataSourceStat": true,
+  "username": "yisuyun_admin",
+  "validationQuery": "SELECT 1 FROM DUAL"
+}
