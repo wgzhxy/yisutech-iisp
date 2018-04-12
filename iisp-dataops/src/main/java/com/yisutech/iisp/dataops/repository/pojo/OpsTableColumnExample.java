@@ -493,6 +493,196 @@ public class OpsTableColumnExample {
             addCriterion("fd_length not between", value1, value2, "fdLength");
             return (Criteria) this;
         }
+
+        public Criteria andFdPrimaryKeyIsNull() {
+            addCriterion("fd_primary_key is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdPrimaryKeyIsNotNull() {
+            addCriterion("fd_primary_key is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdPrimaryKeyEqualTo(Boolean value) {
+            addCriterion("fd_primary_key =", value, "fdPrimaryKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdPrimaryKeyNotEqualTo(Boolean value) {
+            addCriterion("fd_primary_key <>", value, "fdPrimaryKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdPrimaryKeyGreaterThan(Boolean value) {
+            addCriterion("fd_primary_key >", value, "fdPrimaryKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdPrimaryKeyGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("fd_primary_key >=", value, "fdPrimaryKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdPrimaryKeyLessThan(Boolean value) {
+            addCriterion("fd_primary_key <", value, "fdPrimaryKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdPrimaryKeyLessThanOrEqualTo(Boolean value) {
+            addCriterion("fd_primary_key <=", value, "fdPrimaryKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdPrimaryKeyIn(List<Boolean> values) {
+            addCriterion("fd_primary_key in", values, "fdPrimaryKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdPrimaryKeyNotIn(List<Boolean> values) {
+            addCriterion("fd_primary_key not in", values, "fdPrimaryKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdPrimaryKeyBetween(Boolean value1, Boolean value2) {
+            addCriterion("fd_primary_key between", value1, value2, "fdPrimaryKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdPrimaryKeyNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("fd_primary_key not between", value1, value2, "fdPrimaryKey");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdTagNullIsNull() {
+            addCriterion("fd_tag_null is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdTagNullIsNotNull() {
+            addCriterion("fd_tag_null is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdTagNullEqualTo(Boolean value) {
+            addCriterion("fd_tag_null =", value, "fdTagNull");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdTagNullNotEqualTo(Boolean value) {
+            addCriterion("fd_tag_null <>", value, "fdTagNull");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdTagNullGreaterThan(Boolean value) {
+            addCriterion("fd_tag_null >", value, "fdTagNull");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdTagNullGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("fd_tag_null >=", value, "fdTagNull");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdTagNullLessThan(Boolean value) {
+            addCriterion("fd_tag_null <", value, "fdTagNull");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdTagNullLessThanOrEqualTo(Boolean value) {
+            addCriterion("fd_tag_null <=", value, "fdTagNull");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdTagNullIn(List<Boolean> values) {
+            addCriterion("fd_tag_null in", values, "fdTagNull");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdTagNullNotIn(List<Boolean> values) {
+            addCriterion("fd_tag_null not in", values, "fdTagNull");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdTagNullBetween(Boolean value1, Boolean value2) {
+            addCriterion("fd_tag_null between", value1, value2, "fdTagNull");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdTagNullNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("fd_tag_null not between", value1, value2, "fdTagNull");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdDefaultValueIsNull() {
+            addCriterion("fd_default_value is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdDefaultValueIsNotNull() {
+            addCriterion("fd_default_value is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdDefaultValueEqualTo(String value) {
+            addCriterion("fd_default_value =", value, "fdDefaultValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdDefaultValueNotEqualTo(String value) {
+            addCriterion("fd_default_value <>", value, "fdDefaultValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdDefaultValueGreaterThan(String value) {
+            addCriterion("fd_default_value >", value, "fdDefaultValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdDefaultValueGreaterThanOrEqualTo(String value) {
+            addCriterion("fd_default_value >=", value, "fdDefaultValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdDefaultValueLessThan(String value) {
+            addCriterion("fd_default_value <", value, "fdDefaultValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdDefaultValueLessThanOrEqualTo(String value) {
+            addCriterion("fd_default_value <=", value, "fdDefaultValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdDefaultValueLike(String value) {
+            addCriterion("fd_default_value like", value, "fdDefaultValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdDefaultValueNotLike(String value) {
+            addCriterion("fd_default_value not like", value, "fdDefaultValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdDefaultValueIn(List<String> values) {
+            addCriterion("fd_default_value in", values, "fdDefaultValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdDefaultValueNotIn(List<String> values) {
+            addCriterion("fd_default_value not in", values, "fdDefaultValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdDefaultValueBetween(String value1, String value2) {
+            addCriterion("fd_default_value between", value1, value2, "fdDefaultValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andFdDefaultValueNotBetween(String value1, String value2) {
+            addCriterion("fd_default_value not between", value1, value2, "fdDefaultValue");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

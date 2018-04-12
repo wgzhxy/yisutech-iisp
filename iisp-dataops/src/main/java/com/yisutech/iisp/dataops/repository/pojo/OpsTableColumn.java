@@ -13,6 +13,12 @@ public class OpsTableColumn {
 
     private Integer fdLength;
 
+    private Boolean fdPrimaryKey;
+
+    private Boolean fdTagNull;
+
+    private String fdDefaultValue;
+
     public Integer getId() {
         return id;
     }
@@ -59,5 +65,29 @@ public class OpsTableColumn {
 
     public void setFdLength(Integer fdLength) {
         this.fdLength = fdLength;
+    }
+
+    public Boolean getFdPrimaryKey() {
+        return fdPrimaryKey;
+    }
+
+    public void setFdPrimaryKey(Boolean fdPrimaryKey) {
+        this.fdPrimaryKey = fdPrimaryKey;
+    }
+
+    public Boolean getFdTagNull() {
+        return fdTagNull;
+    }
+
+    public void setFdTagNull(Boolean fdTagNull) {
+        this.fdTagNull = fdTagNull;
+    }
+
+    public String getFdDefaultValue() {
+        return fdDefaultValue;
+    }
+
+    public void setFdDefaultValue(String fdDefaultValue) {
+        this.fdDefaultValue = fdDefaultValue;
     }
 }

@@ -7,19 +7,11 @@ public class OpsLogicTableColumn {
 
     private String lfdType;
 
-    private Integer lfdLength;
-
     private String lfdExpress;
 
     private String lfdTbId;
 
     private String lfdDesc;
-
-    private Boolean lfdPrimaryKey;
-
-    private Boolean lfdTagNull;
-
-    private String lfdDefaultValue;
 
     public Integer getId() {
         return id;
@@ -45,14 +37,6 @@ public class OpsLogicTableColumn {
         this.lfdType = lfdType;
     }
 
-    public Integer getLfdLength() {
-        return lfdLength;
-    }
-
-    public void setLfdLength(Integer lfdLength) {
-        this.lfdLength = lfdLength;
-    }
-
     public String getLfdExpress() {
         return lfdExpress;
     }
@@ -75,29 +59,5 @@ public class OpsLogicTableColumn {
 
     public void setLfdDesc(String lfdDesc) {
         this.lfdDesc = lfdDesc;
-    }
-
-    public Boolean getLfdPrimaryKey() {
-        return lfdPrimaryKey;
-    }
-
-    public void setLfdPrimaryKey(Boolean lfdPrimaryKey) {
-        this.lfdPrimaryKey = lfdPrimaryKey;
-    }
-
-    public Boolean getLfdTagNull() {
-        return lfdTagNull;
-    }
-
-    public void setLfdTagNull(Boolean lfdTagNull) {
-        this.lfdTagNull = lfdTagNull;
-    }
-
-    public String getLfdDefaultValue() {
-        return lfdDefaultValue;
-    }
-
-    public void setLfdDefaultValue(String lfdDefaultValue) {
-        this.lfdDefaultValue = lfdDefaultValue;
     }
 }

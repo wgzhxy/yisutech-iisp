@@ -8,6 +8,9 @@
     <result column="fd_desc" jdbcType="VARCHAR" property="fdDesc" />
     <result column="fd_type" jdbcType="VARCHAR" property="fdType" />
     <result column="fd_length" jdbcType="INTEGER" property="fdLength" />
+    <result column="fd_primary_key" jdbcType="BIT" property="fdPrimaryKey" />
+    <result column="fd_tag_null" jdbcType="BIT" property="fdTagNull" />
+    <result column="fd_default_value" jdbcType="VARCHAR" property="fdDefaultValue" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, tb_id, fd_name, fd_desc, fd_type, fd_length
+    id, tb_id, fd_name, fd_desc, fd_type, fd_length, fd_primary_key, fd_tag_null, fd_default_value
   </sql>
   <select id="selectByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumnExample" resultMap="BaseResultMap">
     select
@@ -105,9 +108,11 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into ops_table_column (tb_id, fd_name, fd_desc, 
-      fd_type, fd_length)
+      fd_type, fd_length, fd_primary_key, 
+      fd_tag_null, fd_default_value)
     values (#{tbId,jdbcType=INTEGER}, #{fdName,jdbcType=VARCHAR}, #{fdDesc,jdbcType=VARCHAR}, 
-      #{fdType,jdbcType=VARCHAR}, #{fdLength,jdbcType=INTEGER})
+      #{fdType,jdbcType=VARCHAR}, #{fdLength,jdbcType=INTEGER}, #{fdPrimaryKey,jdbcType=BIT}, 
+      #{fdTagNull,jdbcType=BIT}, #{fdDefaultValue,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsTableColumn">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -130,6 +135,15 @@
       <if test="fdLength != null">
         fd_length,
       </if>
+      <if test="fdPrimaryKey != null">
+        fd_primary_key,
+      </if>
+      <if test="fdTagNull != null">
+        fd_tag_null,
+      </if>
+      <if test="fdDefaultValue != null">
+        fd_default_value,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="tbId != null">
@@ -146,6 +160,15 @@
       </if>
       <if test="fdLength != null">
         #{fdLength,jdbcType=INTEGER},
+      </if>
+      <if test="fdPrimaryKey != null">
+        #{fdPrimaryKey,jdbcType=BIT},
+      </if>
+      <if test="fdTagNull != null">
+        #{fdTagNull,jdbcType=BIT},
+      </if>
+      <if test="fdDefaultValue != null">
+        #{fdDefaultValue,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -176,6 +199,15 @@
       <if test="record.fdLength != null">
         fd_length = #{record.fdLength,jdbcType=INTEGER},
       </if>
+      <if test="record.fdPrimaryKey != null">
+        fd_primary_key = #{record.fdPrimaryKey,jdbcType=BIT},
+      </if>
+      <if test="record.fdTagNull != null">
+        fd_tag_null = #{record.fdTagNull,jdbcType=BIT},
+      </if>
+      <if test="record.fdDefaultValue != null">
+        fd_default_value = #{record.fdDefaultValue,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -188,7 +220,10 @@
       fd_name = #{record.fdName,jdbcType=VARCHAR},
       fd_desc = #{record.fdDesc,jdbcType=VARCHAR},
       fd_type = #{record.fdType,jdbcType=VARCHAR},
-      fd_length = #{record.fdLength,jdbcType=INTEGER}
+      fd_length = #{record.fdLength,jdbcType=INTEGER},
+      fd_primary_key = #{record.fdPrimaryKey,jdbcType=BIT},
+      fd_tag_null = #{record.fdTagNull,jdbcType=BIT},
+      fd_default_value = #{record.fdDefaultValue,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -211,6 +246,15 @@
       <if test="fdLength != null">
         fd_length = #{fdLength,jdbcType=INTEGER},
       </if>
+      <if test="fdPrimaryKey != null">
+        fd_primary_key = #{fdPrimaryKey,jdbcType=BIT},
+      </if>
+      <if test="fdTagNull != null">
+        fd_tag_null = #{fdTagNull,jdbcType=BIT},
+      </if>
+      <if test="fdDefaultValue != null">
+        fd_default_value = #{fdDefaultValue,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -220,7 +264,10 @@
       fd_name = #{fdName,jdbcType=VARCHAR},
       fd_desc = #{fdDesc,jdbcType=VARCHAR},
       fd_type = #{fdType,jdbcType=VARCHAR},
-      fd_length = #{fdLength,jdbcType=INTEGER}
+      fd_length = #{fdLength,jdbcType=INTEGER},
+      fd_primary_key = #{fdPrimaryKey,jdbcType=BIT},
+      fd_tag_null = #{fdTagNull,jdbcType=BIT},
+      fd_default_value = #{fdDefaultValue,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

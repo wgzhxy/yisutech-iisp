@@ -7,9 +7,11 @@
     <result column="ds_user" jdbcType="VARCHAR" property="dsUser" />
     <result column="ds_password" jdbcType="VARCHAR" property="dsPassword" />
     <result column="ds_name" jdbcType="VARCHAR" property="dsName" />
-    <result column="ds_ext_param" jdbcType="VARCHAR" property="dsExtParam" />
     <result column="ds_desc" jdbcType="VARCHAR" property="dsDesc" />
     <result column="ds_type" jdbcType="VARCHAR" property="dsType" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.yisutech.iisp.dataops.repository.pojo.OpsDataSource">
+    <result column="ds_ext_param" jdbcType="LONGVARCHAR" property="dsExtParam" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -70,8 +72,27 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, ds_url, ds_user, ds_password, ds_name, ds_ext_param, ds_desc, ds_type
+    id, ds_url, ds_user, ds_password, ds_name, ds_desc, ds_type
   </sql>
+  <sql id="Blob_Column_List">
+    ds_ext_param
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsDataSourceExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ops_data_source
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByExample" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsDataSourceExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -86,9 +107,11 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from ops_data_source
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -107,11 +130,11 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into ops_data_source (ds_url, ds_user, ds_password, 
-      ds_name, ds_ext_param, ds_desc, 
-      ds_type)
+      ds_name, ds_desc, ds_type, 
+      ds_ext_param)
     values (#{dsUrl,jdbcType=VARCHAR}, #{dsUser,jdbcType=VARCHAR}, #{dsPassword,jdbcType=VARCHAR}, 
-      #{dsName,jdbcType=VARCHAR}, #{dsExtParam,jdbcType=VARCHAR}, #{dsDesc,jdbcType=VARCHAR}, 
-      #{dsType,jdbcType=VARCHAR})
+      #{dsName,jdbcType=VARCHAR}, #{dsDesc,jdbcType=VARCHAR}, #{dsType,jdbcType=VARCHAR}, 
+      #{dsExtParam,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsDataSource">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -131,14 +154,14 @@
       <if test="dsName != null">
         ds_name,
       </if>
-      <if test="dsExtParam != null">
-        ds_ext_param,
-      </if>
       <if test="dsDesc != null">
         ds_desc,
       </if>
       <if test="dsType != null">
         ds_type,
+      </if>
+      <if test="dsExtParam != null">
+        ds_ext_param,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -154,14 +177,14 @@
       <if test="dsName != null">
         #{dsName,jdbcType=VARCHAR},
       </if>
-      <if test="dsExtParam != null">
-        #{dsExtParam,jdbcType=VARCHAR},
-      </if>
       <if test="dsDesc != null">
         #{dsDesc,jdbcType=VARCHAR},
       </if>
       <if test="dsType != null">
         #{dsType,jdbcType=VARCHAR},
+      </if>
+      <if test="dsExtParam != null">
+        #{dsExtParam,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -189,16 +212,30 @@
       <if test="record.dsName != null">
         ds_name = #{record.dsName,jdbcType=VARCHAR},
       </if>
-      <if test="record.dsExtParam != null">
-        ds_ext_param = #{record.dsExtParam,jdbcType=VARCHAR},
-      </if>
       <if test="record.dsDesc != null">
         ds_desc = #{record.dsDesc,jdbcType=VARCHAR},
       </if>
       <if test="record.dsType != null">
         ds_type = #{record.dsType,jdbcType=VARCHAR},
       </if>
+      <if test="record.dsExtParam != null">
+        ds_ext_param = #{record.dsExtParam,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update ops_data_source
+    set id = #{record.id,jdbcType=INTEGER},
+      ds_url = #{record.dsUrl,jdbcType=VARCHAR},
+      ds_user = #{record.dsUser,jdbcType=VARCHAR},
+      ds_password = #{record.dsPassword,jdbcType=VARCHAR},
+      ds_name = #{record.dsName,jdbcType=VARCHAR},
+      ds_desc = #{record.dsDesc,jdbcType=VARCHAR},
+      ds_type = #{record.dsType,jdbcType=VARCHAR},
+      ds_ext_param = #{record.dsExtParam,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -210,7 +247,6 @@
       ds_user = #{record.dsUser,jdbcType=VARCHAR},
       ds_password = #{record.dsPassword,jdbcType=VARCHAR},
       ds_name = #{record.dsName,jdbcType=VARCHAR},
-      ds_ext_param = #{record.dsExtParam,jdbcType=VARCHAR},
       ds_desc = #{record.dsDesc,jdbcType=VARCHAR},
       ds_type = #{record.dsType,jdbcType=VARCHAR}
     <if test="_parameter != null">
@@ -232,16 +268,27 @@
       <if test="dsName != null">
         ds_name = #{dsName,jdbcType=VARCHAR},
       </if>
-      <if test="dsExtParam != null">
-        ds_ext_param = #{dsExtParam,jdbcType=VARCHAR},
-      </if>
       <if test="dsDesc != null">
         ds_desc = #{dsDesc,jdbcType=VARCHAR},
       </if>
       <if test="dsType != null">
         ds_type = #{dsType,jdbcType=VARCHAR},
       </if>
+      <if test="dsExtParam != null">
+        ds_ext_param = #{dsExtParam,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsDataSource">
+    update ops_data_source
+    set ds_url = #{dsUrl,jdbcType=VARCHAR},
+      ds_user = #{dsUser,jdbcType=VARCHAR},
+      ds_password = #{dsPassword,jdbcType=VARCHAR},
+      ds_name = #{dsName,jdbcType=VARCHAR},
+      ds_desc = #{dsDesc,jdbcType=VARCHAR},
+      ds_type = #{dsType,jdbcType=VARCHAR},
+      ds_ext_param = #{dsExtParam,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.yisutech.iisp.dataops.repository.pojo.OpsDataSource">
@@ -250,7 +297,6 @@
       ds_user = #{dsUser,jdbcType=VARCHAR},
       ds_password = #{dsPassword,jdbcType=VARCHAR},
       ds_name = #{dsName,jdbcType=VARCHAR},
-      ds_ext_param = #{dsExtParam,jdbcType=VARCHAR},
       ds_desc = #{dsDesc,jdbcType=VARCHAR},
       ds_type = #{dsType,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}

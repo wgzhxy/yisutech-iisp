@@ -11,11 +11,11 @@ public class OpsDataSource {
 
     private String dsName;
 
-    private String dsExtParam;
-
     private String dsDesc;
 
     private String dsType;
+
+    private String dsExtParam;
 
     public Integer getId() {
         return id;
@@ -57,14 +57,6 @@ public class OpsDataSource {
         this.dsName = dsName;
     }
 
-    public String getDsExtParam() {
-        return dsExtParam;
-    }
-
-    public void setDsExtParam(String dsExtParam) {
-        this.dsExtParam = dsExtParam;
-    }
-
     public String getDsDesc() {
         return dsDesc;
     }
@@ -79,5 +71,13 @@ public class OpsDataSource {
 
     public void setDsType(String dsType) {
         this.dsType = dsType;
+    }
+
+    public String getDsExtParam() {
+        return dsExtParam;
+    }
+
+    public void setDsExtParam(String dsExtParam) {
+        this.dsExtParam = dsExtParam;
     }
 }
