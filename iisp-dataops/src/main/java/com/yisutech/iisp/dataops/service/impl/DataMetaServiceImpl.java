@@ -29,10 +29,10 @@ public class DataMetaServiceImpl implements DataMetaService {
         // 参数检查
         Assert.notNull(opsDataSource, String.format("opsDataSource is null"));
 
-        Integer id = opsDataSourceMapper.insert(opsDataSource);
+        opsDataSourceMapper.insert(opsDataSource);
 
         DataOpsResponse<Integer> response = new DataOpsResponse<>();
-        response.setModel(id);
+        response.setModel(opsDataSource.getId());
 
         return response;
     }
@@ -55,10 +55,10 @@ public class DataMetaServiceImpl implements DataMetaService {
         // 参数检查
         Assert.notNull(opsTable, String.format("opsTable is null"));
 
-        Integer id = opsTableMapper.insert(opsTable);
+        opsTableMapper.insert(opsTable);
 
         DataOpsResponse<Integer> response = new DataOpsResponse<>();
-        response.setModel(id);
+        response.setModel(opsTable.getId());
 
         return response;
     }
@@ -107,10 +107,10 @@ public class DataMetaServiceImpl implements DataMetaService {
         // 参数检查
         Assert.notNull(opsLogicTable, String.format("opsTable is null"));
 
-        Integer id = opsLogicTableMapper.insert(opsLogicTable);
+        opsLogicTableMapper.insert(opsLogicTable);
 
         DataOpsResponse<String> response = new DataOpsResponse<>();
-        response.setModel(id + "");
+        response.setModel(opsLogicTable.getId() + "");
 
         return response;
     }
@@ -189,7 +189,6 @@ public class DataMetaServiceImpl implements DataMetaService {
 
         return response;
     }
-
 
     @Resource
     private OpsTableMapper opsTableMapper;

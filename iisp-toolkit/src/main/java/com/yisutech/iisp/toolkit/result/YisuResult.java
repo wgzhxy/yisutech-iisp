@@ -31,19 +31,35 @@ public class YisuResult<T> implements Serializable {
      */
     protected boolean success = true;
 
-    public void setSuccess(boolean success) {
-        this.success = success;
+    public T getModel() {
+        return model;
     }
 
     public void setModel(T model) {
         this.model = model;
     }
 
+    public String getMsgCode() {
+        return msgCode;
+    }
+
     public void setMsgCode(String msgCode) {
         this.msgCode = msgCode;
     }
 
+    public String getMsgInfo() {
+        return msgInfo;
+    }
+
     public void setMsgInfo(String msgInfo) {
         this.msgInfo = msgInfo;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
 }
