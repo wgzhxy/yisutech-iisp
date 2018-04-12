@@ -1,6 +1,7 @@
 package com.yisutech.iisp.dataops.repository.pojo;
 
 public class OpsDataSource {
+
     private Integer id;
 
     private String dsUrl;
