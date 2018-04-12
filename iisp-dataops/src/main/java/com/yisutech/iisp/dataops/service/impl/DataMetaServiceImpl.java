@@ -42,10 +42,10 @@ public class DataMetaServiceImpl implements DataMetaService {
         // 参数检查
         Assert.notNull(opsDataSource, String.format("opsDataSource is null"));
 
-        opsDataSourceMapper.updateByPrimaryKeyWithBLOBs(opsDataSource);
+        int count = opsDataSourceMapper.updateByPrimaryKeyWithBLOBs(opsDataSource);
 
         DataOpsResponse<Boolean> response = new DataOpsResponse<>();
-        response.setModel(true);
+        response.setModel(count > 0 ? true : false);
 
         return response;
     }
@@ -68,10 +68,10 @@ public class DataMetaServiceImpl implements DataMetaService {
         // 参数检查
         Assert.notNull(opsTable, String.format("opsTable is null"));
 
-        opsTableMapper.updateByPrimaryKey(opsTable);
+        int count = opsTableMapper.updateByPrimaryKey(opsTable);
 
         DataOpsResponse<Boolean> response = new DataOpsResponse<>();
-        response.setModel(true);
+        response.setModel(count > 0 ? true : false);
 
         return response;
     }
@@ -82,7 +82,10 @@ public class DataMetaServiceImpl implements DataMetaService {
         Assert.notNull(opsTableColumns, String.format("opsTable is null"));
 
         opsTableColumns.forEach(opsTableColumn -> {
-            opsTableColumnMapper.insert(opsTableColumn);
+            int count = opsTableColumnMapper.insert(opsTableColumn);
+            if (count <= 0) {
+                throw new RuntimeException("addTableColumn is null");
+            }
         });
 
         DataOpsResponse<Boolean> response = new DataOpsResponse<>();
@@ -95,10 +98,10 @@ public class DataMetaServiceImpl implements DataMetaService {
         // 参数检查
         Assert.notNull(opsTableColumn, String.format("opsTable is null"));
 
-        opsTableColumnMapper.updateByPrimaryKeySelective(opsTableColumn);
+        int cout = opsTableColumnMapper.updateByPrimaryKeySelective(opsTableColumn);
 
         DataOpsResponse<Boolean> response = new DataOpsResponse<>();
-        response.setModel(true);
+        response.setModel(cout > 0 ? true : false);
         return response;
     }
 
@@ -120,7 +123,7 @@ public class DataMetaServiceImpl implements DataMetaService {
         // 参数检查
         Assert.notNull(opsLogicTable, String.format("opsTable is null"));
 
-        Integer id = opsLogicTableMapper.updateByPrimaryKeySelective(opsLogicTable);
+        opsLogicTableMapper.updateByPrimaryKeySelective(opsLogicTable);
 
         DataOpsResponse<String> response = new DataOpsResponse<>();
         response.setModel(opsLogicTable.getId() + "");
@@ -135,6 +138,9 @@ public class DataMetaServiceImpl implements DataMetaService {
 
         opsLogicTableColumns.forEach(opsLogicTableColumn -> {
             opsLogicTableColumnMapper.insert(opsLogicTableColumn);
+            if (opsLogicTableColumn.getId() <= 0) {
+                throw new RuntimeException("opsLogicTableColumnMapper.insert fail");
+            }
         });
 
         DataOpsResponse<Boolean> response = new DataOpsResponse<>();
@@ -148,10 +154,10 @@ public class DataMetaServiceImpl implements DataMetaService {
         // 参数检查
         Assert.notNull(opsLogicTableColumn, String.format("opsLogicTableColumn is null"));
 
-        opsLogicTableColumnMapper.updateByPrimaryKeySelective(opsLogicTableColumn);
+        int count = opsLogicTableColumnMapper.updateByPrimaryKeySelective(opsLogicTableColumn);
 
         DataOpsResponse<Boolean> response = new DataOpsResponse<>();
-        response.setModel(true);
+        response.setModel(count > 0 ? true : false);
 
         return response;
     }
