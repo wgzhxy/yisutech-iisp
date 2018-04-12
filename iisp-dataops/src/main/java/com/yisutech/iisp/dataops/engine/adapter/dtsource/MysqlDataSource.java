@@ -2,7 +2,6 @@ package com.yisutech.iisp.dataops.engine.adapter.dtsource;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Maps;
 import com.yisutech.iisp.dataops.engine.adapter.DataOpsSource;
 import org.apache.commons.lang3.StringUtils;
@@ -31,11 +30,13 @@ public class MysqlDataSource implements DataOpsSource {
     public String buildDataSource(String config) {
         try {
 
+            // 数据源配置信息
             Assert.isTrue(StringUtils.isNotBlank(config), "config is empty");
 
-            // 数据源配置信息
-            JSONObject dbConf = JSON.parseObject(config);
-            String dbUrl = dbConf.getString("dbUrl");
+            DataSourceConfig dataSourceConfig = JSON.parseObject(config, DataSourceConfig.class);
+            Assert.notNull(dataSourceConfig, String.format("dataSourceConfig is null"));
+
+            String dbUrl = dataSourceConfig.getDbUrl();
             Assert.isTrue(StringUtils.isNotBlank(dbUrl), "dbUrl is empty");
 
             // dbUrl映射数据源已存在, 返回
@@ -46,29 +47,30 @@ public class MysqlDataSource implements DataOpsSource {
             // 生成新数据源
             DruidDataSource datasource = new DruidDataSource();
 
-            datasource.setUrl(dbConf.getString("dbUrl"));
-            datasource.setUsername(dbConf.getString("username"));
-            datasource.setPassword(dbConf.getString("password)"));
-            datasource.setDriverClassName(dbConf.getString("driverClassName"));
+            datasource.setName(dataSourceConfig.getName());
+            datasource.setUrl(dbUrl);
+            datasource.setUsername(dataSourceConfig.getUsername());
+            datasource.setPassword(dataSourceConfig.getPassword());
+            datasource.setDriverClassName(dataSourceConfig.getDriverClassName());
 
             //configuration
-            datasource.setInitialSize(dbConf.getInteger("initialSize"));
-            datasource.setMinIdle(dbConf.getInteger("minIdle"));
-            datasource.setMaxActive(dbConf.getInteger("maxActive"));
-            datasource.setMaxWait(dbConf.getInteger("maxWait"));
-            datasource.setTimeBetweenEvictionRunsMillis(dbConf.getInteger("timeBetweenEvictionRunsMillis"));
-            datasource.setMinEvictableIdleTimeMillis(dbConf.getInteger("minEvictableIdleTimeMillis)"));
-            datasource.setValidationQuery(dbConf.getString("validationQuery"));
-            datasource.setTestWhileIdle(dbConf.getBoolean("testWhileIdle"));
-            datasource.setTestOnBorrow(dbConf.getBoolean("testOnBorrow"));
-            datasource.setTestOnReturn(dbConf.getBoolean("testOnReturn"));
-            datasource.setPoolPreparedStatements(dbConf.getBoolean("poolPreparedStatements"));
-            datasource.setMaxPoolPreparedStatementPerConnectionSize(dbConf.getInteger("maxPoolPreparedStatementPerConnectionSize)"));
-            datasource.setUseGlobalDataSourceStat(dbConf.getBoolean("useGlobalDataSourceStat"));
-            datasource.setFilters(dbConf.getString("filters"));
-            datasource.setConnectionProperties(dbConf.getString("connectionProperties"));
-            dataSourceMap.putIfAbsent(datasource.getUrl(), datasource);
+            datasource.setInitialSize(dataSourceConfig.getInitialSize());
+            datasource.setMinIdle(dataSourceConfig.getMinIdle());
+            datasource.setMaxActive(dataSourceConfig.getMaxActive());
+            datasource.setMaxWait(dataSourceConfig.getMaxWait());
+            datasource.setTimeBetweenEvictionRunsMillis(dataSourceConfig.getTimeBetweenEvictionRunsMillis());
+            datasource.setMinEvictableIdleTimeMillis(dataSourceConfig.getMinEvictableIdleTimeMillis());
+            datasource.setValidationQuery(dataSourceConfig.getValidationQuery());
+            datasource.setTestWhileIdle(dataSourceConfig.testWhileIdle);
+            datasource.setTestOnBorrow(dataSourceConfig.testOnBorrow);
+            datasource.setTestOnReturn(dataSourceConfig.testOnReturn);
+            datasource.setPoolPreparedStatements(dataSourceConfig.poolPreparedStatements);
+            datasource.setMaxPoolPreparedStatementPerConnectionSize(dataSourceConfig.getMaxPoolPreparedStatementPerConnectionSize());
+            datasource.setUseGlobalDataSourceStat(dataSourceConfig.useGlobalDataSourceStat);
+            datasource.setFilters(dataSourceConfig.getFilters());
+            datasource.setConnectionProperties(dataSourceConfig.getConnectionProperties());
 
+            dataSourceMap.putIfAbsent(datasource.getUrl(), datasource);
             return datasource.getUrl();
 
         } catch (Throwable e) {
