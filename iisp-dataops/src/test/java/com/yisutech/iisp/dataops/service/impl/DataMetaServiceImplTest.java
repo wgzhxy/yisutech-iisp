@@ -40,6 +40,19 @@ public class DataMetaServiceImplTest {
 
     @Test
     public void updateDataSource() throws Exception {
+
+        OpsDataSource opsDataSource = new OpsDataSource();
+        opsDataSource.setId(9);
+        opsDataSource.setDsName("test_wgz");
+        opsDataSource.setDsUser("root");
+        opsDataSource.setDsPassword("wgzhxy119@");
+        opsDataSource.setDsUrl("test://localhost:3360/mydb");
+        opsDataSource.setDsExtParam(JSON.toJSONString(new DataSourceConfig()));
+        opsDataSource.setDsType(DataSourceMeta.DataOpsType.MYSQL.name());
+        opsDataSource.setDsDesc("test_10000");
+
+        DataOpsResponse<Boolean> rsp = dataMetaService.updateDataSource(opsDataSource);
+        Assert.assertTrue(rsp.getModel());
     }
 
     @Test
