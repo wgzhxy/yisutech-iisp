@@ -20,4 +20,12 @@ public interface DataOpsConfigService {
      * @return
      */
     TableMeta getTableMeta(String tableCode);
+
+    /**
+     * 获取表元信息
+     *
+     * @param tableCode 表编码
+     * @return
+     */
+    TableMeta getLogicTableMeta(String tableCode);
 }

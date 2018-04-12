@@ -7,10 +7,7 @@ import com.yisutech.iisp.dataops.engine.template.model.ColumnMeta;
 import com.yisutech.iisp.dataops.engine.template.model.DataSourceMeta;
 import com.yisutech.iisp.dataops.engine.template.model.TableMeta;
 import com.yisutech.iisp.dataops.repository.TableConfigRepository;
-import com.yisutech.iisp.dataops.repository.pojo.OpsDataSource;
-import com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable;
-import com.yisutech.iisp.dataops.repository.pojo.OpsLogicTableColumn;
-import com.yisutech.iisp.dataops.repository.pojo.OpsTable;
+import com.yisutech.iisp.dataops.repository.pojo.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -36,6 +33,15 @@ public class DataOpsConfigServiceImpl implements DataOpsConfigService {
 
     @Override
     public TableMeta getTableMeta(String tableCode) {
+        return getTableMeta(tableCode, Boolean.FALSE);
+    }
+
+    @Override
+    public TableMeta getLogicTableMeta(String tableCode) {
+        return getTableMeta(tableCode, Boolean.TRUE);
+    }
+
+    private TableMeta getTableMeta(String tableCode, boolean isLogicTable) {
 
         // 定义tableMeta
         TableMeta tableMeta;
@@ -65,23 +71,41 @@ public class DataOpsConfigServiceImpl implements DataOpsConfigService {
             tableMeta.setDataSourceMeta(dataSourceMeta);
 
             // 查逻辑字段
-            List<OpsLogicTableColumn> tbColumns = tableConfigRepository.queryLogicTableColumn(String.valueOf(opsTable.getId()));
-            Assert.isTrue(!CollectionUtils.isEmpty(tbColumns), String.format("LogicTableColumn is null"));
+            List<OpsTableColumn> tbColumns = null;
+            List<OpsLogicTableColumn> tbLogicColumns;
 
             List<ColumnMeta> columnMap = Lists.newArrayList();
-            tbColumns.forEach(tbColumn -> {
-                ColumnMeta columnMeta = new ColumnMeta();
-                columnMeta.setType(ColumnMeta.ColumnType.valueOf(tbColumn.getLfdType()));
-                columnMeta.setSize(tbColumn.getLfdLength());
-                columnMeta.setColumnName(tbColumn.getLfdName());
-                columnMeta.setPrimaryKey(tbColumn.getLfdPrimaryKey());
-                columnMeta.setDefaultValue(tbColumn.getLfdDefaultValue());
-                columnMeta.setTagNull(tbColumn.getLfdTagNull());
-                columnMap.add(columnMeta);
-            });
+            if (isLogicTable) {
+
+                tbLogicColumns = tableConfigRepository.queryLogicTableColumn(String.valueOf(opsTable.getId()));
+                Assert.isTrue(!CollectionUtils.isEmpty(tbLogicColumns), String.format("LogicTableColumn is null"));
+
+                tbLogicColumns.forEach(tbLogicColumn -> {
+                    ColumnMeta columnMeta = new ColumnMeta();
+                    columnMeta.setType(ColumnMeta.ColumnType.valueOf(tbLogicColumn.getLfdType()));
+                    columnMeta.setColumnName(tbLogicColumn.getLfdName());
+                    columnMap.add(columnMeta);
+                });
+
+            } else {
+                tbColumns = tableConfigRepository.queryTableColumn(String.valueOf(opsTable.getId()));
+                Assert.isTrue(!CollectionUtils.isEmpty(tbColumns), String.format("tableColumn is null"));
+
+                tbColumns.forEach(tbColumn -> {
+                    ColumnMeta columnMeta = new ColumnMeta();
+                    columnMeta.setType(ColumnMeta.ColumnType.valueOf(tbColumn.getFdType()));
+                    columnMeta.setSize(tbColumn.getFdLength());
+                    columnMeta.setColumnName(tbColumn.getFdName());
+                    columnMeta.setPrimaryKey(tbColumn.getFdPrimaryKey());
+                    columnMeta.setDefaultValue(tbColumn.getFdDefaultValue());
+                    columnMeta.setTagNull(tbColumn.getFdTagNull());
+                    columnMap.add(columnMeta);
+                });
+            }
+
             tableMeta.setColumnsMeta(columnMap);
 
-        } else if (ConfigEnum.LogicTableType.config.getValue() == opsLogicTable.getLtbType()) {
+        } else if (ConfigEnum.LogicTableType.udSQl.getValue() == opsLogicTable.getLtbType()) {
             tableMeta = new TableMeta();
             tableMeta.setTableName(opsLogicTable.getLtbTables());
             tableMeta.setUdSql(opsLogicTable.getLtbSqlExpress());
