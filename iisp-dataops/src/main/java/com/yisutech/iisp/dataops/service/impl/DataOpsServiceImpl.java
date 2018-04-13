@@ -2,6 +2,7 @@ package com.yisutech.iisp.dataops.service.impl;
 
 import com.google.common.collect.Lists;
 import com.yisutech.iisp.dataops.config.DataOpsConfigService;
+import com.yisutech.iisp.dataops.config.DbConfigEnum;
 import com.yisutech.iisp.dataops.engine.DataOpsContext;
 import com.yisutech.iisp.dataops.engine.DataOpsEngine;
 import com.yisutech.iisp.dataops.engine.template.DataOpsTemplate;
@@ -49,11 +50,17 @@ public class DataOpsServiceImpl implements DataOpsService {
         Assert.notNull(dataOpsRequest.getColumnValues(), String.format("columnVales is empty"));
 
         Integer count = operation((meta, template) -> {
+
             TableMeta tpMeta = (TableMeta) meta;
-            if (StringUtils.isNotBlank(tpMeta.getUdSql())) {
+
+            if (tpMeta.getTableType() == DbConfigEnum.TableType.LOGIC_TABLE) {
                 return ((DataOpsTemplate) template).insert(tpMeta.getUdSql(), dataOpsRequest.getColumnValues());
-            } else {
+
+            } else if(tpMeta.getTableType() == DbConfigEnum.TableType.TABLE) {
                 return ((DataOpsTemplate) template).insert(tpMeta, dataOpsRequest.getColumnValues());
+
+            } else {
+                throw new RuntimeException("TableType error");
             }
         }, dataOpsRequest);
 
@@ -81,11 +88,17 @@ public class DataOpsServiceImpl implements DataOpsService {
         });
 
         Integer count = operation((meta, template) -> {
+
             TableMeta tpMeta = (TableMeta) meta;
-            if (StringUtils.isNotBlank(tpMeta.getUdSql())) {
+
+            if (tpMeta.getTableType() == DbConfigEnum.TableType.LOGIC_TABLE) {
                 return ((DataOpsTemplate) template).delete(tpMeta.getUdSql(), dataOpsRequest.getWhereColumnValues());
-            } else {
+
+            } else if(tpMeta.getTableType() == DbConfigEnum.TableType.TABLE) {
                 return ((DataOpsTemplate) template).delete(tpMeta, whereColumns, dataOpsRequest.getWhereColumnValues());
+
+            } else {
+                throw new RuntimeException("TableType error");
             }
         }, dataOpsRequest);
 
@@ -102,11 +115,17 @@ public class DataOpsServiceImpl implements DataOpsService {
         Assert.notNull(dataOpsRequest.getWhereColumnValues(), String.format("whereColumnValues is empty"));
 
         Integer count = operation((meta, template) -> {
+
             TableMeta tpMeta = (TableMeta) meta;
-            if (StringUtils.isNotBlank(tpMeta.getUdSql())) {
+
+            if (tpMeta.getTableType() == DbConfigEnum.TableType.LOGIC_TABLE) {
                 return ((DataOpsTemplate) template).update(tpMeta.getUdSql(), dataOpsRequest.getWhereColumnValues());
-            } else {
+
+            } else if(tpMeta.getTableType() == DbConfigEnum.TableType.TABLE) {
                 return ((DataOpsTemplate) template).update(tpMeta, dataOpsRequest.getColumnValues(), dataOpsRequest.getWhereColumnValues());
+
+            } else {
+                throw new RuntimeException("TableType error");
             }
         }, dataOpsRequest);
 
@@ -145,11 +164,15 @@ public class DataOpsServiceImpl implements DataOpsService {
 
             TableMeta tpMeta = (TableMeta) meta;
 
-            if (StringUtils.isNotBlank(tpMeta.getUdSql())) {
+            if (tpMeta.getTableType() == DbConfigEnum.TableType.LOGIC_TABLE) {
                 return ((DataOpsTemplate) template).query(tpMeta.getUdSql(), dataOpsRequest.getWhereColumnValues(), dataOpsRequest.getColumnValues(),
                         offset, size);
-            } else {
+
+            } else if (tpMeta.getTableType() == DbConfigEnum.TableType.TABLE) {
                 return ((DataOpsTemplate) template).query(tpMeta, columnMetas, dataOpsRequest.getWhereColumnValues(), offset, size);
+
+            } else {
+                throw new RuntimeException("TableType error");
             }
         }, dataOpsRequest);
 

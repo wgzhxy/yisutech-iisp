@@ -1,5 +1,6 @@
 package com.yisutech.iisp.dataops.engine.template.model;
 
+import com.yisutech.iisp.dataops.config.DbConfigEnum;
 import com.yisutech.iisp.dataops.engine.template.SqlBuilder;
 import com.yisutech.iisp.dataops.engine.template.SqlConstant;
 import com.yisutech.iisp.toolkit.utils.ValidUtil;
@@ -34,6 +35,10 @@ public class TableMeta implements Serializable {
      * 表字段meta信息
      */
     List<ColumnMeta> columnsMeta;
+    /**
+     *
+     */
+    DbConfigEnum.TableType tableType;
     /**
      * 用户自定义sql
      */
@@ -335,6 +340,14 @@ public class TableMeta implements Serializable {
         } else {
             return false;
         }
+    }
+
+    public DbConfigEnum.TableType getTableType() {
+        return tableType;
+    }
+
+    public void setTableType(DbConfigEnum.TableType tableType) {
+        this.tableType = tableType;
     }
 
     public String getUdSql() {

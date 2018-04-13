@@ -60,6 +60,7 @@ public class DataOpsConfigServiceImpl implements DataOpsConfigService {
 
             OpsTable opsTable = tableConfigRepository.queryTable(tables.split(",")[0]);
             tableMeta.setTableName(opsTable.getTbName());
+            tableMeta.setTableType(DbConfigEnum.TableType.TABLE);
 
             // dataSource 查询
             Assert.notNull(opsLogicTable.getLtbSourceId(), String.format("dataSource is empty"));
@@ -110,6 +111,7 @@ public class DataOpsConfigServiceImpl implements DataOpsConfigService {
             tableMeta = new TableMeta();
             tableMeta.setTableName(opsLogicTable.getLtbTables());
             tableMeta.setUdSql(opsLogicTable.getLtbSqlExpress());
+            tableMeta.setTableType(DbConfigEnum.TableType.LOGIC_TABLE);
 
             // dataSource 查询
             Assert.notNull(opsLogicTable.getLtbSourceId(), String.format("dataSource is empty"));
