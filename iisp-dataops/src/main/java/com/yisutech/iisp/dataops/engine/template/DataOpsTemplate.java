@@ -68,7 +68,7 @@ public interface DataOpsTemplate extends DataOps {
      * @param values      Map<String, Object> 模板内动态变量
      * @return List<Map<String, Object>>
      */
-    List<Map<String, Object>> query(String sqlTemplate, List<Pair<String, Object>> values);
+    List<Map<String, Object>> query(String sqlTemplate, List<Pair<String, Object>> whereValues, List<Pair<String, Object>> values);
 
     /**
      * 查询表
@@ -79,7 +79,7 @@ public interface DataOpsTemplate extends DataOps {
      * @param size        记录数
      * @return List<Map<String, Object>>
      */
-    List<Map<String, Object>> query(String sqlTemplate, List<Pair<String, Object>> values, int offset, int size);
+    List<Map<String, Object>> query(String sqlTemplate, List<Pair<String, Object>> whereValues, List<Pair<String, Object>> values, int offset, int size);
 
     /**
      * 写入记录

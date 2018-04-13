@@ -74,7 +74,6 @@ public class MysqlDataSource implements DataOpsSource {
             return datasource.getUrl();
 
         } catch (Throwable e) {
-            e.printStackTrace();
             throw new RuntimeException(e.getCause());
         }
 

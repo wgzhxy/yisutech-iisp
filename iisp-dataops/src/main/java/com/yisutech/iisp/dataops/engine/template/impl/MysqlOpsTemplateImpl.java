@@ -68,11 +68,11 @@ public class MysqlOpsTemplateImpl implements DataOpsTemplate {
                                            int size) {
         String sql = tableMeta.getFullSelectSql(whereColumns);
         sql += " limit ?, ?";
-        return this.query(sql, values, offset, size);
+        return this.query(sql, Lists.newArrayList(), values, offset, size);
     }
 
     @Override
-    public List<Map<String, Object>> query(String sqlTemplate, List<Pair<String, Object>> values) {
+    public List<Map<String, Object>> query(String sqlTemplate, List<Pair<String, Object>> whereValues, List<Pair<String, Object>> values) {
 
         // 参数转换
         Map<String, Object> params = Maps.newHashMap();
@@ -80,26 +80,37 @@ public class MysqlOpsTemplateImpl implements DataOpsTemplate {
             params.putIfAbsent(pair.getKey(), pair.getValue());
         });
 
-        // 生成sql语句
-        String sql = FmTemplateEngine.process(md5(sqlTemplate), sqlTemplate, params);
-
-        return jdbcTemplate.queryForList(sql);
-    }
-
-    @Override
-    public List<Map<String, Object>> query(String sqlTemplate, List<Pair<String, Object>> values, int offset, int size) {
-
-        // 参数转换
-        Map<String, Object> params = Maps.newHashMap();
-        values.forEach(pair -> {
-            params.putIfAbsent(pair.getKey(), pair.getValue());
+        List<Object> conditionValues = Lists.newArrayList();
+        whereValues.forEach(pair -> {
+            conditionValues.add(pair.getValue());
         });
 
         // 生成sql语句
         String sql = FmTemplateEngine.process(md5(sqlTemplate), sqlTemplate, params);
+
+        return jdbcTemplate.queryForList(sql, conditionValues.toArray());
+    }
+
+    @Override
+    public List<Map<String, Object>> query(String sqlTemplate, List<Pair<String, Object>> whereValues, List<Pair<String, Object>> templateValues, int
+            offset, int size) {
+
+        // 参数转换
+        Map<String, Object> templateParams = Maps.newHashMap();
+        templateValues.forEach(pair -> {
+            templateParams.putIfAbsent(pair.getKey(), pair.getValue());
+        });
+
+        List<Object> conditionValues = Lists.newArrayList();
+        whereValues.forEach(pair -> {
+            conditionValues.add(pair.getValue());
+        });
+
+        // 生成sql语句
+        String sql = FmTemplateEngine.process(md5(sqlTemplate), sqlTemplate, templateParams);
         sql += " limit " + offset + ", " + size;
 
-        return jdbcTemplate.queryForList(sql);
+        return jdbcTemplate.queryForList(sql, conditionValues.toArray());
     }
 
     @Override
