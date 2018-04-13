@@ -32,7 +32,6 @@ public class DataMetaServiceImpl implements DataMetaService {
 
         // 参数检查
         Assert.notNull(opsDataSource, String.format("opsDataSource is null"));
-
         opsDataSourceMapper.insert(opsDataSource);
 
         DataOpsResponse<Integer> response = new DataOpsResponse<>();
@@ -114,7 +113,6 @@ public class DataMetaServiceImpl implements DataMetaService {
     public DataOpsResponse<String> addLogicTable(OpsLogicTable opsLogicTable) {
         // 参数检查
         Assert.notNull(opsLogicTable, String.format("opsTable is null"));
-
         opsLogicTableMapper.insert(opsLogicTable);
 
         DataOpsResponse<String> response = new DataOpsResponse<>();
@@ -127,7 +125,6 @@ public class DataMetaServiceImpl implements DataMetaService {
     public DataOpsResponse<String> updateLogicTable(OpsLogicTable opsLogicTable) {
         // 参数检查
         Assert.notNull(opsLogicTable, String.format("opsTable is null"));
-
         opsLogicTableMapper.updateByPrimaryKeySelective(opsLogicTable);
 
         DataOpsResponse<String> response = new DataOpsResponse<>();
@@ -158,7 +155,6 @@ public class DataMetaServiceImpl implements DataMetaService {
     public DataOpsResponse<Boolean> updateLogicTableColumn(OpsLogicTableColumn opsLogicTableColumn) {
         // 参数检查
         Assert.notNull(opsLogicTableColumn, String.format("opsLogicTableColumn is null"));
-
         int count = opsLogicTableColumnMapper.updateByPrimaryKeySelective(opsLogicTableColumn);
 
         DataOpsResponse<Boolean> response = new DataOpsResponse<>();
