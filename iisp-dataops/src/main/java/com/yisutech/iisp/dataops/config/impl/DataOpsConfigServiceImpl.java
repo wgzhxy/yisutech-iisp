@@ -1,7 +1,7 @@
 package com.yisutech.iisp.dataops.config.impl;
 
 import com.google.common.collect.Lists;
-import com.yisutech.iisp.dataops.config.ConfigEnum;
+import com.yisutech.iisp.dataops.config.DbConfigEnum;
 import com.yisutech.iisp.dataops.config.DataOpsConfigService;
 import com.yisutech.iisp.dataops.engine.template.model.ColumnMeta;
 import com.yisutech.iisp.dataops.engine.template.model.DataSourceMeta;
@@ -50,7 +50,7 @@ public class DataOpsConfigServiceImpl implements DataOpsConfigService {
         OpsLogicTable opsLogicTable = tableConfigRepository.queryLogicTable(tableCode);
         Assert.notNull(opsLogicTable, String.format("LogicTable is not exists"));
 
-        if (ConfigEnum.LogicTableType.config.getValue() == opsLogicTable.getLtbType()) {
+        if (DbConfigEnum.TableType.TABLE.getValue() == opsLogicTable.getLtbType()) {
 
             tableMeta = new TableMeta();
 
@@ -105,10 +105,21 @@ public class DataOpsConfigServiceImpl implements DataOpsConfigService {
 
             tableMeta.setColumnsMeta(columnMap);
 
-        } else if (ConfigEnum.LogicTableType.udSQl.getValue() == opsLogicTable.getLtbType()) {
+        } else if (DbConfigEnum.TableType.LOGIC_TABLE.getValue() == opsLogicTable.getLtbType()) {
+
             tableMeta = new TableMeta();
             tableMeta.setTableName(opsLogicTable.getLtbTables());
             tableMeta.setUdSql(opsLogicTable.getLtbSqlExpress());
+
+            // dataSource 查询
+            Assert.notNull(opsLogicTable.getLtbSourceId(), String.format("dataSource is empty"));
+            OpsDataSource opsDataSource = tableConfigRepository.queryDataSource(String.valueOf(opsLogicTable.getLtbSourceId()));
+            Assert.notNull(opsLogicTable.getLtbSourceId(), String.format("opsDataSource is not exists"));
+
+            DataSourceMeta dataSourceMeta = new DataSourceMeta();
+            dataSourceMeta.setDataOpsType(DataSourceMeta.DataOpsType.valueOf(opsDataSource.getDsType()));
+            dataSourceMeta.setDataSourceConfig(opsDataSource.getDsExtParam());
+            tableMeta.setDataSourceMeta(dataSourceMeta);
 
         } else {
             throw new IllegalArgumentException(String.format("LogicTableType not support"));
