@@ -1,13 +1,16 @@
 package com.yisutech.iisp.dataops.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Lists;
 import com.yisutech.iisp.dataops.StarterApplication;
 import com.yisutech.iisp.dataops.config.DbConfigEnum;
 import com.yisutech.iisp.dataops.engine.adapter.dtsource.DataSourceConfig;
+import com.yisutech.iisp.dataops.engine.template.model.ColumnMeta;
 import com.yisutech.iisp.dataops.engine.template.model.DataSourceMeta;
-import com.yisutech.iisp.dataops.engine.template.model.TableMeta;
 import com.yisutech.iisp.dataops.repository.pojo.OpsDataSource;
 import com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable;
+import com.yisutech.iisp.dataops.repository.pojo.OpsTable;
+import com.yisutech.iisp.dataops.repository.pojo.OpsTableColumn;
 import com.yisutech.iisp.dataops.service.DataMetaService;
 import com.yisutech.iisp.dataops.service.model.DataOpsResponse;
 import org.junit.Assert;
@@ -17,6 +20,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = StarterApplication.class)
@@ -62,9 +66,7 @@ public class DataMetaServiceImplTest {
         sourceConfig.setName(opsDataSource.getDsName());
         sourceConfig.setUsername(opsDataSource.getDsUser());
         sourceConfig.setPassword(opsDataSource.getDsPassword());
-
         opsDataSource.setDsExtParam(JSON.toJSONString(sourceConfig));
-
         opsDataSource.setDsType(DataSourceMeta.DataOpsType.MYSQL.name());
         opsDataSource.setDsDesc("test_10000");
 
@@ -75,18 +77,146 @@ public class DataMetaServiceImplTest {
     @Test
     public void addTable() throws Exception {
 
+        OpsTable opsTable = new OpsTable();
+        opsTable.setTbName("ops_data_source");
+        opsTable.setTbDesc("数据源表");
+
+        List<OpsTableColumn> opsTableColumns = Lists.newArrayList();
+
+        OpsTableColumn column = new OpsTableColumn();
+        column.setFdName("id");
+        column.setFdType(ColumnMeta.ColumnType.Int.getValue());
+        column.setFdLength(11);
+        column.setFdDesc("主键ID");
+        column.setFdPrimaryKey(true);
+        column.setFdTagNull(false);
+        opsTableColumns.add(column);
+
+        column = new OpsTableColumn();
+        column.setFdName("ds_url");
+        column.setFdType(ColumnMeta.ColumnType.String.getValue());
+        column.setFdLength(256);
+        column.setFdDesc("数据库访问url");
+        column.setFdPrimaryKey(false);
+        column.setFdTagNull(false);
+        opsTableColumns.add(column);
+
+        column = new OpsTableColumn();
+        column.setFdName("ds_user");
+        column.setFdType(ColumnMeta.ColumnType.String.getValue());
+        column.setFdLength(64);
+        column.setFdDesc("数据库用户名称");
+        column.setFdPrimaryKey(false);
+        column.setFdTagNull(false);
+        opsTableColumns.add(column);
+
+        column = new OpsTableColumn();
+        column.setFdName("ds_password");
+        column.setFdType(ColumnMeta.ColumnType.String.getValue());
+        column.setFdLength(64);
+        column.setFdDesc("数据库用户密码");
+        column.setFdPrimaryKey(false);
+        column.setFdTagNull(false);
+        opsTableColumns.add(column);
+
+        column = new OpsTableColumn();
+        column.setFdName("ds_name");
+        column.setFdType(ColumnMeta.ColumnType.String.getValue());
+        column.setFdLength(128);
+        column.setFdDesc("数据库名称");
+        column.setFdPrimaryKey(false);
+        column.setFdTagNull(false);
+        opsTableColumns.add(column);
+
+        column = new OpsTableColumn();
+        column.setFdName("ds_ext_param");
+        column.setFdType(ColumnMeta.ColumnType.Text.getValue());
+        column.setFdDesc("数据源生成配置");
+        column.setFdPrimaryKey(false);
+        column.setFdTagNull(false);
+        opsTableColumns.add(column);
+
+        column = new OpsTableColumn();
+        column.setFdName("ds_desc");
+        column.setFdType(ColumnMeta.ColumnType.String.getValue());
+        column.setFdLength(256);
+        column.setFdDesc("表描述");
+        column.setFdPrimaryKey(false);
+        column.setFdTagNull(true);
+        opsTableColumns.add(column);
+
+        column = new OpsTableColumn();
+        column.setFdName("ds_type");
+        column.setFdType(ColumnMeta.ColumnType.String.getValue());
+        column.setFdLength(10);
+        column.setFdDesc("表类型");
+        column.setFdPrimaryKey(false);
+        column.setFdTagNull(false);
+        opsTableColumns.add(column);
+
+        DataOpsResponse<Integer> result = dataMetaService.addTable(opsTable, opsTableColumns);
+        Assert.assertTrue(result.getModel() >= 1);
     }
 
     @Test
     public void updateTable() throws Exception {
-    }
-
-    @Test
-    public void addTableColumn() throws Exception {
+        OpsTable opsTable = new OpsTable();
+        opsTable.setId(2);
+        opsTable.setTbDesc("数据源表");
+        DataOpsResponse<Boolean> result = dataMetaService.updateTable(opsTable);
+        Assert.assertTrue(result.getModel());
     }
 
     @Test
     public void updateTableColumn() throws Exception {
+
+        List<OpsTableColumn> columns = Lists.newArrayList();
+
+        OpsTableColumn column = new OpsTableColumn();
+        column.setId(6);
+        column.setFdTagNull(false);
+        columns.add(column);
+
+        column = new OpsTableColumn();
+        column.setId(7);
+        column.setFdTagNull(false);
+        columns.add(column);
+
+        column = new OpsTableColumn();
+        column.setId(8);
+        column.setFdTagNull(false);
+        columns.add(column);
+
+        column = new OpsTableColumn();
+        column.setId(9);
+        column.setFdTagNull(false);
+        columns.add(column);
+
+        column = new OpsTableColumn();
+        column.setId(10);
+        column.setFdTagNull(false);
+        columns.add(column);
+
+        column = new OpsTableColumn();
+        column.setId(11);
+        column.setFdTagNull(false);
+        columns.add(column);
+
+        column = new OpsTableColumn();
+        column.setId(12);
+        column.setFdTagNull(true);
+        columns.add(column);
+
+        column = new OpsTableColumn();
+        column.setId(13);
+        column.setFdTagNull(false);
+        columns.add(column);
+
+        columns.forEach(col -> {
+            DataOpsResponse<Boolean> result = dataMetaService.updateTableColumn(col);
+            Assert.assertTrue(result.getModel());
+        });
+
     }
 
     @Test
