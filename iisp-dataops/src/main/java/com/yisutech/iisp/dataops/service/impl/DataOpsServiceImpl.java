@@ -13,8 +13,6 @@ import com.yisutech.iisp.dataops.service.model.DataOpsRequest;
 import com.yisutech.iisp.dataops.service.model.DataOpsResponse;
 import com.yisutech.iisp.toolkit.utils.PageInfo;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.tuple.MutablePair;
-import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -50,17 +48,12 @@ public class DataOpsServiceImpl implements DataOpsService {
         // 字段写入参数检查
         Assert.notNull(dataOpsRequest.getColumnValues(), String.format("columnVales is empty"));
 
-        List<Pair<String, Object>> values = Lists.newArrayList();
-        dataOpsRequest.getColumnValues().forEach((k, v) -> {
-            values.add(MutablePair.of(k, v));
-        });
-
         Integer count = operation((meta, template) -> {
             TableMeta tpMeta = (TableMeta) meta;
             if (StringUtils.isNotBlank(tpMeta.getUdSql())) {
-                return ((DataOpsTemplate) template).insert(tpMeta.getUdSql(), values);
+                return ((DataOpsTemplate) template).insert(tpMeta.getUdSql(), dataOpsRequest.getColumnValues());
             } else {
-                return ((DataOpsTemplate) template).insert(tpMeta, values);
+                return ((DataOpsTemplate) template).insert(tpMeta, dataOpsRequest.getColumnValues());
             }
         }, dataOpsRequest);
 
@@ -77,24 +70,22 @@ public class DataOpsServiceImpl implements DataOpsService {
         Assert.notNull(dataOpsRequest.getWhereColumnValues(), String.format("whereColumnValues is empty"));
 
         // 拼装参数
-        List<Pair<String, Object>> whereValues = Lists.newArrayList();
         List<ColumnMeta> whereColumns = Lists.newArrayList();
 
-        dataOpsRequest.getWhereColumnValues().forEach((k, v) -> {
+        dataOpsRequest.getWhereColumnValues().forEach(pair -> {
 
             ColumnMeta columnMeta = new ColumnMeta();
-            columnMeta.setColumnName(k);
+            columnMeta.setColumnName(pair.getKey());
 
-            whereValues.add(MutablePair.of(k, v));
             whereColumns.add(columnMeta);
         });
 
         Integer count = operation((meta, template) -> {
             TableMeta tpMeta = (TableMeta) meta;
             if (StringUtils.isNotBlank(tpMeta.getUdSql())) {
-                return ((DataOpsTemplate) template).delete(tpMeta.getUdSql(), whereValues);
+                return ((DataOpsTemplate) template).delete(tpMeta.getUdSql(), dataOpsRequest.getWhereColumnValues());
             } else {
-                return ((DataOpsTemplate) template).delete(tpMeta, whereColumns, whereValues);
+                return ((DataOpsTemplate) template).delete(tpMeta, whereColumns, dataOpsRequest.getWhereColumnValues());
             }
         }, dataOpsRequest);
 
@@ -110,22 +101,12 @@ public class DataOpsServiceImpl implements DataOpsService {
         // 字段写入参数检查
         Assert.notNull(dataOpsRequest.getWhereColumnValues(), String.format("whereColumnValues is empty"));
 
-        List<Pair<String, Object>> whereValues = Lists.newArrayList();
-        List<Pair<String, Object>> updateValues = Lists.newArrayList();
-
-        dataOpsRequest.getWhereColumnValues().forEach((k, v) -> {
-            whereValues.add(MutablePair.of(k, v));
-        });
-        dataOpsRequest.getColumnValues().forEach((k, v) -> {
-            updateValues.add(MutablePair.of(k, v));
-        });
-
         Integer count = operation((meta, template) -> {
             TableMeta tpMeta = (TableMeta) meta;
             if (StringUtils.isNotBlank(tpMeta.getUdSql())) {
-                return ((DataOpsTemplate) template).update(tpMeta.getUdSql(), whereValues);
+                return ((DataOpsTemplate) template).update(tpMeta.getUdSql(), dataOpsRequest.getWhereColumnValues());
             } else {
-                return ((DataOpsTemplate) template).update(tpMeta, updateValues, whereValues);
+                return ((DataOpsTemplate) template).update(tpMeta, dataOpsRequest.getColumnValues(), dataOpsRequest.getWhereColumnValues());
             }
         }, dataOpsRequest);
 
@@ -137,18 +118,6 @@ public class DataOpsServiceImpl implements DataOpsService {
     public DataOpsResponse<PageInfo<List<Map<String, Object>>>> query(DataOpsRequest dataOpsRequest) {
 
         DataOpsResponse<PageInfo<List<Map<String, Object>>>> result = new DataOpsResponse<>();
-
-        // 字段写入参数检查
-        List<Pair<String, Object>> values = Lists.newArrayList();
-        List<ColumnMeta> columnMetas = Lists.newArrayList();
-        dataOpsRequest.getColumnValues().forEach((k, v) -> {
-            values.add(MutablePair.of(k, v));
-
-            ColumnMeta columnMeta = new ColumnMeta();
-            columnMeta.setColumnName(k);
-            columnMetas.add(columnMeta);
-        });
-
 
         int pageSize = dataOpsRequest.getPageSize();
         if (pageSize <= 0) {
@@ -162,12 +131,25 @@ public class DataOpsServiceImpl implements DataOpsService {
         final int offset = (currentPage - 1) * pageSize;
         final int size = pageSize;
 
+        // 字段写入参数检查
+        List<ColumnMeta> columnMetas = Lists.newArrayList();
+        dataOpsRequest.getWhereColumnValues().forEach(pair -> {
+
+            ColumnMeta columnMeta = new ColumnMeta();
+            columnMeta.setColumnName(pair.getKey());
+
+            columnMetas.add(columnMeta);
+        });
+
         List<Map<String, Object>> resultMap = operation((meta, template) -> {
+
             TableMeta tpMeta = (TableMeta) meta;
+
             if (StringUtils.isNotBlank(tpMeta.getUdSql())) {
-                return ((DataOpsTemplate) template).query(tpMeta.getUdSql(), values, offset, size);
+                return ((DataOpsTemplate) template).query(tpMeta.getUdSql(), dataOpsRequest.getWhereColumnValues(), dataOpsRequest.getColumnValues(),
+                        offset, size);
             } else {
-                return ((DataOpsTemplate) template).query(tpMeta, columnMetas, values, offset, size);
+                return ((DataOpsTemplate) template).query(tpMeta, columnMetas, dataOpsRequest.getWhereColumnValues(), offset, size);
             }
         }, dataOpsRequest);
 
@@ -215,7 +197,7 @@ public class DataOpsServiceImpl implements DataOpsService {
             txManager.commit(status);
         } catch (Throwable e) {
             txManager.rollback(status);
-            FLUSH_DATAOPS_ENGINE.error("save_error", e);
+            throw new RuntimeException(e.getCause());
         }
         return r;
     }

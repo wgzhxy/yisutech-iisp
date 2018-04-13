@@ -1,8 +1,8 @@
 package com.yisutech.iisp.dataops.service.model;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.yisutech.iisp.toolkit.utils.ValidUtil;
+import org.apache.commons.lang3.tuple.Pair;
 
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
@@ -46,14 +46,14 @@ public class DataOpsRequest implements Serializable {
      * 写入记录时，为写入记录信息
      * 对象: <columnName, value>
      */
-    Map<String, Object> columnValues = Maps.newHashMap();
+    List<Pair<String, Object>> columnValues = Lists.newArrayList();
     /**
      * 条件字段及值集合
      * ps:
      * 做查询，更新记录时条件
      * 对象: <columnName, value>
      */
-    Map<String, Object> whereColumnValues = Maps.newHashMap();
+    List<Pair<String, Object>> whereColumnValues = Lists.newArrayList();
     /**
      * 当前页面
      */
@@ -83,19 +83,19 @@ public class DataOpsRequest implements Serializable {
         this.tableName = tableName;
     }
 
-    public Map<String, Object> getColumnValues() {
+    public List<Pair<String, Object>> getColumnValues() {
         return columnValues;
     }
 
-    public void setColumnValues(Map<String, Object> columnValues) {
+    public void setColumnValues(List<Pair<String, Object>> columnValues) {
         this.columnValues = columnValues;
     }
 
-    public Map<String, Object> getWhereColumnValues() {
+    public List<Pair<String, Object>> getWhereColumnValues() {
         return whereColumnValues;
     }
 
-    public void setWhereColumnValues(Map<String, Object> whereColumnValues) {
+    public void setWhereColumnValues(List<Pair<String, Object>> whereColumnValues) {
         this.whereColumnValues = whereColumnValues;
     }
 
