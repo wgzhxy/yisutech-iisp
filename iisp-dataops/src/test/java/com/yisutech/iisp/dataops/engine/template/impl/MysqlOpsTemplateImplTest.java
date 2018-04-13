@@ -5,7 +5,6 @@ import com.google.common.collect.Lists;
 import com.yisutech.iisp.dataops.StarterApplication;
 import com.yisutech.iisp.dataops.engine.adapter.dtsource.DataSourceConfig;
 import com.yisutech.iisp.dataops.engine.template.DataOpsTemplate;
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Assert;
 import org.junit.Before;
@@ -38,7 +37,7 @@ public class MysqlOpsTemplateImplTest {
 
         String sqlTemplate = "select * from ops_data_source";
         List<Pair<String, Object>> values = Lists.newArrayList();
-        List<Map<String, Object>> result = dataOpsTemplate.query(sqlTemplate, values);
+        List<Map<String, Object>> result = dataOpsTemplate.query(sqlTemplate, values, Lists.newArrayList());
 
         Assert.assertNotNull(result);
     }
@@ -48,7 +47,7 @@ public class MysqlOpsTemplateImplTest {
 
         String sqlTemplate = "select * from ops_data_source";
         List<Pair<String, Object>> values = Lists.newArrayList();
-        List<Map<String, Object>> result = dataOpsTemplate.query(sqlTemplate, values, 0, 2);
+        List<Map<String, Object>> result = dataOpsTemplate.query(sqlTemplate, values, Lists.newArrayList(), 0, 2);
 
         Assert.assertTrue(result.size() == 2);
     }

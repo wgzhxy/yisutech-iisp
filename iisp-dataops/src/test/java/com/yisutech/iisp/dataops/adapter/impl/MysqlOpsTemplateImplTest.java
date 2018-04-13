@@ -1,5 +1,6 @@
 package com.yisutech.iisp.dataops.adapter.impl;
 
+import com.google.common.collect.Lists;
 import com.yisutech.iisp.dataops.StarterApplication;
 import com.yisutech.iisp.dataops.engine.DataOpsContext;
 import com.yisutech.iisp.dataops.engine.DataOpsEngine;
@@ -33,7 +34,7 @@ public class MysqlOpsTemplateImplTest {
 
         DataOpsTemplate dataOpsTemplate = (DataOpsTemplate) dataOpsEngine.getDefaultDataOpsTemplate(dataOpsContext);
 
-        List<Map<String, Object>> list = dataOpsTemplate.query("select * from ops_data_source", null);
+        List<Map<String, Object>> list = dataOpsTemplate.query("select * from ops_data_source", Lists.newArrayList(), Lists.newArrayList());
         Assert.assertNotNull(list);
     }
 

@@ -2,9 +2,12 @@ package com.yisutech.iisp.dataops.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.yisutech.iisp.dataops.StarterApplication;
+import com.yisutech.iisp.dataops.config.DbConfigEnum;
 import com.yisutech.iisp.dataops.engine.adapter.dtsource.DataSourceConfig;
 import com.yisutech.iisp.dataops.engine.template.model.DataSourceMeta;
+import com.yisutech.iisp.dataops.engine.template.model.TableMeta;
 import com.yisutech.iisp.dataops.repository.pojo.OpsDataSource;
+import com.yisutech.iisp.dataops.repository.pojo.OpsLogicTable;
 import com.yisutech.iisp.dataops.service.DataMetaService;
 import com.yisutech.iisp.dataops.service.model.DataOpsResponse;
 import org.junit.Assert;
@@ -21,6 +24,9 @@ public class DataMetaServiceImplTest {
 
     @Resource
     private DataMetaService dataMetaService;
+
+    private final String dbUrl = "jdbc:mysql://localhost:3306/yisuyun_console?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift" +
+            "=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 
     @Test
     public void addDataSource() throws Exception {
@@ -46,8 +52,19 @@ public class DataMetaServiceImplTest {
         opsDataSource.setDsName("test_wgz");
         opsDataSource.setDsUser("root");
         opsDataSource.setDsPassword("wgzhxy119@");
-        opsDataSource.setDsUrl("test://localhost:3360/mydb");
-        opsDataSource.setDsExtParam(JSON.toJSONString(new DataSourceConfig()));
+        opsDataSource.setDsUrl(dbUrl);
+
+        DataSourceConfig dataSourceConfig = new DataSourceConfig();
+        dataSourceConfig.setDbUrl(dbUrl);
+
+        DataSourceConfig sourceConfig = new DataSourceConfig();
+        sourceConfig.setDbUrl(dbUrl);
+        sourceConfig.setName(opsDataSource.getDsName());
+        sourceConfig.setUsername(opsDataSource.getDsUser());
+        sourceConfig.setPassword(opsDataSource.getDsPassword());
+
+        opsDataSource.setDsExtParam(JSON.toJSONString(sourceConfig));
+
         opsDataSource.setDsType(DataSourceMeta.DataOpsType.MYSQL.name());
         opsDataSource.setDsDesc("test_10000");
 
@@ -57,6 +74,7 @@ public class DataMetaServiceImplTest {
 
     @Test
     public void addTable() throws Exception {
+
     }
 
     @Test
@@ -73,10 +91,31 @@ public class DataMetaServiceImplTest {
 
     @Test
     public void addLogicTable() throws Exception {
+
+        OpsLogicTable opsLogicTable = new OpsLogicTable();
+        opsLogicTable.setLtbSourceId(9);
+        opsLogicTable.setLtbTables("test_data_source_query");
+        opsLogicTable.setLtbSqlExpress("select * from ops_data_source");
+        opsLogicTable.setLtbType(DbConfigEnum.TableType.LOGIC_TABLE.getValue());
+
+        DataOpsResponse<String> dataOpsResponse = dataMetaService.addLogicTable(opsLogicTable);
+        Assert.assertTrue(Integer.parseInt(dataOpsResponse.getModel()) >= 1);
     }
 
     @Test
     public void updateLogicTable() throws Exception {
+
+        String logicTable = "test_data_source_query";
+
+        OpsLogicTable opsLogicTable = new OpsLogicTable();
+        opsLogicTable.setId(1);
+        opsLogicTable.setLtbSourceId(9);
+        opsLogicTable.setLtbTables(logicTable);
+        opsLogicTable.setLtbSqlExpress("select * from ops_data_source where id = ? and ds_user = ?");
+        opsLogicTable.setLtbType(2);
+
+        DataOpsResponse<String> dataOpsResponse = dataMetaService.updateLogicTable(opsLogicTable);
+        Assert.assertTrue(Integer.parseInt(dataOpsResponse.getModel()) >= 1);
     }
 
     @Test
