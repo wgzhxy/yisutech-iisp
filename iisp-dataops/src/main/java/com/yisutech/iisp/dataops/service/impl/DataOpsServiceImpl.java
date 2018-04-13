@@ -13,7 +13,6 @@ import com.yisutech.iisp.dataops.service.DataOpsService;
 import com.yisutech.iisp.dataops.service.model.DataOpsRequest;
 import com.yisutech.iisp.dataops.service.model.DataOpsResponse;
 import com.yisutech.iisp.toolkit.utils.PageInfo;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -56,7 +55,7 @@ public class DataOpsServiceImpl implements DataOpsService {
             if (tpMeta.getTableType() == DbConfigEnum.TableType.LOGIC_TABLE) {
                 return ((DataOpsTemplate) template).insert(tpMeta.getUdSql(), dataOpsRequest.getColumnValues());
 
-            } else if(tpMeta.getTableType() == DbConfigEnum.TableType.TABLE) {
+            } else if (tpMeta.getTableType() == DbConfigEnum.TableType.TABLE) {
                 return ((DataOpsTemplate) template).insert(tpMeta, dataOpsRequest.getColumnValues());
 
             } else {
@@ -94,7 +93,7 @@ public class DataOpsServiceImpl implements DataOpsService {
             if (tpMeta.getTableType() == DbConfigEnum.TableType.LOGIC_TABLE) {
                 return ((DataOpsTemplate) template).delete(tpMeta.getUdSql(), dataOpsRequest.getWhereColumnValues());
 
-            } else if(tpMeta.getTableType() == DbConfigEnum.TableType.TABLE) {
+            } else if (tpMeta.getTableType() == DbConfigEnum.TableType.TABLE) {
                 return ((DataOpsTemplate) template).delete(tpMeta, whereColumns, dataOpsRequest.getWhereColumnValues());
 
             } else {
@@ -121,7 +120,7 @@ public class DataOpsServiceImpl implements DataOpsService {
             if (tpMeta.getTableType() == DbConfigEnum.TableType.LOGIC_TABLE) {
                 return ((DataOpsTemplate) template).update(tpMeta.getUdSql(), dataOpsRequest.getWhereColumnValues());
 
-            } else if(tpMeta.getTableType() == DbConfigEnum.TableType.TABLE) {
+            } else if (tpMeta.getTableType() == DbConfigEnum.TableType.TABLE) {
                 return ((DataOpsTemplate) template).update(tpMeta, dataOpsRequest.getColumnValues(), dataOpsRequest.getWhereColumnValues());
 
             } else {

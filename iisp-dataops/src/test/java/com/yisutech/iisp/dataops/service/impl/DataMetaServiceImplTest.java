@@ -250,6 +250,7 @@ public class DataMetaServiceImplTest {
 
     @Test
     public void addLogicTableColumn() throws Exception {
+
     }
 
     @Test
