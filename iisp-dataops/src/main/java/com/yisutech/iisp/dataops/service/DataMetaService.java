@@ -37,7 +37,7 @@ public interface DataMetaService {
      *
      * @return
      */
-    DataOpsResponse<Integer> addTable(OpsTable opsTable);
+    DataOpsResponse<Integer> addTable(OpsTable opsTable, List<OpsTableColumn> opsTableColumn);
 
     /**
      * 更新物理表
@@ -45,13 +45,6 @@ public interface DataMetaService {
      * @return
      */
     DataOpsResponse<Boolean> updateTable(OpsTable opsTable);
-
-    /**
-     * 新增物理表字段
-     *
-     * @return
-     */
-    DataOpsResponse<Boolean> addTableColumn(List<OpsTableColumn> opsTableColumn);
 
     /**
      * 更新物理表字段

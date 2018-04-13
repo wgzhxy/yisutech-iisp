@@ -5,6 +5,9 @@ import com.yisutech.iisp.dataops.repository.pojo.*;
 import com.yisutech.iisp.dataops.service.DataMetaService;
 import com.yisutech.iisp.dataops.service.model.DataOpsResponse;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
@@ -15,6 +18,7 @@ import java.util.List;
  * 文件名：com.yisutech.iisp.dataops.service.impl.DataMetaServiceImpl
  * <p>
  * 描述：
+ * <p>
  * 基础元信息管理
  *
  * @author guangzhong.wgz
@@ -39,9 +43,9 @@ public class DataMetaServiceImpl implements DataMetaService {
 
     @Override
     public DataOpsResponse<Boolean> updateDataSource(OpsDataSource opsDataSource) {
+
         // 参数检查
         Assert.notNull(opsDataSource, String.format("opsDataSource is null"));
-
         int count = opsDataSourceMapper.updateByPrimaryKeyWithBLOBs(opsDataSource);
 
         DataOpsResponse<Boolean> response = new DataOpsResponse<>();
@@ -50,13 +54,33 @@ public class DataMetaServiceImpl implements DataMetaService {
         return response;
     }
 
+    @Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, timeout = 5000)
     @Override
-    public DataOpsResponse<Integer> addTable(OpsTable opsTable) {
+    public DataOpsResponse<Integer> addTable(OpsTable opsTable, List<OpsTableColumn> opsTableColumns) {
+
         // 参数检查
         Assert.notNull(opsTable, String.format("opsTable is null"));
+        Assert.notNull(opsTableColumns, String.format("opsTableColumns is null"));
 
-        opsTableMapper.insert(opsTable);
+        // 创建表
+        opsTable.setTbFiledsNum(opsTableColumns.size());
+        int count = opsTableMapper.insert(opsTable);
 
+        // 创建字段
+        if (count > 0) {
+            // 参数检查
+            Assert.notNull(opsTableColumns, String.format("opsTable is null"));
+
+            opsTableColumns.forEach(opsTableColumn -> {
+                opsTableColumn.setTbId(opsTable.getId());
+                int columCount = opsTableColumnMapper.insert(opsTableColumn);
+                if (columCount <= 0) {
+                    throw new RuntimeException("addTableColumn is null");
+                }
+            });
+        }
+
+        // 返回tableID
         DataOpsResponse<Integer> response = new DataOpsResponse<>();
         response.setModel(opsTable.getId());
 
@@ -67,37 +91,18 @@ public class DataMetaServiceImpl implements DataMetaService {
     public DataOpsResponse<Boolean> updateTable(OpsTable opsTable) {
         // 参数检查
         Assert.notNull(opsTable, String.format("opsTable is null"));
-
-        int count = opsTableMapper.updateByPrimaryKey(opsTable);
+        int count = opsTableMapper.updateByPrimaryKeySelective(opsTable);
 
         DataOpsResponse<Boolean> response = new DataOpsResponse<>();
         response.setModel(count > 0 ? true : false);
-
-        return response;
-    }
-
-    @Override
-    public DataOpsResponse<Boolean> addTableColumn(List<OpsTableColumn> opsTableColumns) {
-        // 参数检查
-        Assert.notNull(opsTableColumns, String.format("opsTable is null"));
-
-        opsTableColumns.forEach(opsTableColumn -> {
-            int count = opsTableColumnMapper.insert(opsTableColumn);
-            if (count <= 0) {
-                throw new RuntimeException("addTableColumn is null");
-            }
-        });
-
-        DataOpsResponse<Boolean> response = new DataOpsResponse<>();
-        response.setModel(true);
         return response;
     }
 
     @Override
     public DataOpsResponse<Boolean> updateTableColumn(OpsTableColumn opsTableColumn) {
+
         // 参数检查
         Assert.notNull(opsTableColumn, String.format("opsTable is null"));
-
         int cout = opsTableColumnMapper.updateByPrimaryKeySelective(opsTableColumn);
 
         DataOpsResponse<Boolean> response = new DataOpsResponse<>();
