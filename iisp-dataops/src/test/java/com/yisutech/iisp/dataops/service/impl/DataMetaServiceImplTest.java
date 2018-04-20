@@ -255,10 +255,12 @@ public class DataMetaServiceImplTest {
 
     @Test
     public void updateLogicTableColumn() throws Exception {
+
     }
 
     @Test
     public void deleteTable() throws Exception {
+
     }
 
     @Test
