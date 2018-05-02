@@ -80,7 +80,7 @@ public class DataOpsEngine<T extends DataOps> {
     }
 
     /**
-     * 引擎缓存块
+     * 引擎缓存
      */
     private Map<DataSourceMeta.DataOpsType, DataOpsSourceAdapter> engineAdapters = Maps.newConcurrentMap();
 }

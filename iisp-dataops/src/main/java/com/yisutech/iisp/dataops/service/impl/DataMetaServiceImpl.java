@@ -53,8 +53,8 @@ public class DataMetaServiceImpl implements DataMetaService {
         return response;
     }
 
-    @Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, timeout = 5000)
     @Override
+    @Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, timeout = 5000)
     public DataOpsResponse<Integer> addTable(OpsTable opsTable, List<OpsTableColumn> opsTableColumns) {
 
         // 参数检查
@@ -134,6 +134,7 @@ public class DataMetaServiceImpl implements DataMetaService {
     }
 
     @Override
+    @Transactional
     public DataOpsResponse<Boolean> addLogicTableColumn(List<OpsLogicTableColumn> opsLogicTableColumns) {
         // 参数检查
         Assert.notNull(opsLogicTableColumns, String.format("opsLogicTableColumns is null"));
@@ -164,6 +165,7 @@ public class DataMetaServiceImpl implements DataMetaService {
     }
 
     @Override
+    @Transactional
     public DataOpsResponse<Integer> deleteTable(String tableCode) {
 
         int count = opsTableMapper.deleteByPrimaryKey(Integer.valueOf(tableCode));
@@ -181,6 +183,7 @@ public class DataMetaServiceImpl implements DataMetaService {
     }
 
     @Override
+    @Transactional
     public DataOpsResponse<Boolean> deleteLogicTable(String tableCode) {
 
         int count = opsLogicTableMapper.deleteByPrimaryKey(Integer.valueOf(tableCode));
