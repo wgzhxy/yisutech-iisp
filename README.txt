@@ -26,6 +26,9 @@ JVM启动参数配置:
     - iisp_dataops
         项目数据引擎模块, 实现对mysql, redis, mongoDB管理
 
+    - generator
+      -Dmybatis.generator.overwrite=true mybatis-generator:generate
+
 
 数据源配置:
 
